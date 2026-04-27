@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arhetipul Conducătorului · Archetype Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#05050f;--bg2:#0a0a1e;--border:#15152e;--border2:#1e1e3a;--text:#f0ede8;--text2:#8a8699;--text3:#35344a;--acc:#8B0000;--acc2:#C9A96E}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
+.cursor{width:8px;height:8px;background:var(--acc2);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(201,169,110,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:width 0.2s,height 0.2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,15,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:15px;color:var(--text2);text-decoration:none}
+.nav-logo span{color:var(--acc2)}
+.nav-back{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);text-decoration:none;cursor:none;transition:color 0.2s}
+.nav-back:hover{color:var(--acc2)}
+.nav-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 65% 50%,rgba(139,0,0,0.12) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 20% 70%,rgba(201,169,110,0.06) 0%,transparent 60%)}
+.hero-content{position:relative;padding:0 10% 0 8%;max-width:600px;z-index:1}
+.hero-num{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.25em;color:var(--acc2);margin-bottom:20px;display:block;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+.hero-emoji{font-size:72px;display:block;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.3s forwards;filter:drop-shadow(0 0 30px rgba(139,0,0,0.6))}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(56px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;color:var(--text);margin-bottom:8px;opacity:0;animation:fadeUp 0.8s 0.4s forwards}
+.hero-subtitle{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,22px);font-style:italic;color:var(--acc2);margin-bottom:32px;opacity:0;animation:fadeUp 0.8s 0.5s forwards}
+.hero-motto{font-size:15px;color:var(--text2);font-weight:300;line-height:1.8;margin-bottom:48px;border-left:2px solid var(--acc2);padding-left:20px;opacity:0;animation:fadeUp 0.8s 0.6s forwards}
+.profile-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;opacity:0;animation:fadeUp 0.8s 0.7s forwards}
+.pill{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:6px 16px;border:1px solid var(--border2);color:var(--text2)}
+.pill.desire{border-color:rgba(34,197,94,0.4);color:#4ade80}
+.pill.fear{border-color:rgba(239,68,68,0.3);color:#f87171}
+.pill.group{border-color:rgba(201,169,110,0.4);color:var(--acc2)}
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--acc2);margin-bottom:16px;display:block}
+.audio-section{padding:80px 8%;max-width:1000px;margin:0 auto}
+.audio-player-card{background:var(--bg2);border:1px solid var(--border);padding:32px;display:flex;align-items:center;gap:28px;position:relative;overflow:hidden}
+.audio-player-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+.audio-icon{width:64px;height:64px;background:rgba(139,0,0,0.15);border:1px solid rgba(139,0,0,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;cursor:none;transition:all 0.3s}
+.audio-icon:hover{transform:scale(1.05)}
+.audio-info{flex:1}
+.audio-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px}
+.audio-sub{font-size:12px;color:var(--text2);font-weight:300;margin-bottom:16px}
+.audio-progress{width:100%;height:2px;background:var(--border2);cursor:pointer}
+.audio-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));width:0%;transition:width 0.1s}
+.audio-controls{display:flex;align-items:center;gap:16px;margin-top:12px}
+.audio-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.slides-section{padding:0 8% 80px;max-width:1200px;margin:0 auto}
+.slides-slider{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0a0f1a;border:1px solid var(--border)}
+.slides-track{display:flex;height:100%;transition:transform 0.5s cubic-bezier(0.77,0,0.18,1)}
+.hslide{min-width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif}
+.slider-controls{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding:0 4px}
+.slider-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);background:none;border:1px solid var(--border2);padding:8px 20px;cursor:none;transition:all 0.2s}
+.slider-btn:hover{border-color:var(--acc2);color:var(--acc2)}
+.slider-dots{display:flex;gap:6px;align-items:center}
+.slider-dot{width:6px;height:6px;border-radius:50%;background:var(--border2);cursor:none;transition:all 0.2s}
+.slider-dot.active{background:var(--acc2);width:18px;border-radius:3px}
+.slider-counter{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.content-section{padding:80px 8%;max-width:1000px;margin:0 auto}
+.content-section+.content-section{border-top:1px solid var(--border)}
+.content-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.content-card{background:var(--bg2);border:1px solid var(--border);padding:28px 24px;position:relative;overflow:hidden;transition:border-color 0.3s}
+.content-card.light::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc2),transparent)}
+.content-card.shadow-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#7f1d1d,transparent)}
+.card-icon{font-size:28px;margin-bottom:12px;display:block}
+.card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.card-title.gold{color:var(--acc2)}
+.card-title.red{color:#f87171}
+.card-text{font-size:13px;color:var(--text2);line-height:1.7;font-weight:300}
+.key-quote{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--acc2);padding:40px;margin:40px 0;text-align:center}
+.key-quote-text{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,40px);font-style:italic;color:var(--acc2);line-height:1.3;margin-bottom:12px}
+.key-quote-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase}
+.checklist-section{padding:80px 8%;border-top:1px solid var(--border);max-width:1000px;margin:0 auto}
+.checklist-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0}
+.checklist-item{display:flex;align-items:flex-start;gap:14px;padding:20px;background:var(--bg2);border:1px solid var(--border);cursor:none;transition:all 0.3s}
+.checklist-item:hover{border-color:rgba(201,169,110,0.3)}
+.checklist-item.checked{border-color:rgba(74,222,128,0.4);background:rgba(34,197,94,0.04)}
+.check-box{width:20px;height:20px;flex-shrink:0;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:2px;transition:all 0.3s}
+.checklist-item.checked .check-box{border-color:#4ade80;color:#4ade80;background:rgba(74,222,128,0.1)}
+.check-text{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300}
+.checklist-result{padding:24px;background:var(--bg2);border:1px solid var(--border);text-align:center;transition:all 0.4s}
+.checklist-score{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--acc2);line-height:1;margin-bottom:8px}
+.checklist-score-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:0.15em;margin-bottom:16px}
+.checklist-verdict{font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--text2);line-height:1.6}
+.arch-nav{padding:60px 8%;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.arch-nav-link{text-decoration:none;display:flex;flex-direction:column;gap:4px;cursor:none;transition:opacity 0.2s;max-width:240px}
+.arch-nav-link:hover{opacity:0.7}
+.arch-nav-dir{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase}
+.arch-nav-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--text)}
+.arch-nav-name.right{text-align:right}
+.arch-cta{padding:80px 8%;border-top:1px solid var(--border);text-align:center;background:var(--bg2)}
+.arch-cta h3{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--text);margin-bottom:12px}
+.arch-cta p{font-size:14px;color:var(--text2);font-weight:300;max-width:480px;margin:0 auto 32px;line-height:1.8}
+.cta-btn{display:inline-block;background:var(--acc2);color:#05050f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:14px 36px;text-decoration:none;cursor:none;transition:all 0.3s;font-weight:500}
+.cta-btn:hover{transform:translateY(-2px)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){nav{padding:14px 20px}.hero{padding:100px 20px 60px}.hero-content{padding:0}.content-grid-2,.checklist-grid{grid-template-columns:1fr}.audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta{padding-left:20px;padding-right:20px}.arch-nav{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="/" class="nav-logo"><span>Archetype</span> Academy</a>
+  <span class="nav-num">11 / 12</span>
+  <a href="/" class="nav-back">← Toate arhetipurile</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-num">Arhetipul 11 · Ego · Putere</span>
+    <span class="hero-emoji">👑</span>
+    <h1>Conducătorul</h1>
+    <div class="hero-subtitle">Cel care creează ordine din haos</div>
+    <p class="hero-motto">Liderul este acea parte din tine care creează ordine din haos și își asumă în mod natural responsabilitatea. Este „șeful" interior calm și hotărât, care vrea ca totul să funcționeze perfect pentru a construi un mediu sigur, prosper și stabil pentru tribul sau familia sa.</p>
+    <div class="profile-pills">
+      <span class="pill group">Ego · Putere</span>
+      <span class="pill desire">💚 Dorință: Ordine, control și prosperitate</span>
+      <span class="pill fear">⚠ Teamă: De haos și de pierderea controlului</span>
+    </div>
+  </div>
+</section>
+
+<section class="audio-section">
+  <span class="section-label">Podcast · Episodul Conducătorului</span>
+  <div class="audio-player-card">
+    <div class="audio-icon" onclick="toggleAudio()" id="audioBtn">▶</div>
+    <div class="audio-info">
+      <div class="audio-title">Arhetipul Conducătorului</div>
+      <div class="audio-sub">Descoperă „Sistemul tău de Operare" · Ghid prietenos despre ordinea, responsabilitatea și succesul · NotebookLM</div>
+      <div class="audio-progress" id="progressBar" onclick="seekAudio(event)"><div class="audio-progress-fill" id="progressFill"></div></div>
+      <div class="audio-controls"><span class="audio-time" id="currentTime">0:00</span><span class="audio-time" style="color:var(--text3)">·</span><span class="audio-time" id="totalTime">--:--</span></div>
+    </div>
+    <audio id="audioPlayer" src="/static/audio/conducatorul.m4a" preload="metadata"></audio>
+  </div>
+</section>
+
+<section class="slides-section">
+  <span class="section-label" style="padding:0 0 16px">Prezentarea vizuală · 12 slide-uri</span>
+  <div class="slides-slider">
+    <div class="slides-track" id="slidesTrack">
+
+      <!-- S1 Cover -->
+      <div class="hslide" style="background:linear-gradient(135deg,#f5f0e8 0%,#ede8d8 100%);flex-direction:row;align-items:center;padding:5%">
+        <div style="flex:1;padding-right:5%">
+          <div style="font-family:'DM Mono',monospace;font-size:clamp(8px,1.2vw,14px);letter-spacing:0.2em;color:#8B6914;margin-bottom:3%">Descoperă „Sistemul tău de Operare"</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,68px);font-weight:900;color:#1a0a0a;line-height:1;margin-bottom:3%">Arhetipul<br>Liderului</div>
+          <div style="font-size:clamp(10px,1.5vw,18px);color:#4a3535;font-weight:300;line-height:1.6">Un ghid prietenos despre partea din tine care iubește ordinea, responsabilitatea și succesul.</div>
+        </div>
+        <div style="width:40%;display:flex;align-items:center;justify-content:center">
+          <div style="position:relative">
+            <div style="width:clamp(80px,14vw,180px);height:clamp(80px,14vw,180px);background:rgba(139,0,0,0.08);border:2px solid rgba(201,169,110,0.4);border-radius:4px;display:flex;align-items:center;justify-content:center">
+              <div style="font-size:clamp(40px,8vw,100px);filter:drop-shadow(0 4px 12px rgba(139,0,0,0.3))">♛</div>
+            </div>
+            <div style="position:absolute;bottom:-8px;right:-8px;width:clamp(80px,14vw,180px);height:clamp(80px,14vw,180px);border:2px solid rgba(201,169,110,0.2);border-radius:4px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S2 Ce e arhetip -->
+      <div class="hslide" style="background:#0d1520;flex-direction:column;padding:4% 6%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:5%;width:100%">Ce este, de fapt, un arhetip?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5%">
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">Sistemul de Operare</div>
+            <div style="font-size:clamp(9px,1.3vw,14px);color:rgba(255,255,255,0.7);line-height:1.6;font-weight:300">Arhetipurile sunt programele de bază universale ale psihicului uman. Toți avem același sistem de bază — astăzi explorăm una dintre cele mai puternice aplicații: Liderul, cel care aduce ordine și structură.</div>
+          </div>
+          <div style="background:rgba(139,0,0,0.15);border:1px solid rgba(139,0,0,0.3);border-radius:8px;padding:5%">
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">Aplicațiile Tale</div>
+            <div style="font-size:clamp(9px,1.3vw,14px);color:rgba(255,255,255,0.7);line-height:1.6;font-weight:300">Experiențele tale — momentele când ai preluat controlul, când ai organizat haosul, când ai condus o echipă — modelează cum se exprimă Liderul în tine. Tu ești CEO-ul propriei vieți.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3 Cine e Liderul -->
+      <div class="hslide" style="background:#0d1520;flex-direction:row;align-items:stretch">
+        <div style="width:45%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0f1a,#1a0505)">
+          <div style="font-size:clamp(60px,12vw,160px);filter:drop-shadow(0 0 30px rgba(139,0,0,0.5))">♛</div>
+        </div>
+        <div style="flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:4%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2vw,24px);color:#C9A96E;margin-bottom:2%">Pe scurt: Cine este LIDERUL?</div>
+          <div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.8);line-height:1.7;font-weight:300"><strong style="color:#C9A96E">Liderul</strong> este acea parte din tine care <strong style="color:white">creează ordine</strong> din haos și își asumă în mod natural responsabilitatea. Este „șeful" interior calm și hotărât, care vrea ca totul să funcționeze perfect pentru a construi un mediu sigur, prosper și stabil pentru tribul sau familia sa.</div>
+        </div>
+      </div>
+
+      <!-- S4 Citat iconic -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#1a0505);flex-direction:column;align-items:center;justify-content:center;padding:5%">
+        <div style="font-size:clamp(30px,5vw,70px);color:rgba(201,169,110,0.3);font-family:Georgia,serif;line-height:0.8;margin-bottom:4%">"</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,3.5vw,50px);font-weight:900;color:white;text-align:center;line-height:1.2;max-width:85%">Puterea nu este totul, este unicul lucru. Haosul dispare abia atunci când preiau eu controlul.</div>
+        <div style="margin-top:4%;font-size:clamp(10px,1.4vw,16px);color:rgba(201,169,110,0.6);font-weight:300">Când Liderul preia frâiele, dezordinea se transformă în planuri clare, iar nesiguranța devine istorie.</div>
+      </div>
+
+      <!-- S5 Trăsături -->
+      <div class="hslide" style="background:#0d1520;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:4%;width:100%">Trăsăturile Principale ale Liderului</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%;width:100%">
+          <div style="background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);border-radius:8px;padding:4%;display:flex;gap:3%;align-items:flex-start">
+            <div style="font-size:clamp(20px,3vw,36px)">🎯</div>
+            <div><div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.4vw,16px);margin-bottom:2%">Responsabilitate naturală</div><div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Când apare o problemă, el nu se ascunde — face un pas în față. Asumă responsabilitatea chiar și când nu este obligat.</div></div>
+          </div>
+          <div style="background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);border-radius:8px;padding:4%;display:flex;gap:3%;align-items:flex-start">
+            <div style="font-size:clamp(20px,3vw,36px)">📋</div>
+            <div><div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.4vw,16px);margin-bottom:2%">Gândire strategică</div><div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Vede imaginea de ansamblu. Planifică cu meticulozitate și transformă viziunea în pași clari, acționabili.</div></div>
+          </div>
+          <div style="background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);border-radius:8px;padding:4%;display:flex;gap:3%;align-items:flex-start">
+            <div style="font-size:clamp(20px,3vw,36px)">🏰</div>
+            <div><div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.4vw,16px);margin-bottom:2%">Autoritate naturală</div><div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Nu trebuie să strige sau să amenințe. Prezența lui inspiră respect și încredere în mod natural.</div></div>
+          </div>
+          <div style="background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);border-radius:8px;padding:4%;display:flex;gap:3%;align-items:flex-start">
+            <div style="font-size:clamp(20px,3vw,36px)">🛡️</div>
+            <div><div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.4vw,16px);margin-bottom:2%">Protector al grupului</div><div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Simte nevoia constantă de a-și proteja apropiații și de a le asigura stabilitatea, chiar și atunci când nu i-o cer.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S6 Motivație/Frică -->
+      <div class="hslide" style="background:linear-gradient(135deg,#f5f0e8,#ede8d8);flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a0a0a;text-align:center;margin-bottom:4%;width:100%">Motorul Interior al Liderului</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
+          <div style="background:#C9A96E;border-radius:12px;padding:5% 6%">
+            <div style="font-weight:700;color:#1a0a0a;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">Motivația profundă</div>
+            <div style="font-size:clamp(9px,1.3vw,14px);color:#3d2800;line-height:1.6;font-weight:300">Să creeze ordine, stabilitate și prosperitate. Vrea să construiască ceva durabil — o afacere, o familie, o comunitate — care să funcționeze perfect și să reziste timpului. Îi place să lase lucruri mai bune decât le-a găsit.</div>
+          </div>
+          <div style="background:#1a0a0a;border-radius:12px;padding:5% 6%">
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">Frica fundamentală</div>
+            <div style="font-size:clamp(9px,1.3vw,14px);color:rgba(255,255,255,0.7);line-height:1.6;font-weight:300">De haos, de pierderea controlului și de eșec. Se teme că va fi văzut ca slab sau incompetent. Frica de a dezamăgi grupul pe care îl conduce îl motivează să fie mereu pregătit.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S7 Zi cu zi -->
+      <div class="hslide" style="background:linear-gradient(135deg,#f5f0e8,#ede8d8);flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a0a0a;margin-bottom:4%;width:100%">Liderul în viața de zi cu zi (Exemple concrete)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
+          <div style="background:white;border-radius:12px;padding:5%;box-shadow:0 4px 15px rgba(0,0,0,0.08)">
+            <div style="font-weight:700;color:#8B6914;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%;text-align:center">Acasă (În Familie)</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a3535;line-height:1.6;font-weight:300">Părintele care organizează vacanțele la minut și ține bugetul. Dacă se sparge o țeavă, el cheamă instalatorul și coordonează totul, în timp ce restul panichează. Creează sisteme și rutine clare pentru familie.</div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:5%;box-shadow:0 4px 15px rgba(0,0,0,0.08)">
+            <div style="font-weight:700;color:#8B6914;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%;text-align:center">La Birou (În Carieră)</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a3535;line-height:1.6;font-weight:300">Colegul care, atunci când echipa primește un proiect ambiguu și toți tac, face un pas în față. Spune natural: „Ok, hai să facem așa...", aducând structură în confuzie și claritate în haos.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S8 Lumina -->
+      <div class="hslide" style="background:#0d1520;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;margin-bottom:4%;width:100%">Partea Luminoasă: Superputerile Liderului</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5%;text-align:center">
+            <div style="font-size:clamp(20px,3.5vw,44px);margin-bottom:3%">⚓</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Ancora în criză</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Când toți ceilalți panichează, el aduce calm și un plan clar. Este persoana la care toți se uită instinctiv.</div>
+          </div>
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5%;text-align:center">
+            <div style="font-size:clamp(20px,3.5vw,44px);margin-bottom:3%">🏗️</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Constructor de sisteme</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Creează structuri și procese care funcționează pe termen lung, chiar și în absența lui.</div>
+          </div>
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5%;text-align:center">
+            <div style="font-size:clamp(20px,3.5vw,44px);margin-bottom:3%">💼</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Viziune strategică</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Vede imaginea de ansamblu acolo unde alții văd doar detalii. Transformă haosul în planuri clare.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S9 Umbra -->
+      <div class="hslide" style="background:linear-gradient(135deg,#1a0505,#0d0a00);flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;margin-bottom:2%;width:100%">Partea de Umbră: Când puterea devine toxică</div>
+        <div style="font-size:clamp(8px,1.2vw,14px);color:rgba(255,255,255,0.5);margin-bottom:4%;font-weight:300">Când nevoia de control scapă de sub control:</div>
+        <div style="display:flex;flex-direction:column;gap:3%;width:100%">
+          <div style="background:rgba(139,0,0,0.2);border:1px solid rgba(139,0,0,0.4);border-radius:8px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#f87171;margin-bottom:1%">⚠ Tirania controlului</div><div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Din nevoia de ordine, poate deveni inflexibil și autoritar. Sufocă inițiativa celor din jur, transformând conducerea în dictatură.</div></div>
+          <div style="background:rgba(139,0,0,0.2);border:1px solid rgba(139,0,0,0.4);border-radius:8px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#f87171;margin-bottom:1%">⚠ Workaholismul</div><div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Confundă valoarea personală cu productivitatea. Se definește exclusiv prin realizări și statusul social, neglijând relațiile și sănătatea.</div></div>
+          <div style="background:rgba(139,0,0,0.2);border:1px solid rgba(139,0,0,0.4);border-radius:8px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#f87171;margin-bottom:1%">⚠ Frica de vulnerabilitate</div><div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Cere să fie perfect și invincibil tot timpul. Nu știe cum să ceară ajutor sau să recunoască că nu știe ceva — pentru că ar părea slab.</div></div>
+        </div>
+      </div>
+
+      <!-- S10 Pop culture -->
+      <div class="hslide" style="background:#0d1520;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:4%;width:100%">Liderul în Cultura Pop și Branding</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5% 4%;text-align:center">
+            <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">♟️</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Tyrion Lannister / Cersei</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Personaje care conduc prin strategie și viziune — unul prin înțelepciune, celălalt prin control absolut. Ambii ilustrează lumina și umbra Liderului.</div>
+          </div>
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5% 4%;text-align:center">
+            <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">🦁</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Mufasa (Regele Leu)</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Liderul autentic la cel mai pur nivel — conduce cu înțelepciune, compasiune și prin exemplul personal. Pune binele grupului înaintea propriului confort.</div>
+          </div>
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5% 4%;text-align:center">
+            <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">💼</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Rolex / Mercedes</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Branduri care vând statut, excelență și autoritate — valorile centrale ale Liderului. Simboluri ale succesului și ale controlului asupra destinului propriu.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S11 Checklist -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#1a0505);flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;margin-bottom:2%;width:100%">Cum îl recunoști? (Semne practice)</div>
+        <div style="font-size:clamp(8px,1.2vw,14px);color:rgba(201,169,110,0.6);margin-bottom:4%;font-weight:300">Arhetipul Liderului este puternic activat în tine dacă...</div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(201,169,110,0.2);border-radius:8px;padding:4% 5%;width:100%;display:flex;flex-direction:column;gap:4%">
+          <div style="display:flex;gap:3%;align-items:center"><div style="width:clamp(20px,2.5vw,30px);height:clamp(20px,2.5vw,30px);min-width:clamp(20px,2.5vw,30px);background:#C9A96E;border-radius:4px;display:flex;align-items:center;justify-content:center"><div style="color:#1a0a0a;font-size:clamp(8px,1.2vw,14px);font-weight:700">✓</div></div><div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.8);line-height:1.5;font-weight:300">Ești de obicei persoana care cere nota de plată la restaurant și calculează cât dă fiecare?</div></div>
+          <div style="display:flex;gap:3%;align-items:center"><div style="width:clamp(20px,2.5vw,30px);height:clamp(20px,2.5vw,30px);min-width:clamp(20px,2.5vw,30px);border:2px solid rgba(201,169,110,0.4);border-radius:4px"></div><div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.8);line-height:1.5;font-weight:300">Urăști surprizele, planurile făcute pe genunchi și întârzierile?</div></div>
+          <div style="display:flex;gap:3%;align-items:center"><div style="width:clamp(20px,2.5vw,30px);height:clamp(20px,2.5vw,30px);min-width:clamp(20px,2.5vw,30px);background:#C9A96E;border-radius:4px;display:flex;align-items:center;justify-content:center"><div style="color:#1a0a0a;font-size:clamp(8px,1.2vw,14px);font-weight:700">✓</div></div><div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.8);line-height:1.5;font-weight:300">Când apare o problemă gravă, toți se uită prima dată la tine așteptând o soluție?</div></div>
+          <div style="display:flex;gap:3%;align-items:center"><div style="width:clamp(20px,2.5vw,30px);height:clamp(20px,2.5vw,30px);min-width:clamp(20px,2.5vw,30px);background:#C9A96E;border-radius:4px;display:flex;align-items:center;justify-content:center"><div style="color:#1a0a0a;font-size:clamp(8px,1.2vw,14px);font-weight:700">✓</div></div><div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.8);line-height:1.5;font-weight:300">Găsești o satisfacție uriașă în a face liste, tabele și a bifa sarcini îndeplinite?</div></div>
+          <div style="display:flex;gap:3%;align-items:center"><div style="width:clamp(20px,2.5vw,30px);height:clamp(20px,2.5vw,30px);min-width:clamp(20px,2.5vw,30px);border:2px solid rgba(201,169,110,0.4);border-radius:4px"></div><div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.8);line-height:1.5;font-weight:300">Simți nevoia constantă de a-ți proteja apropiații, uneori chiar și atunci când nu ți-o cer?</div></div>
+        </div>
+        <div style="margin-top:4%;font-family:'Playfair Display',serif;font-size:clamp(10px,1.5vw,18px);font-weight:700;color:#C9A96E;text-align:center">Dacă ai bifat cel puțin 3, Arhetipul Liderului este puternic activat în Sistemul tău de Operare!</div>
+      </div>
+
+      <!-- S12 Final -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#1a0a0a);flex-direction:column;align-items:center;justify-content:center;padding:5%">
+        <div style="font-size:clamp(40px,7vw,90px);margin-bottom:5%;filter:drop-shadow(0 0 30px rgba(139,0,0,0.6))">♛</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,3vw,40px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:4%">Liderul autentic</div>
+        <div style="font-size:clamp(10px,1.5vw,17px);color:rgba(255,255,255,0.6);text-align:center;line-height:1.7;max-width:75%;font-weight:300">Liderul autentic nu conduce pentru a stăpâni. Conduce pentru a elibera potențialul celor din jur și pentru a construi ceva mai mare decât el însuși.</div>
+        <div style="margin-top:5%;font-family:'Playfair Display',serif;font-size:clamp(12px,2vw,22px);font-weight:700;color:#C9A96E;text-align:center">Tu ce ai construit cu puterea ta de lider?</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="slider-btn" onclick="prevHSlide()">← Anterior</button>
+    <div class="slider-dots" id="sliderDots"></div>
+    <button class="slider-btn" onclick="nextHSlide()">Următor →</button>
+  </div>
+  <div style="text-align:center;margin-top:8px"><span class="slider-counter" id="sliderCounter">1 / 12</span></div>
+</section>
+
+<section class="content-section">
+  <span class="section-label">Profilul Conducătorului</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Ordine, strategie<br>și autoritate naturală</h2>
+  <div class="content-grid-2" style="margin-bottom:24px">
+    <div class="content-card light"><span class="card-icon">🎯</span><div class="card-title gold">Responsabilitate naturală</div><p class="card-text">Când apare o problemă, face un pas în față. Asumă responsabilitatea chiar și când nu este obligat.</p></div>
+    <div class="content-card light"><span class="card-icon">📋</span><div class="card-title gold">Gândire strategică</div><p class="card-text">Vede imaginea de ansamblu. Planifică cu meticulozitate și transformă viziunea în pași clari, acționabili.</p></div>
+    <div class="content-card light"><span class="card-icon">🏰</span><div class="card-title gold">Autoritate naturală</div><p class="card-text">Nu trebuie să strige sau să amenințe. Prezența lui inspiră respect și încredere în mod natural.</p></div>
+    <div class="content-card light"><span class="card-icon">🛡️</span><div class="card-title gold">Protector al grupului</div><p class="card-text">Simte nevoia constantă de a-și proteja apropiații și de a le asigura stabilitatea și prosperitatea.</p></div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="key-quote">
+    <div class="key-quote-text">Liderul autentic nu conduce pentru a stăpâni. Conduce pentru a elibera potențialul celor din jur.</div>
+    <div class="key-quote-label">Propoziția-cheie a Conducătorului</div>
+  </div>
+</section>
+
+<section class="content-section" style="padding-top:0">
+  <span class="section-label">Lumină și Umbră</span>
+  <div class="content-grid-2">
+    <div class="content-card light">
+      <div class="card-title gold" style="margin-bottom:20px">✨ Superputerile</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Ancora în criză</div><p class="card-text">Când toți panichează, el aduce calm și un plan clar. Toți se uită instinctiv la el.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Constructor de sisteme</div><p class="card-text">Creează structuri care funcționează pe termen lung, chiar și în absența lui.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Viziune strategică</div><p class="card-text">Vede imaginea de ansamblu și transformă haosul în planuri clare și acționabile.</p></div>
+      </div>
+    </div>
+    <div class="content-card shadow-card">
+      <div class="card-title red" style="margin-bottom:20px">🌑 Riscurile</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Tirania controlului</div><p class="card-text">Poate deveni inflexibil și autoritar, sufocând inițiativa celor din jur.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Workaholismul</div><p class="card-text">Confundă valoarea personală cu productivitatea, neglijând relațiile și sănătatea.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Frica de vulnerabilitate</div><p class="card-text">Nu știe să ceară ajutor sau să recunoască că nu știe ceva — ar părea slab.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="checklist-section">
+  <span class="section-label">Oglinda · Autoreflecție</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.1">Cât de puternic este Conducătorul în tine?</h2>
+  <p style="font-size:14px;color:var(--text2);font-weight:300;margin-bottom:32px;max-width:500px;line-height:1.7">Bifează întrebările care ți se potrivesc și descoperă rezonanța ta cu Conducătorul.</p>
+  <div class="checklist-grid" id="checklist">
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Ești persoana care cere nota de plată la restaurant și organizează detaliile logistice?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Urăști surprizele, planurile improvizate și întârzierile neprevăzute?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Când apare o problemă gravă, toți se uită prima dată la tine așteptând o soluție?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Găsești o satisfacție uriașă în a face liste, tabele și a bifa sarcini îndeplinite?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Simți nevoia constantă de a-ți proteja apropiații, uneori chiar și când nu ți-o cer?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Îți este dificil să delegi sarcini importante pentru că simți că tu le-ai face mai bine?</div></div>
+  </div>
+  <div class="checklist-result" id="checklistResult">
+    <div class="checklist-score" id="checkScore">0</div>
+    <div class="checklist-score-label">din 6 · Rezonanță cu Conducătorul</div>
+    <div class="checklist-verdict" id="checkVerdict">Bifează întrebările de mai sus pentru a vedea cât de puternic este Conducătorul în tine.</div>
+  </div>
+</section>
+
+<div class="arch-nav">
+  <a href="/arhetip/inteleptul" class="arch-nav-link">
+    <span class="arch-nav-dir">← Arhetipul anterior</span>
+    <span class="arch-nav-name">🦉 Înțeleptul</span>
+  </a>
+  <a href="/arhetip/bufonul" class="arch-nav-link" style="align-items:flex-end">
+    <span class="arch-nav-dir">Arhetipul următor →</span>
+    <span class="arch-nav-name right">🤡 Bufonul</span>
+  </a>
+</div>
+
+<div class="arch-cta">
+  <h3>Vrei să analizezi Conducătorul în discursul tău?</h3>
+  <p>TEDx SpeakerLab identifică arhetipul dominant din textul tău, scorul de autenticitate arhetipală și dinamica umbrei.</p>
+  <a href="https://tedx-speakerlab2.onrender.com" target="_blank" class="cta-btn">Încearcă SpeakerLab →</a>
+</div>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+function animCursor(){cursor.style.left=(mx-4)+'px';cursor.style.top=(my-4)+'px';rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=(rx-16)+'px';ring.style.top=(ry-16)+'px';requestAnimationFrame(animCursor);}
+animCursor();
+const audio=document.getElementById('audioPlayer'),btn=document.getElementById('audioBtn'),fill=document.getElementById('progressFill'),curr=document.getElementById('currentTime'),total=document.getElementById('totalTime');
+function toggleAudio(){if(audio.paused){audio.play();btn.textContent='⏸';}else{audio.pause();btn.textContent='▶';}}
+function formatTime(s){const m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+audio.addEventListener('timeupdate',()=>{if(audio.duration){fill.style.width=(audio.currentTime/audio.duration*100)+'%';curr.textContent=formatTime(audio.currentTime);}});
+audio.addEventListener('loadedmetadata',()=>{total.textContent=formatTime(audio.duration);});
+audio.addEventListener('ended',()=>{btn.textContent='▶';});
+function seekAudio(e){const bar=document.getElementById('progressBar');const rect=bar.getBoundingClientRect();const pct=(e.clientX-rect.left)/rect.width;if(audio.duration)audio.currentTime=pct*audio.duration;}
+const TOTAL=12;let cur=0;
+const track=document.getElementById('slidesTrack'),dots=document.getElementById('sliderDots'),counter=document.getElementById('sliderCounter');
+for(let i=0;i<TOTAL;i++){const d=document.createElement('div');d.className='slider-dot'+(i===0?' active':'');d.onclick=()=>goTo(i);dots.appendChild(d);}
+function goTo(i){cur=i;track.style.transform=`translateX(-${i*100}%)`;document.querySelectorAll('.slider-dot').forEach((d,j)=>d.className='slider-dot'+(j===i?' active':''));counter.textContent=`${i+1} / ${TOTAL}`;}
+function nextHSlide(){goTo((cur+1)%TOTAL);}
+function prevHSlide(){goTo((cur-1+TOTAL)%TOTAL);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextHSlide();if(e.key==='ArrowLeft')prevHSlide();});
+let tx=0;track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){dx<0?nextHSlide():prevHSlide();}});
+const verdicts=['Conducătorul doarme. Dar ordinea e acolo, latentă.','O urmă de autoritate. Conducătorul se trezește.','Structura prinde contur. Conducătorul lucrează în interior.','Conducătorul este activ — aduci ordine și claritate.','Conducătorul este dominant. Ești ancora grupului tău.','Conducătorul te definește. Construiești sisteme durabile.','Lider pur. Transformi haosul în prosperitate pentru toți.'];
+function toggleCheck(el){el.classList.toggle('checked');const checked=document.querySelectorAll('.checklist-item.checked').length;document.getElementById('checkScore').textContent=checked;document.getElementById('checkVerdict').textContent=verdicts[checked];document.getElementById('checklistResult').style.borderColor=checked>3?'rgba(201,169,110,0.5)':checked>1?'rgba(139,0,0,0.4)':'var(--border)';}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
+document.querySelectorAll('.content-card,.checklist-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
+</script>
+</body>
+</html>
