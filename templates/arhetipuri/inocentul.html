@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arhetipul Inocentului · Archetype Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #05050f; --bg2: #0a0a1e; --border: #15152e; --border2: #1e1e3a;
+  --text: #f0ede8; --text2: #8a8699; --text3: #35344a;
+  --gold: #c9a96e; --gold2: #e8c98a;
+  --acc: #87CEEB; --acc2: #FFD700;
+  --sky: #e8f4f8; --sun: #FFD700; --warm: #c9856e;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; cursor: none; }
+.cursor { width:8px;height:8px;background:var(--acc2);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference; }
+.cursor-ring { width:32px;height:32px;border:1px solid rgba(135,206,235,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:width 0.2s,height 0.2s; }
+nav { position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,15,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(12px); }
+.nav-logo { font-family:'Playfair Display',serif;font-size:15px;color:var(--text2);text-decoration:none; }
+.nav-logo span { color:var(--acc2); }
+.nav-back { font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color 0.2s;cursor:none; }
+.nav-back:hover { color:var(--acc2); }
+.nav-num { font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:0.1em; }
+.hero { min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px; }
+.hero-bg { position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 70% 50%,rgba(135,206,235,0.08) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 20% 30%,rgba(255,215,0,0.06) 0%,transparent 60%); }
+.hero-content { position:relative;padding:0 10% 0 8%;max-width:600px;z-index:1; }
+.hero-num { font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.25em;color:var(--acc);margin-bottom:20px;display:block;opacity:0;animation:fadeUp 0.8s 0.2s forwards; }
+.hero-emoji { font-size:72px;display:block;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.3s forwards;filter:drop-shadow(0 0 30px rgba(255,215,0,0.4)); }
+.hero h1 { font-family:'Playfair Display',serif;font-size:clamp(56px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;color:var(--text);margin-bottom:8px;opacity:0;animation:fadeUp 0.8s 0.4s forwards; }
+.hero-subtitle { font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,22px);font-style:italic;color:var(--acc2);margin-bottom:32px;opacity:0;animation:fadeUp 0.8s 0.5s forwards; }
+.hero-motto { font-size:15px;color:var(--text2);font-weight:300;line-height:1.8;margin-bottom:48px;border-left:2px solid var(--acc);padding-left:20px;opacity:0;animation:fadeUp 0.8s 0.6s forwards; }
+.profile-pills { display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;opacity:0;animation:fadeUp 0.8s 0.7s forwards; }
+.pill { font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:6px 16px;border:1px solid var(--border2);color:var(--text2); }
+.pill.desire { border-color:rgba(34,197,94,0.4);color:#4ade80; }
+.pill.fear { border-color:rgba(239,68,68,0.3);color:#f87171; }
+.pill.group { border-color:rgba(135,206,235,0.4);color:var(--acc); }
+.section-label { font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--acc2);margin-bottom:16px;display:block; }
+.audio-section { padding:80px 8%;max-width:1000px;margin:0 auto; }
+.audio-player-card { background:var(--bg2);border:1px solid var(--border);padding:32px;display:flex;align-items:center;gap:28px;position:relative;overflow:hidden; }
+.audio-player-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc2)); }
+.audio-icon { width:64px;height:64px;background:rgba(135,206,235,0.1);border:1px solid rgba(135,206,235,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;cursor:none;transition:all 0.3s; }
+.audio-icon:hover { background:rgba(135,206,235,0.2);transform:scale(1.05); }
+.audio-info { flex:1; }
+.audio-title { font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px; }
+.audio-sub { font-size:12px;color:var(--text2);font-weight:300;margin-bottom:16px; }
+.audio-progress { width:100%;height:2px;background:var(--border2);position:relative;cursor:pointer; }
+.audio-progress-fill { height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));width:0%;transition:width 0.1s; }
+.audio-controls { display:flex;align-items:center;gap:16px;margin-top:12px; }
+.audio-time { font-family:'DM Mono',monospace;font-size:10px;color:var(--text3); }
+
+/* SLIDER */
+.slides-section { padding:0 8% 80px;max-width:1200px;margin:0 auto; }
+.slides-slider { position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#f0f5f8;border:1px solid var(--border); }
+.slides-track { display:flex;height:100%;transition:transform 0.5s cubic-bezier(0.77,0,0.18,1); }
+.hslide { min-width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif; }
+.slider-controls { display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding:0 4px; }
+.slider-btn { font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);background:none;border:1px solid var(--border2);padding:8px 20px;cursor:none;transition:all 0.2s; }
+.slider-btn:hover { border-color:var(--acc2);color:var(--acc2); }
+.slider-dots { display:flex;gap:6px;align-items:center; }
+.slider-dot { width:6px;height:6px;border-radius:50%;background:var(--border2);cursor:none;transition:all 0.2s; }
+.slider-dot.active { background:var(--acc2);width:18px;border-radius:3px; }
+.slider-counter { font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:0.1em; }
+
+/* SLIDE STYLES — light/warm palette */
+.s-warm { background:linear-gradient(135deg,#fef9f0 0%,#fff8e8 50%,#fdf5e0 100%); }
+.s-sky { background:linear-gradient(135deg,#e8f4fc 0%,#d4ecf7 50%,#c8e6f5 100%); }
+.s-navy { background:linear-gradient(135deg,#1a2744 0%,#0f1d35 100%); }
+.s-orange { background:linear-gradient(135deg,#c0522a 0%,#8B3520 100%); }
+.s-sunset { background:linear-gradient(180deg,#ffd4a0 0%,#ffb070 40%,#ff8c50 100%); }
+.s-gold-bg { background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%); }
+
+/* content */
+.sl-title { font-family:'Playfair Display',serif;font-weight:800;color:#1a2744;text-align:center;line-height:1.2; }
+.sl-sub { font-family:'Outfit',sans-serif;font-weight:300;color:#4a5568;text-align:center;line-height:1.6; }
+.sl-label { font-family:'DM Mono',monospace;letter-spacing:0.15em;text-transform:uppercase;color:#c9856e; }
+.sl-card { background:white;border-radius:12px;padding:5% 6%;box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+.sl-card-gold { background:#f5c842;border-radius:12px;padding:5% 6%; }
+.sl-card-navy { background:#1a2744;border-radius:12px;padding:5% 6%; }
+.sl-card-blue { background:#3a6ea8;border-radius:12px;padding:5% 6%; }
+.sl-card-red { background:#c0522a;border-radius:12px;padding:5% 6%; }
+.sl-card-salmon { background:#f5c4b0;border-radius:12px;padding:5% 6%; }
+
+/* Content sections */
+.content-section { padding:80px 8%;max-width:1000px;margin:0 auto; }
+.content-section + .content-section { border-top:1px solid var(--border); }
+.content-grid-2 { display:grid;grid-template-columns:1fr 1fr;gap:2px; }
+.content-grid-3 { display:grid;grid-template-columns:repeat(3,1fr);gap:2px; }
+.content-card { background:var(--bg2);border:1px solid var(--border);padding:28px 24px;position:relative;overflow:hidden;transition:border-color 0.3s; }
+.content-card:hover { border-color:var(--border2); }
+.content-card.light::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc2),transparent); }
+.content-card.shadow-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#7f1d1d,transparent); }
+.card-icon { font-size:28px;margin-bottom:12px;display:block; }
+.card-title { font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px; }
+.card-title.gold { color:var(--acc2); }
+.card-title.sky { color:var(--acc); }
+.card-title.red { color:#f87171; }
+.card-text { font-size:13px;color:var(--text2);line-height:1.7;font-weight:300; }
+.key-quote { background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--acc2);padding:40px;margin:40px 0;text-align:center; }
+.key-quote-text { font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,40px);font-style:italic;color:var(--acc2);line-height:1.3;margin-bottom:12px; }
+.key-quote-label { font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase; }
+.checklist-section { padding:80px 8%;border-top:1px solid var(--border);max-width:1000px;margin:0 auto; }
+.checklist-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0; }
+.checklist-item { display:flex;align-items:flex-start;gap:14px;padding:20px;background:var(--bg2);border:1px solid var(--border);cursor:none;transition:all 0.3s; }
+.checklist-item:hover { border-color:rgba(255,215,0,0.3); }
+.checklist-item.checked { border-color:rgba(74,222,128,0.4);background:rgba(34,197,94,0.04); }
+.check-box { width:20px;height:20px;flex-shrink:0;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:2px;transition:all 0.3s; }
+.checklist-item.checked .check-box { border-color:#4ade80;color:#4ade80;background:rgba(74,222,128,0.1); }
+.check-text { font-size:13px;color:var(--text2);line-height:1.6;font-weight:300; }
+.checklist-result { padding:24px;background:var(--bg2);border:1px solid var(--border);text-align:center;transition:all 0.4s; }
+.checklist-score { font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--acc2);line-height:1;margin-bottom:8px; }
+.checklist-score-label { font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:0.15em;margin-bottom:16px; }
+.checklist-verdict { font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--text2);line-height:1.6; }
+.arch-nav { padding:60px 8%;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:20px; }
+.arch-nav-link { text-decoration:none;display:flex;flex-direction:column;gap:4px;cursor:none;transition:opacity 0.2s;max-width:240px; }
+.arch-nav-link:hover { opacity:0.7; }
+.arch-nav-dir { font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase; }
+.arch-nav-name { font-family:'Playfair Display',serif;font-size:20px;color:var(--text); }
+.arch-nav-name.right { text-align:right; }
+.arch-cta { padding:80px 8%;border-top:1px solid var(--border);text-align:center;background:var(--bg2); }
+.arch-cta h3 { font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--text);margin-bottom:12px; }
+.arch-cta p { font-size:14px;color:var(--text2);font-weight:300;max-width:480px;margin:0 auto 32px;line-height:1.8; }
+.cta-btn { display:inline-block;background:var(--acc2);color:#05050f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:14px 36px;text-decoration:none;cursor:none;transition:all 0.3s;font-weight:500; }
+.cta-btn:hover { background:var(--gold2);transform:translateY(-2px); }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@media(max-width:768px) {
+  nav{padding:14px 20px} .hero{padding:100px 20px 60px} .hero-content{padding:0}
+  .content-grid-2,.content-grid-3,.checklist-grid{grid-template-columns:1fr}
+  .audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta{padding-left:20px;padding-right:20px}
+  .arch-nav{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="/" class="nav-logo"><span>Archetype</span> Academy</a>
+  <span class="nav-num">01 / 12</span>
+  <a href="/" class="nav-back">← Toate arhetipurile</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-num">Arhetipul 01 · Ego · Pregătire</span>
+    <span class="hero-emoji">🌱</span>
+    <h1>Inocentul</h1>
+    <div class="hero-subtitle">Cel care vede mereu partea plină a paharului</div>
+    <p class="hero-motto">Inocentul este copilul interior pe care toți îl purtăm în suflet, acea voce care ne șoptește că lumea este un loc fundamental bun. Este arhetipul optimismului neînvins, al purității și al dorinței de a trăi simplu, sincer și fericit.</p>
+    <div class="profile-pills">
+      <span class="pill group">Ego · Pregătire</span>
+      <span class="pill desire">💚 Dorință: Să fie fericit și în siguranță</span>
+      <span class="pill fear">⚠ Teamă: Să fie pedepsit pentru o greșeală</span>
+    </div>
+  </div>
+</section>
+
+<section class="audio-section">
+  <span class="section-label">Podcast · Episodul Inocentului</span>
+  <div class="audio-player-card">
+    <div class="audio-icon" onclick="toggleAudio()" id="audioBtn">▶</div>
+    <div class="audio-info">
+      <div class="audio-title">Arhetipul Inocentului</div>
+      <div class="audio-sub">Descoperă tiparul omului care vede mereu partea plină a paharului · NotebookLM</div>
+      <div class="audio-progress" id="progressBar" onclick="seekAudio(event)"><div class="audio-progress-fill" id="progressFill"></div></div>
+      <div class="audio-controls">
+        <span class="audio-time" id="currentTime">0:00</span>
+        <span class="audio-time" style="color:var(--text3)">·</span>
+        <span class="audio-time" id="totalTime">--:--</span>
+      </div>
+    </div>
+    <audio id="audioPlayer" src="/static/audio/inocentul.m4a" preload="metadata"></audio>
+  </div>
+</section>
+
+<section class="slides-section">
+  <span class="section-label" style="padding:0 0 16px">Prezentarea vizuală · 13 slide-uri</span>
+  <div class="slides-slider">
+    <div class="slides-track" id="slidesTrack">
+
+      <!-- S1: Cover -->
+      <div class="hslide" style="background:linear-gradient(160deg,#e8f4fc 0%,#fff8e8 50%,#fef3e2 100%);flex-direction:column;padding:5%">
+        <div style="font-size:clamp(30px,6vw,80px);margin-bottom:4%;filter:drop-shadow(0 0 20px rgba(255,215,0,0.4))">🌱</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,4.5vw,60px);font-weight:800;color:#1a3a5c;text-align:center;margin-bottom:3%">Cunoaște-ți Arhetipul: INOCENTUL</div>
+        <div style="font-size:clamp(10px,1.8vw,20px);color:#4a5568;text-align:center;font-weight:300;max-width:70%">Descoperă tiparul omului care vede mereu partea plină a paharului.</div>
+        <div style="position:absolute;bottom:3%;right:3%;background:rgba(255,215,0,0.2);border:1px solid rgba(255,215,0,0.4);border-radius:20px;padding:1% 2%;font-size:clamp(7px,1vw,11px);color:#8B6914;font-family:'Outfit',sans-serif">Un ghid simplu, cald și prietenos despre bucuria de a trăi.</div>
+      </div>
+
+      <!-- S2: Ce este un arhetip -->
+      <div class="hslide" style="background:#f5f5f5;padding:4% 5%;flex-direction:column">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,2.8vw,36px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:5%;width:100%">Ce este, de fapt, un arhetip?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
+          <div style="background:#dbeafe;border-radius:12px;padding:5% 6%">
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(10px,1.4vw,16px);font-weight:700;color:#1e40af;margin-bottom:3%">Sistemul de Operare din Fabrică</div>
+            <div style="font-size:clamp(9px,1.3vw,14px);color:#1e3a5f;line-height:1.6;font-weight:300">Imaginează-ți că mintea umană este ca un telefon nou-nouț. Vine deja cu un „sistem de operare" universal și câteva aplicații de bază preinstalate (nevoia de siguranță, iubire, apartenența). Acestea sunt arhetipurile: softul invizibil din fundal, moștenit de la strămoșii noștri.</div>
+          </div>
+          <div style="background:#fef9c3;border-radius:12px;padding:5% 6%">
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(10px,1.4vw,16px);font-weight:700;color:#92400e;margin-bottom:3%">Aplicațiile Tale Personale</div>
+            <div style="font-size:clamp(9px,1.3vw,14px);color:#78350f;line-height:1.6;font-weight:300">Pe parcursul vieții, tu îți descarci propriile aplicații, faci poze și îți aranjezi ecranul. Aceasta este personalitatea ta unică. Arhetipurile sunt doar tiparele profunde care fac telefonul să funcționeze!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3: Cine este Inocentul -->
+      <div class="hslide" style="background:white;flex-direction:column;padding:5% 8%;align-items:flex-start">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2vw,24px);color:#4a5568;margin-bottom:5%;font-weight:400">Arhetipul INOCENTULUI, pe scurt</div>
+        <div style="font-size:clamp(14px,2.8vw,36px);color:#1a2744;font-family:'Playfair Display',serif;font-weight:400;line-height:1.5;max-width:85%">Inocentul este copilul interior pe care toți îl purtăm în suflet, acea voce care ne șoptește că lumea este un loc fundamental bun. Este arhetipul optimismului neînvins, al purității și al dorinței de a trăi simplu, sincer și fericit, departe de cinismul vieții moderne.</div>
+      </div>
+
+      <!-- S4: Trăsături -->
+      <div class="hslide" style="background:#fafafa;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,32px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:5%;width:100%">Trăsăturile principale (fără jargon)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%;width:100%">
+          <div style="background:#fef9c3;border-radius:12px;padding:4% 5%;display:flex;gap:4%;align-items:flex-start">
+            <div style="font-size:clamp(20px,3vw,36px)">☀️</div>
+            <div><div style="font-weight:700;color:#1a2744;font-size:clamp(10px,1.4vw,16px);margin-bottom:2%">Optimism contagios</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Vede mereu soluții și speranță. Refuză să se lase copleșit de întuneric, chiar și în momentele grele.</div></div>
+          </div>
+          <div style="background:#dcfce7;border-radius:12px;padding:4% 5%;display:flex;gap:4%;align-items:flex-start">
+            <div style="font-size:clamp(20px,3vw,36px)">🍃</div>
+            <div><div style="font-weight:700;color:#1a2744;font-size:clamp(10px,1.4vw,16px);margin-bottom:2%">Simplitate</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Preferă bucuriile mici, autentice. Nu îi plac lucrurile complicate, jocurile de putere sau dramele inutile.</div></div>
+          </div>
+          <div style="background:#dbeafe;border-radius:12px;padding:4% 5%;display:flex;gap:4%;align-items:flex-start">
+            <div style="font-size:clamp(20px,3vw,36px)">🤝</div>
+            <div><div style="font-weight:700;color:#1a2744;font-size:clamp(10px,1.4vw,16px);margin-bottom:2%">Încredere absolută</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Crede cu tărie în bunătatea fundamentală a oamenilor și în corectitudinea universului.</div></div>
+          </div>
+          <div style="background:#fce7f3;border-radius:12px;padding:4% 5%;display:flex;gap:4%;align-items:flex-start">
+            <div style="font-size:clamp(20px,3vw,36px)">❤️</div>
+            <div><div style="font-weight:700;color:#1a2744;font-size:clamp(10px,1.4vw,16px);margin-bottom:2%">Sinceritate pură</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Ce simte, aia spune. Nu are agende ascunse, nu poartă măști și nu folosește manipularea.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S5: Motivație -->
+      <div class="hslide" style="background:linear-gradient(135deg,#fef3c7,#fde68a,#f59e0b30);flex-direction:column;padding:4% 6%;align-items:center">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.3vw,28px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:4%">Ce își dorește cel mai mult? (Motivația profundă)</div>
+        <div style="font-size:clamp(18px,4vw,52px);font-weight:900;color:#b45309;text-align:center;margin-bottom:4%;font-family:'Playfair Display',serif">FERICIREA / PARADISUL</div>
+        <div style="background:rgba(255,255,255,0.7);border-radius:12px;padding:4% 6%;max-width:80%;text-align:center">
+          <div style="font-weight:700;font-size:clamp(10px,1.4vw,16px);color:#1a2744;margin-bottom:2%">Marea dorință a Inocentului este să trăiască în „Paradis".</div>
+          <div style="font-size:clamp(9px,1.3vw,14px);color:#4a5568;line-height:1.7;font-weight:300">Nu te gândi neapărat la un loc ceresc, ci la o stare de pace, siguranță și armonie totală. Inocentul vrea pur și simplu să fie fericit și își dorește ca toți cei din jurul lui să fie la fel. Pentru el, bucuria este dreptul nostru din naștere.</div>
+        </div>
+      </div>
+
+      <!-- S6: Frica -->
+      <div class="hslide" style="background:#e8f4fc;flex-direction:column;padding:4% 6%;align-items:center">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.3vw,28px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:6%">De ce se teme cel mai mult? (Frica fundamentală)</div>
+        <div style="background:white;border-radius:12px;padding:5%;max-width:80%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.08)">
+          <div style="font-size:clamp(30px,5vw,60px);margin-bottom:4%">☁️</div>
+          <div style="font-weight:700;font-size:clamp(10px,1.5vw,18px);color:#1a2744;margin-bottom:3%">Marea frică a Inocentului este să nu greșească și să fie pedepsit.</div>
+          <div style="font-size:clamp(9px,1.3vw,14px);color:#4a5568;line-height:1.7;font-weight:300">Pentru că își dorește armonie cu orice preț, Inocentul se teme teribil să nu facă un lucru „rău" care i-ar putea supăra pe ceilalți. Se teme de abandon, de conflict și de ideea că ar putea fi considerat o persoană rea.</div>
+        </div>
+      </div>
+
+      <!-- S7: Comportament -->
+      <div class="hslide" style="background:#faf5eb;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:5%;width:100%">Cum recunoști Inocentul în viața de zi cu zi?</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
+          <div style="background:white;border-radius:12px;padding:5% 4%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4%;box-shadow:0 2px 10px rgba(0,0,0,0.06)">
+            <div style="font-size:clamp(20px,3.5vw,44px)">🏠</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(10px,1.3vw,16px)">Acasă</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Aplanează certurile din familie. Amintește tuturor că „ne iubim și asta e tot ce contează". Creează un cuib confortabil și sigur, plin de tradiții.</div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:5% 4%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4%;box-shadow:0 2px 10px rgba(0,0,0,0.06)">
+            <div style="font-size:clamp(20px,3.5vw,44px)">☕</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(10px,1.3vw,16px)">La job</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Colegul de încredere, loial, care face lucrurile corect și la timp. Adesea refuză să participe la bârfele toxice de la birou sau jocurile politice.</div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:5% 4%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4%;box-shadow:0 2px 10px rgba(0,0,0,0.06)">
+            <div style="font-size:clamp(20px,3.5vw,44px)">🌳</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(10px,1.3vw,16px)">În societate</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Cumpără produse bio, preferă o plimbare liniștită în natură în locul unui club zgomotos și zâmbește larg străinilor. Caută decizii morale.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S8: Lumina -->
+      <div class="hslide" style="background:#fefce8;flex-direction:row;align-items:stretch">
+        <div style="flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:4%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a2744;line-height:1.2">Partea Luminoasă:<br>Superputerile Inocentului</div>
+          <div style="display:flex;flex-direction:column;gap:4%">
+            <div style="display:flex;gap:3%;align-items:flex-start">
+              <div style="font-size:clamp(14px,2vw,24px)">⭐</div>
+              <div><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#1a2744;margin-bottom:1%">Credință de neclintit</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Inspiră oamenii apatici să creadă din nou în bine, ridicând moralul celor din jur.</div></div>
+            </div>
+            <div style="display:flex;gap:3%;align-items:flex-start">
+              <div style="font-size:clamp(14px,2vw,24px)">🛡️</div>
+              <div><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#1a2744;margin-bottom:1%">Loialitate profundă</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Rămâne alături de tine la bine și la greu. Nu te va trăda pentru un avantaj personal.</div></div>
+            </div>
+            <div style="display:flex;gap:3%;align-items:flex-start">
+              <div style="font-size:clamp(14px,2vw,24px)">👁️</div>
+              <div><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#1a2744;margin-bottom:1%">Capacitatea de a se minuna</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Găsește frumusețe într-o frunză, într-un zâmbet sau într-o ploaie de vară.</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="width:40%;background:#fef3c7;display:flex;align-items:center;justify-content:center">
+          <div style="font-size:clamp(60px,10vw,130px);filter:drop-shadow(0 0 30px rgba(255,215,0,0.5))">🌻</div>
+        </div>
+      </div>
+
+      <!-- S9: Umbra -->
+      <div class="hslide" style="background:#f0f4f8;flex-direction:row;align-items:stretch">
+        <div style="flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:4%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a2744;line-height:1.2">Partea de Umbră:<br>Riscurile și Excesele</div>
+          <div style="display:flex;flex-direction:column;gap:4%">
+            <div style="background:#fee2e2;border-radius:8px;padding:3% 4%">
+              <div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#991b1b;margin-bottom:1%">⚠ Naivitate periculoasă</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:#7f1d1d;line-height:1.5;font-weight:300">Din dorința de a vedea doar binele, poate deveni orb la pericole reale, lăsându-se ușor manipulat, păcălit sau exploatat de alții.</div>
+            </div>
+            <div style="background:#fee2e2;border-radius:8px;padding:3% 4%">
+              <div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#991b1b;margin-bottom:1%">⚠ Pozitivitate toxică</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:#7f1d1d;line-height:1.5;font-weight:300">Când lucrurile merg foarte prost, tinde să bage capul în nisip. Ignoră problemele grave sperând că „totul se va rezolva de la sine".</div>
+            </div>
+            <div style="background:#fee2e2;border-radius:8px;padding:3% 4%">
+              <div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#991b1b;margin-bottom:1%">⚠ Victimizare</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:#7f1d1d;line-height:1.5;font-weight:300">Când balonul lui de săpun se sparge inevitabil, nu își asumă responsabilitatea. Preferă să dea vina pe „lumea asta rea".</div>
+            </div>
+          </div>
+        </div>
+        <div style="width:35%;display:flex;align-items:center;justify-content:center;background:#e2e8f0">
+          <div style="font-size:clamp(60px,9vw,120px)">🙈</div>
+        </div>
+      </div>
+
+      <!-- S10: Cultura pop -->
+      <div class="hslide" style="background:#faf5eb;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:4%;width:100%">Inocentul în Cultura Pop și în Branding</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
+          <div style="background:white;border-radius:12px;padding:5% 4%;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06)">
+            <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">🍫</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Forrest Gump</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Abordează fiecare obstacol din viață cu o inimă pură, fără pic de cinism. Schimbă vieților celor din jur prin simplitate și onestitate radicală.</div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:5% 4%;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06)">
+            <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">🐠</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Dory (Nemo)</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Reprezintă optimismul absolut. Mantra ei, „Continuă să înoți!", funcționează exact atunci când logica rece spune că totul este pierdut.</div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:5% 4%;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06)">
+            <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">🥤</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Coca-Cola, Dove</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Aceste companii vând concepte pure: fericirea împărășită, naturalețea, bucuria de a fi tu însuți și iubirea.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S11: Checklist -->
+      <div class="hslide" style="background:#faf5eb;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a2744;margin-bottom:2%;width:100%">Cum îl recunoști în tine sau în alții?</div>
+        <div style="font-style:italic;color:#4a5568;font-size:clamp(9px,1.3vw,14px);margin-bottom:4%;font-weight:300">Bifează mental afirmațiile care ți se potrivesc:</div>
+        <div style="background:white;border-radius:12px;padding:4% 5%;width:100%;box-shadow:0 4px 15px rgba(0,0,0,0.08);display:flex;flex-direction:column;gap:4%">
+          <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);background:#f5c842;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,14px);color:#1a2744;margin-top:1%">✓</div><div style="font-size:clamp(9px,1.3vw,15px);color:#1a2744;line-height:1.5;font-weight:300">Ai o regulă clară: viața trebuie trăită cinstit și fără complicații.</div></div>
+          <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);background:#f5c842;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,14px);color:#1a2744;margin-top:1%">✓</div><div style="font-size:clamp(9px,1.3vw,15px);color:#1a2744;line-height:1.5;font-weight:300">Eviți adesea să te uiți la știri negative pentru că simți că îți strică energia.</div></div>
+          <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);background:#e8a87c;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,14px);color:#1a2744;margin-top:1%">✓</div><div style="font-size:clamp(9px,1.3vw,15px);color:#1a2744;line-height:1.5;font-weight:300">Prietenii vin la tine când au nevoie de o vorbă caldă și asigurarea că „totul va fi bine".</div></div>
+          <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);background:#e8a87c;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,14px);color:#1a2744;margin-top:1%">✓</div><div style="font-size:clamp(9px,1.3vw,15px);color:#1a2744;line-height:1.5;font-weight:300">Ești uneori acuzat de ceilalți că ești „prea naiv" sau „prea bun pentru lumea asta".</div></div>
+          <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);background:#c0522a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,14px);color:white;margin-top:1%">✓</div><div style="font-size:clamp(9px,1.3vw,15px);color:#1a2744;line-height:1.5;font-weight:300">Iubești nostalgia, tradițiile, mesele în familie și lucrurile simple, de odinioară.</div></div>
+        </div>
+      </div>
+
+      <!-- S12: Citat -->
+      <div class="hslide" style="background:linear-gradient(180deg,#ffd4a0 0%,#ffb070 40%,#ff8c50 100%);flex-direction:column;align-items:center;justify-content:center;padding:6%">
+        <div style="font-size:clamp(30px,6vw,80px);color:rgba(0,0,0,0.3);line-height:0.7;font-family:Georgia,serif;margin-bottom:4%">"</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.8vw,38px);font-weight:700;color:#1a2744;text-align:center;line-height:1.4;max-width:85%">Nu contează cât de grea sau cinică este lumea din jur; atâta timp cât păstrăm speranța, paradisul este încă posibil.</div>
+        <div style="font-size:clamp(10px,1.4vw,16px);color:rgba(26,39,68,0.6);margin-top:4%;font-weight:300">(Esența Arhetipului Inocentului)</div>
+        <div style="font-size:clamp(30px,6vw,80px);color:rgba(0,0,0,0.3);line-height:0.7;font-family:Georgia,serif;margin-top:4%">"</div>
+      </div>
+
+      <!-- S13: Final -->
+      <div class="hslide" style="background:linear-gradient(160deg,#fef9f0 0%,#fef3e2 100%);flex-direction:column;align-items:center;justify-content:center;padding:5%">
+        <div style="font-size:clamp(40px,7vw,90px);margin-bottom:5%;filter:drop-shadow(0 0 20px rgba(201,169,110,0.3))">🌱</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,3vw,40px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:4%">Lasă-ți Inocentul la joacă</div>
+        <div style="font-size:clamp(10px,1.5vw,17px);color:#4a5568;text-align:center;line-height:1.7;max-width:75%;font-weight:300">Cu toții avem o mică doză din Inocent în noi. Este acea parte esențială a sufletului care a supraviețuit cinismului și care încă mai are curajul să zâmbească din tot sufletul.</div>
+        <div style="margin-top:5%;font-family:'Playfair Display',serif;font-size:clamp(12px,2vw,22px);font-weight:700;color:#c0522a;text-align:center">Tu cât de des îți lași Inocentul interior să iasă la lumină?</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="slider-btn" onclick="prevHSlide()">← Anterior</button>
+    <div class="slider-dots" id="sliderDots"></div>
+    <button class="slider-btn" onclick="nextHSlide()">Următor →</button>
+  </div>
+  <div style="text-align:center;margin-top:8px"><span class="slider-counter" id="sliderCounter">1 / 13</span></div>
+</section>
+
+<!-- CONTENT -->
+<section class="content-section">
+  <span class="section-label">Profilul Inocentului</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Optimism, puritate<br>și bucuria de a trăi</h2>
+  <div class="content-grid-2" style="margin-bottom:24px">
+    <div class="content-card light"><span class="card-icon">☀️</span><div class="card-title gold">Optimism contagios</div><p class="card-text">Vede mereu soluții și speranță. Refuză să se lase copleșit de întuneric, chiar și în momentele grele.</p></div>
+    <div class="content-card light"><span class="card-icon">🍃</span><div class="card-title gold">Simplitate autentică</div><p class="card-text">Preferă bucuriile mici, autentice. Nu îi plac lucrurile complicate, jocurile de putere sau dramele inutile.</p></div>
+    <div class="content-card light"><span class="card-icon">🤝</span><div class="card-title gold">Încredere absolută</div><p class="card-text">Crede cu tărie în bunătatea fundamentală a oamenilor și în corectitudinea universului.</p></div>
+    <div class="content-card light"><span class="card-icon">❤️</span><div class="card-title gold">Sinceritate pură</div><p class="card-text">Ce simte, aia spune. Nu are agende ascunse, nu poartă măști și nu folosește manipularea.</p></div>
+  </div>
+</section>
+
+<section class="content-section">
+  <span class="section-label">Motivația Profundă</span>
+  <div class="key-quote">
+    <div class="key-quote-text">Să trăiască în pace, siguranță și armonie totală — propriul său Paradis.</div>
+    <div class="key-quote-label">Dorința fundamentală a Inocentului</div>
+  </div>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;font-weight:300;max-width:600px">Inocentul vrea pur și simplu să fie fericit și îsi dorește ca toți cei din jurul lui să fie la fel. Pentru el, bucuria este dreptul nostru din naștere, iar viața trebuie trăită cu o inimă ușoară. Marea sa frică: să greșească și să fie pedepsit sau abandonat.</p>
+</section>
+
+<section class="content-section">
+  <span class="section-label">Lumină și Umbră</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Dualitatea Inocentului</h2>
+  <div class="content-grid-2">
+    <div class="content-card light">
+      <div class="card-title gold" style="margin-bottom:20px">✨ Superputerile</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Credință de neclintit</div><p class="card-text">Inspiră oamenii apatici să creadă din nou în bine, ridicând moralul celor din jur.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Loialitate profundă</div><p class="card-text">Rămâne alături de tine la bine și la greu. Nu te va trăda pentru un avantaj personal.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Capacitatea de a se minuna</div><p class="card-text">Găsește frumusețe în lucruri simple și ne amintește tuturor să fim recunoscători.</p></div>
+      </div>
+    </div>
+    <div class="content-card shadow-card">
+      <div class="card-title red" style="margin-bottom:20px">🌑 Riscurile</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Naivitate periculoasă</div><p class="card-text">Din dorința de a vedea doar binele, poate deveni orb la pericole reale, lăsându-se ușor manipulat.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Pozitivitate toxică</div><p class="card-text">Tinde să bage capul în nisip când lucrurile merg prost, ignorând problemele grave.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Victimizare</div><p class="card-text">Când realitatea lovește, preferă să dea vina pe „lumea rea" în loc să își asume responsabilitatea.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" style="padding-top:0">
+  <div class="key-quote" style="border-left-color:var(--acc)">
+    <div class="key-quote-label" style="margin-bottom:16px">Propoziția-cheie a Inocentului</div>
+    <div class="key-quote-text" style="font-size:clamp(28px,4vw,52px)">Optimismul nu este naivitate. Este curajul de a crede în bine în ciuda evidenței.</div>
+  </div>
+</section>
+
+<section class="checklist-section">
+  <span class="section-label">Oglinda · Autoreflecție</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.1">Cât de puternic este Inocentul în tine?</h2>
+  <p style="font-size:14px;color:var(--text2);font-weight:300;margin-bottom:32px;max-width:500px;line-height:1.7">Bifează întrebările care ți se potrivesc și descoperă rezonanța ta cu Inocentul.</p>
+  <div class="checklist-grid" id="checklist">
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Ai o regulă clară: viața trebuie trăită cinstit și fără complicații?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Eviți adesea știrile negative pentru că simți că îți strică energia?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Prietenii vin la tine când au nevoie de o vorbă caldă și asigurarea că „totul va fi bine"?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Ești uneori acuzat că ești „prea naiv" sau „prea bun pentru lumea asta"?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Iubești nostalgia, tradițiile, mesele în familie și lucrurile simple, de odinioară?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Crezi că oamenii sunt, în esență, buni și că binele triumfă în final?</div></div>
+  </div>
+  <div class="checklist-result" id="checklistResult">
+    <div class="checklist-score" id="checkScore">0</div>
+    <div class="checklist-score-label">din 6 · Rezonanță cu Inocentul</div>
+    <div class="checklist-verdict" id="checkVerdict">Bifează întrebările de mai sus pentru a vedea cât de puternic este Inocentul în tine.</div>
+  </div>
+</section>
+
+<div class="arch-nav">
+  <a href="/arhetip/bufonul" class="arch-nav-link">
+    <span class="arch-nav-dir">← Arhetipul anterior</span>
+    <span class="arch-nav-name">🤡 Bufonul</span>
+  </a>
+  <a href="/arhetip/orfanul" class="arch-nav-link" style="align-items:flex-end">
+    <span class="arch-nav-dir">Arhetipul următor →</span>
+    <span class="arch-nav-name right">🌿 Orfanul</span>
+  </a>
+</div>
+
+<div class="arch-cta">
+  <h3>Vrei să analizezi Inocentul în discursul tău?</h3>
+  <p>TEDx SpeakerLab identifică arhetipul dominant din textul tău, scorul de autenticitate arhetipală și dinamica umbrei.</p>
+  <a href="https://tedx-speakerlab2.onrender.com" target="_blank" class="cta-btn">Încearcă SpeakerLab →</a>
+</div>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+function animCursor(){cursor.style.left=(mx-4)+'px';cursor.style.top=(my-4)+'px';rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=(rx-16)+'px';ring.style.top=(ry-16)+'px';requestAnimationFrame(animCursor);}
+animCursor();
+const audio=document.getElementById('audioPlayer'),btn=document.getElementById('audioBtn'),fill=document.getElementById('progressFill'),curr=document.getElementById('currentTime'),total=document.getElementById('totalTime');
+function toggleAudio(){if(audio.paused){audio.play();btn.textContent='⏸';}else{audio.pause();btn.textContent='▶';}}
+function formatTime(s){const m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+audio.addEventListener('timeupdate',()=>{if(audio.duration){fill.style.width=(audio.currentTime/audio.duration*100)+'%';curr.textContent=formatTime(audio.currentTime);}});
+audio.addEventListener('loadedmetadata',()=>{total.textContent=formatTime(audio.duration);});
+audio.addEventListener('ended',()=>{btn.textContent='▶';});
+function seekAudio(e){const bar=document.getElementById('progressBar');const rect=bar.getBoundingClientRect();const pct=(e.clientX-rect.left)/rect.width;if(audio.duration)audio.currentTime=pct*audio.duration;}
+const TOTAL=13;let cur=0;
+const track=document.getElementById('slidesTrack'),dots=document.getElementById('sliderDots'),counter=document.getElementById('sliderCounter');
+for(let i=0;i<TOTAL;i++){const d=document.createElement('div');d.className='slider-dot'+(i===0?' active':'');d.onclick=()=>goTo(i);dots.appendChild(d);}
+function goTo(i){cur=i;track.style.transform=`translateX(-${i*100}%)`;document.querySelectorAll('.slider-dot').forEach((d,j)=>d.className='slider-dot'+(j===i?' active':''));counter.textContent=`${i+1} / ${TOTAL}`;}
+function nextHSlide(){goTo((cur+1)%TOTAL);}
+function prevHSlide(){goTo((cur-1+TOTAL)%TOTAL);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextHSlide();if(e.key==='ArrowLeft')prevHSlide();});
+let tx=0;track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){dx<0?nextHSlide():prevHSlide();}});
+const verdicts=['Inocentul doarme. Dar bucuria e acolo — potențialul există.','O rază de soare. Inocentul se trezește în tine.','Căldură în creștere. Inocentul lucrează subtil.','Inocentul este activ și luminos în viața ta.','Inocentul este dominant. Păstrează-ți puritatea cu înțelepciune.','Inocentul este deschis la maximum. Ești în elementul tău!','Inocent pur. Transformi realitatea prin bucurie și credință.'];
+function toggleCheck(el){el.classList.toggle('checked');const checked=document.querySelectorAll('.checklist-item.checked').length;document.getElementById('checkScore').textContent=checked;document.getElementById('checkVerdict').textContent=verdicts[checked];document.getElementById('checklistResult').style.borderColor=checked>3?'rgba(255,215,0,0.5)':checked>1?'rgba(135,206,235,0.4)':'var(--border)';}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
+document.querySelectorAll('.content-card,.checklist-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
+</script>
+</body>
+</html>
