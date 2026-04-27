@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arhetipul Protectorului · Archetype Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#05050f;--bg2:#0a0a1e;--border:#15152e;--border2:#1e1e3a;--text:#f0ede8;--text2:#8a8699;--text3:#35344a;--acc:#556B2F;--acc2:#8FBC8F}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
+.cursor{width:8px;height:8px;background:var(--acc2);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(85,107,47,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,15,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:15px;color:var(--text2);text-decoration:none}
+.nav-logo span{color:var(--acc2)}
+.nav-back{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:8px;cursor:none}
+.nav-back:hover{color:var(--acc2)}
+.nav-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 70% 50%,rgba(85,107,47,0.1) 0%,transparent 60%)}
+.hero-content{position:relative;padding:0 10% 0 8%;max-width:600px;z-index:1}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(56px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;color:var(--text);margin-bottom:8px;opacity:0;animation:fadeUp 0.8s 0.4s forwards}
+.hero-subtitle{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,22px);font-style:italic;color:var(--acc2);margin-bottom:32px;opacity:0;animation:fadeUp 0.8s 0.5s forwards}
+.hero-emoji{font-size:72px;display:block;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.3s forwards}
+.hero-num{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.25em;color:var(--acc2);margin-bottom:20px;display:block;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+.hero-motto{font-size:15px;color:var(--text2);font-weight:300;line-height:1.8;margin-bottom:48px;border-left:2px solid var(--acc);padding-left:20px;opacity:0;animation:fadeUp 0.8s 0.6s forwards}
+.profile-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;opacity:0;animation:fadeUp 0.8s 0.7s forwards}
+.pill{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:6px 16px;border:1px solid var(--border2);color:var(--text2)}
+.pill.desire{border-color:rgba(34,197,94,0.4);color:#4ade80}
+.pill.fear{border-color:rgba(239,68,68,0.3);color:#f87171}
+.pill.group{border-color:rgba(143,188,143,0.4);color:var(--acc2)}
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--acc2);margin-bottom:16px;display:block}
+.audio-section{padding:80px 8%;max-width:1000px;margin:0 auto}
+.audio-player-card{background:var(--bg2);border:1px solid var(--border);padding:32px;display:flex;align-items:center;gap:28px;position:relative;overflow:hidden}
+.audio-player-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+.audio-icon{width:64px;height:64px;background:rgba(85,107,47,0.1);border:1px solid rgba(85,107,47,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;cursor:none;transition:all 0.3s}
+.audio-info{flex:1}
+.audio-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px}
+.audio-sub{font-size:12px;color:var(--text2);font-weight:300;margin-bottom:16px}
+.audio-progress{width:100%;height:2px;background:var(--border2);cursor:pointer}
+.audio-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));width:0%;transition:width 0.1s}
+.audio-controls{display:flex;align-items:center;gap:16px;margin-top:12px}
+.audio-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.slides-section{padding:0 8% 80px;max-width:1200px;margin:0 auto}
+.slides-slider{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#f5f0e8;border:1px solid var(--border)}
+.slides-track{display:flex;height:100%;transition:transform 0.5s cubic-bezier(0.77,0,0.18,1)}
+.hslide{min-width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif}
+.slider-controls{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding:0 4px}
+.slider-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);background:none;border:1px solid var(--border2);padding:8px 20px;cursor:none;transition:all 0.2s}
+.slider-btn:hover{border-color:var(--acc2);color:var(--acc2)}
+.slider-dots{display:flex;gap:6px;align-items:center}
+.slider-dot{width:6px;height:6px;border-radius:50%;background:var(--border2);cursor:none;transition:all 0.2s}
+.slider-dot.active{background:var(--acc2);width:18px;border-radius:3px}
+.slider-counter{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.content-section{padding:80px 8%;max-width:1000px;margin:0 auto}
+.content-section+.content-section{border-top:1px solid var(--border)}
+.content-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.content-card{background:var(--bg2);border:1px solid var(--border);padding:28px 24px;position:relative;overflow:hidden}
+.content-card.light::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc2),transparent)}
+.content-card.shadow-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#7f1d1d,transparent)}
+.card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.card-title.acc{color:var(--acc2)}
+.card-title.red{color:#f87171}
+.card-text{font-size:13px;color:var(--text2);line-height:1.7;font-weight:300}
+.key-quote{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--acc2);padding:40px;margin:40px 0;text-align:center}
+.key-quote-text{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,40px);font-style:italic;color:var(--acc2);line-height:1.3;margin-bottom:12px}
+.key-quote-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase}
+.checklist-section{padding:80px 8%;border-top:1px solid var(--border);max-width:1000px;margin:0 auto}
+.checklist-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0}
+.checklist-item{display:flex;align-items:flex-start;gap:14px;padding:20px;background:var(--bg2);border:1px solid var(--border);cursor:none;transition:all 0.3s}
+.checklist-item.checked{border-color:rgba(74,222,128,0.4);background:rgba(34,197,94,0.04)}
+.check-box{width:20px;height:20px;flex-shrink:0;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:2px;transition:all 0.3s}
+.checklist-item.checked .check-box{border-color:#4ade80;color:#4ade80;background:rgba(74,222,128,0.1)}
+.check-text{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300}
+.checklist-result{padding:24px;background:var(--bg2);border:1px solid var(--border);text-align:center;transition:all 0.4s}
+.checklist-score{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--acc2);line-height:1;margin-bottom:8px}
+.checklist-score-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:0.15em;margin-bottom:16px}
+.checklist-verdict{font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--text2);line-height:1.6}
+.arch-nav{padding:60px 8%;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.arch-nav-link{text-decoration:none;display:flex;flex-direction:column;gap:4px;cursor:none;transition:opacity 0.2s;max-width:240px}
+.arch-nav-link:hover{opacity:0.7}
+.arch-nav-dir{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase}
+.arch-nav-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--text)}
+.arch-cta{padding:80px 8%;border-top:1px solid var(--border);text-align:center;background:var(--bg2)}
+.arch-cta h3{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--text);margin-bottom:12px}
+.arch-cta p{font-size:14px;color:var(--text2);font-weight:300;max-width:480px;margin:0 auto 32px;line-height:1.8}
+.cta-btn{display:inline-block;background:var(--acc2);color:#05050f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:14px 36px;text-decoration:none;cursor:none;transition:all 0.3s;font-weight:500}
+.cta-btn:hover{transform:translateY(-2px)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){nav{padding:14px 20px}.hero{padding:100px 20px 60px}.hero-content{padding:0}.content-grid-2,.checklist-grid{grid-template-columns:1fr}.audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta{padding-left:20px;padding-right:20px}.arch-nav{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="/" class="nav-logo"><span>Archetype</span> Academy</a>
+  <span class="nav-num">04 / 12</span>
+  <a href="/" class="nav-back">← Toate arhetipurile</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-num">Arhetipul 04 · Suflet · Apartenență</span>
+    <span class="hero-emoji">🛡️</span>
+    <h1>Protectorul</h1>
+    <div class="hero-subtitle">Ancora care ține lucrurile la locul lor</div>
+    <p class="hero-motto">Protectorul este acea forță interioară dedicată în totalitate păstrării siguranței, stabilității și armoniei. Este scutul uman care se așază cu blândețe, dar ferm, între cei dragi și pericolele lumii. Într-o viață plină de schimbări neprevăzute, el este ancora care ține lucrurile la locul lor.</p>
+    <div class="profile-pills">
+      <span class="pill group">Suflet · Apartenență</span>
+      <span class="pill desire">💚 Dorință: Să păstreze ceea ce este bun și sigur</span>
+      <span class="pill fear">⚠ Teamă: Să piardă controlul și siguranța</span>
+    </div>
+  </div>
+</section>
+
+<section class="audio-section">
+  <span class="section-label">Podcast · Episodul Protectorului</span>
+  <div class="audio-player-card">
+    <div class="audio-icon" onclick="toggleAudio()" id="audioBtn">▶</div>
+    <div class="audio-info">
+      <div class="audio-title">Arhetipul Protectorului</div>
+      <div class="audio-sub">Ancora care ține lucrurile la locul lor · NotebookLM</div>
+      <div class="audio-progress" id="progressBar" onclick="seekAudio(event)"><div class="audio-progress-fill" id="progressFill"></div></div>
+      <div class="audio-controls">
+        <span class="audio-time" id="currentTime">0:00</span>
+        <span class="audio-time" style="color:var(--text3)">·</span>
+        <span class="audio-time" id="totalTime">--:--</span>
+      </div>
+    </div>
+    <audio id="audioPlayer" src="/static/audio/protectorul.m4a" preload="metadata"></audio>
+  </div>
+</section>
+
+<section class="slides-section">
+  <span class="section-label" style="padding:0 0 16px">Prezentarea vizuală · 13 slide-uri</span>
+  <div class="slides-slider">
+    <div class="slides-track" id="slidesTrack">
+
+      <!-- S1 -->
+      <div class="hslide" style="background:linear-gradient(160deg,#f5f0e8 0%,#ede8d8 100%);flex-direction:column;padding:5%;align-items:center">
+        <div style="font-size:clamp(36px,7vw,90px);margin-bottom:4%">🛡️</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,4vw,52px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:3%">Arhetipul PROTECTORULUI</div>
+        <div style="font-size:clamp(10px,1.6vw,18px);color:#4a5568;text-align:center;font-weight:300;max-width:70%">Un ghid simplu și practic despre cel care pune mereu umărul la treabă pentru cei dragi.</div>
+        <div style="position:absolute;top:5%;left:5%;font-size:clamp(20px,3vw,40px);opacity:0.15">🏔️</div>
+        <div style="position:absolute;bottom:5%;right:5%;font-size:clamp(16px,2.5vw,32px);opacity:0.15">⚓</div>
+      </div>
+
+      <!-- S2 -->
+      <div class="hslide" style="background:#f0ebe0;flex-direction:column;padding:4% 6%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,32px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:4%;width:100%">Ce este Arhetipul Protectorului?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
+          <div style="background:white;border-radius:12px;padding:5%">
+            <div style="font-weight:700;color:#556B2F;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">Sistemul de Operare</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Arhetipul este sistemul de operare instalat din fabrică în mintea noastră. Protectorul este una din cele mai vechi și mai esențiale aplicații — instinctul de a apăra tribul.</div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:5%">
+            <div style="font-weight:700;color:#556B2F;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">Aplicațiile Personale</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Personalitatea ta unică se formează din experiențele tale. Astăzi explorăm una dintre cele mai nobile energii interioare: Protectorul — cel care creează siguranță pentru toți.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3 -->
+      <div class="hslide" style="background:#faf5ea;flex-direction:column;padding:4% 8%;align-items:flex-start">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2vw,22px);color:#556B2F;margin-bottom:4%">Cine este PROTECTORUL?</div>
+        <div style="font-size:clamp(13px,2.3vw,28px);color:#1a2744;font-family:'Playfair Display',serif;font-weight:400;line-height:1.5;max-width:85%">Protectorul este acea forță interioară dedicată în totalitate păstrării siguranței, stabilității și armoniei. Este scutul uman care se așază cu blândețe, dar ferm, între cei dragi și pericolele lumii. Într-o viață plină de schimbări neprevăzute, el este ancora care ține lucrurile la locul lor.</div>
+        <div style="margin-top:6%;font-size:clamp(24px,4vw,52px)">🏔️⚓🌲</div>
+      </div>
+
+      <!-- S4 -->
+      <div class="hslide" style="background:#f5f0e0;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,30px);font-weight:800;color:#556B2F;margin-bottom:5%;width:100%">Trăsăturile principale (Cum funcționează acest soft)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%;width:100%">
+          <div style="background:white;border-radius:12px;padding:4% 5%;display:flex;gap:4%;align-items:flex-start"><div style="font-size:clamp(18px,2.8vw,36px)">❤️🧭</div><div><div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px);margin-bottom:2%">Empatic și Săritor</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Simte imediat când cineva este vulnerabil și are un impuls natural, aproape instantaneu, de a ajuta și de a oferi grijă.</div></div></div>
+          <div style="background:white;border-radius:12px;padding:4% 5%;display:flex;gap:4%;align-items:flex-start"><div style="font-size:clamp(18px,2.8vw,36px)">🏔️</div><div><div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px);margin-bottom:2%">Stabil ca un munte</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Nu se panichează ușor. Rămâne calm și ancorat în valorile lui atunci când lucrurile în jur devin haotice.</div></div></div>
+          <div style="background:white;border-radius:12px;padding:4% 5%;display:flex;gap:4%;align-items:flex-start"><div style="font-size:clamp(18px,2.8vw,36px)">⚔️🛡️</div><div><div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px);margin-bottom:2%">Conduce prin propriul exemplu</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Nu stă pe margine dând ordine. Pune umărul la treabă, este un excelent profesor și este primul care îți asumă o responsabilitate.</div></div></div>
+          <div style="background:white;border-radius:12px;padding:4% 5%;display:flex;gap:4%;align-items:flex-start"><div style="font-size:clamp(18px,2.8vw,36px)">⚓</div><div><div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px);margin-bottom:2%">Loialitate absolută</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Pentru el, promisiunile sunt sfinte. Va apăra până la capăt comunitatea, familia sau prietenii.</div></div></div>
+        </div>
+      </div>
+
+      <!-- S5 -->
+      <div class="hslide" style="background:#faf5ea;flex-direction:row;align-items:stretch">
+        <div style="flex:1;padding:5% 6%;display:flex;flex-direction:column;justify-content:center;gap:5%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,30px);font-weight:800;color:#1a2744">Ce îtși dorește cel mai mult? (Motivația profundă)</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,2vw,24px);font-weight:700;color:#556B2F">Să păstreze ceea ce este bun și sigur.</div>
+          <div style="font-size:clamp(9px,1.3vw,14px);color:#4a5568;line-height:1.7;font-weight:300">Protectorul nu vrea să cucerească lumea și nici să o schimbe din temelii. El vrea pur și simplu să o păstreze în siguranță. Îtși dorește să construiască un perimetru de liniște unde cei dragi pot înflori fără să fie loviți de greutățile vieții. Mesajul lui tăcut este mereu: Totul va fi bine, pentru că sunt eu aici.</div>
+        </div>
+        <div style="width:45%;background:#f0ebe0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5%;padding:5%">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2%">
+            <div style="width:clamp(40px,6vw,70px);height:clamp(40px,6vw,70px);border-radius:50%;background:#556B2F;display:flex;align-items:center;justify-content:center;color:white;font-size:clamp(12px,1.8vw,20px);font-weight:700">Eu</div>
+            <div style="width:clamp(60px,9vw,110px);height:clamp(60px,9vw,110px);border-radius:50%;border:2px solid rgba(85,107,47,0.5);display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,13px);color:#556B2F;font-weight:600">Familia</div>
+            <div style="width:clamp(80px,12vw,150px);height:clamp(80px,12vw,150px);border-radius:50%;border:2px solid rgba(85,107,47,0.3);display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,13px);color:#8FBC8F;font-weight:600">Comunitatea</div>
+          </div>
+          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(9px,1.3vw,14px);color:#556B2F;text-align:center">Să păstreze ceea ce e bun și sigur.</div>
+        </div>
+      </div>
+
+      <!-- S6 -->
+      <div class="hslide" style="background:#f5f0e0;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,30px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:5%;width:100%">De ce se teme cel mai mult? (Frica fundamentală)</div>
+        <div style="background:white;border-radius:12px;padding:5%;width:80%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.08)">
+          <div style="font-size:clamp(30px,5vw,60px);margin-bottom:4%">🌪️</div>
+          <div style="font-weight:700;font-size:clamp(10px,1.5vw,18px);color:#1a2744;margin-bottom:3%">Pierderea controlului — să nu-și poată proteja cei dragi.</div>
+          <div style="font-size:clamp(9px,1.3vw,14px);color:#4a5568;line-height:1.7;font-weight:300">Frica lui fundamentală este să rateze, să nu fie destul de puternic sau pregătit, să nu poată oferi siguranță celor care depind de el. Această frică îl face uneori să devină excesiv de controlant sau să nu îți acorde spațiu celor dragi.</div>
+        </div>
+      </div>
+
+      <!-- S7 -->
+      <div class="hslide" style="background:#faf5ea;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,30px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:5%;width:100%">Cum se comportă în viața de zi cu zi?</div>
+        <div style="position:relative;width:90%;height:60%">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#8FBC8F"></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4%;padding-top:6%">
+            <div style="background:white;border-radius:12px;padding:5%;text-align:center">
+              <div style="font-size:clamp(20px,3vw,36px);margin-bottom:3%">🎒</div>
+              <div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px);margin-bottom:2%">Organizatorul din umbră</div>
+              <div style="font-size:clamp(7px,1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Într-o excursie cu prietenii, este cel care a luat trusa de prim-ajutor, a memorat traseul și verifică mereu subtil dacă toată lumea are apă.</div>
+            </div>
+            <div style="background:white;border-radius:12px;padding:5%;text-align:center">
+              <div style="font-size:clamp(20px,3vw,36px);margin-bottom:3%">☕</div>
+              <div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px);margin-bottom:2%">Soluții, nu doar vorbe</div>
+              <div style="font-size:clamp(7px,1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Când treci printr-o perioadă grea, nu îți oferă doar un umăr să plângi. Caută imediat soluții practice (îți face cumpărăturile, te ajută cu un act).</div>
+            </div>
+            <div style="background:white;border-radius:12px;padding:5%;text-align:center">
+              <div style="font-size:clamp(20px,3vw,36px);margin-bottom:3%">🤝</div>
+              <div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px);margin-bottom:2%">Pacificatorul ferm</div>
+              <div style="font-size:clamp(7px,1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Când apare un conflict în familie sau la birou, intervine ferm pentru a calma spiritele și a impune reguli clare de respect reciproc.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S8 -->
+      <div class="hslide" style="background:#f5f0e0;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,30px);font-weight:800;color:#556B2F;margin-bottom:5%;width:100%">Partea luminoasă (Calitățile de excepție)</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4%;width:100%">
+          <div style="background:white;border-radius:12px;padding:5%;display:flex;flex-direction:column;align-items:flex-start;gap:3%;position:relative">
+            <div style="width:100%;height:3px;background:linear-gradient(90deg,#556B2F,transparent);position:absolute;top:0;left:0;border-radius:12px 12px 0 0"></div>
+            <div style="font-size:clamp(18px,2.8vw,36px);margin-top:2%">🏔️</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px)">Reziliență extraordinară</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Are capacitatea uluitoare de a îndura momente foarte întunecate, păstrând vie speranța pentru toți ceilalți.</div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:5%;display:flex;flex-direction:column;align-items:flex-start;gap:3%;position:relative">
+            <div style="width:100%;height:3px;background:linear-gradient(90deg,#8FBC8F,transparent);position:absolute;top:0;left:0;border-radius:12px 12px 0 0"></div>
+            <div style="font-size:clamp(18px,2.8vw,36px);margin-top:2%">🌿</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px)">Altruism autentic</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Găsește o bucurie reală și profundă în a oferi securitate, confort și îndrumare celor din jur.</div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:5%;display:flex;flex-direction:column;align-items:flex-start;gap:3%;position:relative">
+            <div style="width:100%;height:3px;background:linear-gradient(90deg,#556B2F,transparent);position:absolute;top:0;left:0;border-radius:12px 12px 0 0"></div>
+            <div style="font-size:clamp(18px,2.8vw,36px);margin-top:2%">⚓</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px)">Stâlpul comunității</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Este acel prieten, părinte sau coleg pe care știi cu certitudine că te poți baza la 3 dimineața, fără nicio ezitare.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S9 -->
+      <div class="hslide" style="background:#f5f0e0;flex-direction:row;align-items:stretch">
+        <div style="flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:4%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,28px);font-weight:800;color:#1a2744">Partea de umbră: Capcanele Protectorului</div>
+          <div style="display:flex;flex-direction:column;gap:3%">
+            <div style="background:#fee2e2;border-radius:8px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,14px);color:#991b1b;margin-bottom:1%">⚠ Controlul excesiv</div><div style="font-size:clamp(8px,1.1vw,13px);color:#7f1d1d;line-height:1.5;font-weight:300">Din dorința de a proteja, poate deveni sufocant. Nu le lasă celor dragi spațiu să greșească și să crească.</div></div>
+            <div style="background:#fee2e2;border-radius:8px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,14px);color:#991b1b;margin-bottom:1%">⚠ Martiriul</div><div style="font-size:clamp(8px,1.1vw,13px);color:#7f1d1d;line-height:1.5;font-weight:300">Se sacrifică atât de mult pentru alții că ajunge epuizat și, uneori, plin de resentimente ascunse.</div></div>
+            <div style="background:#fee2e2;border-radius:8px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,14px);color:#991b1b;margin-bottom:1%">⚠ Paternalism</div><div style="font-size:clamp(8px,1.1vw,13px);color:#7f1d1d;line-height:1.5;font-weight:300">Crede că știe el mai bine ce e bun pentru ceilalți și le ia deciziile din mâini, chiar și atunci când nu i-a rugat nimeni.</div></div>
+          </div>
+        </div>
+        <div style="width:35%;display:flex;align-items:center;justify-content:center;background:#e8e0d0"><div style="font-size:clamp(50px,8vw,110px)">🌪️</div></div>
+      </div>
+
+      <!-- S10 -->
+      <div class="hslide" style="background:#faf5ea;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,28px);font-weight:800;color:#1a2744;margin-bottom:5%;width:100%">Protectorul în Cultura Pop și în Branding</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4%;width:100%">
+          <div style="background:white;border-radius:12px;padding:5%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3%">
+            <div style="font-size:clamp(24px,4vw,50px)">🧙</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px)">Gandalf (LOTR)</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Ghidul care protejează și îndrumă. Nu face totul el, ci creează condițiile pentru ca eroii să se poată manifesta.</div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:5%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3%">
+            <div style="font-size:clamp(24px,4vw,50px)">🦁</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px)">Simba (Lion King)</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Protectorul care își asumă responsabilitatea regatului, nu pentru putere, ci din datorie față de cei pe care îi iubește.</div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:5%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3%">
+            <div style="font-size:clamp(24px,4vw,50px)">🏠</div>
+            <div style="font-weight:700;color:#1a2744;font-size:clamp(9px,1.3vw,15px)">Volvo, Allstate</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Branduri care vând siguranța și protecția. Mesajul lor: Suntem acolo ca să te protejăm, orice s-ar întâmpla.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S11 -->
+      <div class="hslide" style="background:#f5f0e0;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,28px);font-weight:800;color:#1a2744;margin-bottom:3%;width:100%">Cum îl recunoști? (Semne practice)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%;width:100%">
+          <div style="background:white;border-radius:12px;padding:4% 5%;display:flex;flex-direction:column;gap:3%">
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="background:#556B2F;color:white;border-radius:50%;width:clamp(18px,2.5vw,28px);height:clamp(18px,2.5vw,28px);display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,13px);flex-shrink:0;margin-top:1%">✓</div><div style="font-size:clamp(8px,1.2vw,14px);color:#1a2744;font-weight:300;line-height:1.5">Când intri într-un loc nou, scanezi automat mediul pentru potențiale pericole sau probleme.</div></div>
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="background:#556B2F;color:white;border-radius:50%;width:clamp(18px,2.5vw,28px);height:clamp(18px,2.5vw,28px);display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,13px);flex-shrink:0;margin-top:1%">✓</div><div style="font-size:clamp(8px,1.2vw,14px);color:#1a2744;font-weight:300;line-height:1.5">Ești primul care verifică dacă toți cei din grup sunt ok, chiar dacă nu te-a rugat nimeni.</div></div>
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="background:#8FBC8F;color:white;border-radius:50%;width:clamp(18px,2.5vw,28px);height:clamp(18px,2.5vw,28px);display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,13px);flex-shrink:0;margin-top:1%">✓</div><div style="font-size:clamp(8px,1.2vw,14px);color:#1a2744;font-weight:300;line-height:1.5">Când cineva îți spune că are o problemă, creierul tău trece imediat la modul rezolvare.</div></div>
+          </div>
+          <div style="background:white;border-radius:12px;padding:4% 5%;display:flex;flex-direction:column;gap:3%">
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="background:#8FBC8F;color:white;border-radius:50%;width:clamp(18px,2.5vw,28px);height:clamp(18px,2.5vw,28px);display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,13px);flex-shrink:0;margin-top:1%">✓</div><div style="font-size:clamp(8px,1.2vw,14px);color:#1a2744;font-weight:300;line-height:1.5">Îți este greu să ceri ajutor și să te lași vulnerabil în fața altora.</div></div>
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="background:#556B2F;color:white;border-radius:50%;width:clamp(18px,2.5vw,28px);height:clamp(18px,2.5vw,28px);display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,13px);flex-shrink:0;margin-top:1%">✓</div><div style="font-size:clamp(8px,1.2vw,14px);color:#1a2744;font-weight:300;line-height:1.5">Îți place să planifici din timp și să ai un plan B (și uneori C) pregătit.</div></div>
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="background:#8FBC8F;color:white;border-radius:50%;width:clamp(18px,2.5vw,28px);height:clamp(18px,2.5vw,28px);display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.2vw,13px);flex-shrink:0;margin-top:1%">✓</div><div style="font-size:clamp(8px,1.2vw,14px);color:#1a2744;font-weight:300;line-height:1.5">Prietenii și familia vin mereu la tine în momente de criză, știind că ești de neclintit.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S12 -->
+      <div class="hslide" style="background:#faf5ea;flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,28px);font-weight:800;color:#1a2744;margin-bottom:3%;width:100%">Sfatul pentru Protector: Cum să integrezi Umbra</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
+          <div style="background:white;border-radius:12px;padding:5%">
+            <div style="font-weight:700;color:#991b1b;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">⚠ Capcana</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Protejând excesiv, poți lua din mâinile celor dragi tocmai experiențele care i-ar face să crească. Uneori cel mai mare cadou pe care îl poți oferi este spațiul de a greși în siguranță.</div>
+          </div>
+          <div style="background:#556B2F;border-radius:12px;padding:5%">
+            <div style="font-weight:700;color:#8FBC8F;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">✨ Înțelepciunea</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.85);line-height:1.6;font-weight:300">Reziliența autentică nu vine din a ști că nu te va lovi niciodată nimic greu, ci din a ști că ai un loc sigur la care să te întorci după fiecare luptă. Asta construiești tu.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S13 -->
+      <div class="hslide" style="background:linear-gradient(135deg,#c8a84b 0%,#a07830 100%);flex-direction:column;align-items:center;justify-content:center;padding:6%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,3.2vw,42px);font-weight:700;color:white;text-align:center;line-height:1.4;max-width:85%">Protectorul autentic nu este cel care te ține departe de orice durere... Este fundația solidă care îți dă curajul să înfrunți lumea, știind că ai mereu un loc sigur în care să te întorci.</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="slider-btn" onclick="prevHSlide()">← Anterior</button>
+    <div class="slider-dots" id="sliderDots"></div>
+    <button class="slider-btn" onclick="nextHSlide()">Următor →</button>
+  </div>
+  <div style="text-align:center;margin-top:8px"><span class="slider-counter" id="sliderCounter">1 / 13</span></div>
+</section>
+
+<section class="content-section">
+  <span class="section-label">Motivația Profundă</span>
+  <div class="key-quote">
+    <div class="key-quote-text">A proteja nu înseamnă a controla. Înseamnă a crea spațiul în care ceilalți pot crește.</div>
+    <div class="key-quote-label">Esența Protectorului</div>
+  </div>
+</section>
+
+<section class="content-section">
+  <span class="section-label">Lumină și Umbră</span>
+  <div class="content-grid-2">
+    <div class="content-card light">
+      <div class="card-title acc" style="margin-bottom:20px">✨ Superputerile</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Reziliență extraordinară</div><p class="card-text">Are capacitatea de a îndura momente întunecate păstrând vie speranța pentru toți ceilalți.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Altruism autentic</div><p class="card-text">Găsește bucurie reală în a oferi securitate, confort și îndrumare celor din jur.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Stâlpul comunității</div><p class="card-text">Este acel prieten pe care știi că te poți baza la 3 dimineața, fără nicio ezitare.</p></div>
+      </div>
+    </div>
+    <div class="content-card shadow-card">
+      <div class="card-title red" style="margin-bottom:20px">🌑 Riscurile</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Controlul excesiv</div><p class="card-text">Din dorința de a proteja, poate deveni sufocant — nu lasă spațiu celor dragi să crească.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Martiriul</div><p class="card-text">Se sacrifică atât de mult pentru alții că ajunge epuizat și plin de resentimente ascunse.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Paternalismul</div><p class="card-text">Crede că știe el mai bine și le ia deciziile din mâini celor dragi, chiar neîntrebat.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" style="padding-top:0">
+  <div class="key-quote" style="border-left-color:var(--acc)">
+    <div class="key-quote-label" style="margin-bottom:16px">Propoziția-cheie a Protectorului</div>
+    <div class="key-quote-text" style="font-size:clamp(28px,4vw,52px)">A proteja nu înseamnă a controla. Înseamnă a crea spațiul în care ceilalți pot crește.</div>
+  </div>
+</section>
+
+<section class="checklist-section">
+  <span class="section-label">Oglinda · Autoreflecție</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.1">Cât de puternic este Protectorul în tine?</h2>
+  <p style="font-size:14px;color:var(--text2);font-weight:300;margin-bottom:32px;max-width:500px;line-height:1.7">Bifează semnele care ți se potrivesc.</p>
+  <div class="checklist-grid" id="checklist">
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Când intri într-un loc nou, scanezi automat mediul pentru potențiale probleme sau pericole?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Ești primul care verifică dacă toți cei din grup sunt ok, chiar dacă nu te-a rugat nimeni?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Când cineva îți spune că are o problemă, treci imediat la modul rezolvare?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Îți este greu să ceri ajutor și să te lași vulnerabil în fața altora?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Îți place să planifici din timp și să ai mereu un plan B (și uneori C) pregătit?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Prietenii și familia vin mereu la tine în momente de criză, știind că ești de neclintit?</div></div>
+  </div>
+  <div class="checklist-result" id="checklistResult">
+    <div class="checklist-score" id="checkScore">0</div>
+    <div class="checklist-score-label">din 6 · Rezonanță cu Protectorul</div>
+    <div class="checklist-verdict" id="checkVerdict">Bifează întrebările de mai sus pentru a vedea rezonanța ta.</div>
+  </div>
+</section>
+
+<div class="arch-nav">
+  <a href="/arhetip/razboinicul" class="arch-nav-link">
+    <span class="arch-nav-dir">← Arhetipul anterior</span>
+    <span class="arch-nav-name">🦁 Războinicul</span>
+  </a>
+  <a href="/arhetip/exploratorul" class="arch-nav-link" style="align-items:flex-end">
+    <span class="arch-nav-dir">Arhetipul următor →</span>
+    <span class="arch-nav-name" style="text-align:right">🧭 Exploratorul</span>
+  </a>
+</div>
+
+<div class="arch-cta">
+  <h3>Vrei să analizezi Protectorul în discursul tău?</h3>
+  <p>TEDx SpeakerLab identifică arhetipul dominant din textul tău, scorul de autenticitate arhetipală și dinamica umbrei.</p>
+  <a href="https://tedx-speakerlab2.onrender.com" target="_blank" class="cta-btn">Încearcă SpeakerLab →</a>
+</div>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+function animCursor(){cursor.style.left=(mx-4)+'px';cursor.style.top=(my-4)+'px';rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=(rx-16)+'px';ring.style.top=(ry-16)+'px';requestAnimationFrame(animCursor);}
+animCursor();
+const audio=document.getElementById('audioPlayer'),btn=document.getElementById('audioBtn'),fill=document.getElementById('progressFill'),curr=document.getElementById('currentTime'),total=document.getElementById('totalTime');
+function toggleAudio(){if(audio.paused){audio.play();btn.textContent='⏸';}else{audio.pause();btn.textContent='▶';}}
+function formatTime(s){const m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+audio.addEventListener('timeupdate',()=>{if(audio.duration){fill.style.width=(audio.currentTime/audio.duration*100)+'%';curr.textContent=formatTime(audio.currentTime);}});
+audio.addEventListener('loadedmetadata',()=>{total.textContent=formatTime(audio.duration);});
+audio.addEventListener('ended',()=>{btn.textContent='▶';});
+function seekAudio(e){const bar=document.getElementById('progressBar');const rect=bar.getBoundingClientRect();const pct=(e.clientX-rect.left)/rect.width;if(audio.duration)audio.currentTime=pct*audio.duration;}
+const TOTAL=13;let cur=0;
+const track=document.getElementById('slidesTrack'),dots=document.getElementById('sliderDots'),counter=document.getElementById('sliderCounter');
+for(let i=0;i<TOTAL;i++){const d=document.createElement('div');d.className='slider-dot'+(i===0?' active':'');d.onclick=()=>goTo(i);dots.appendChild(d);}
+function goTo(i){cur=i;track.style.transform=`translateX(-${i*100}%)`;document.querySelectorAll('.slider-dot').forEach((d,j)=>d.className='slider-dot'+(j===i?' active':''));counter.textContent=`${i+1} / ${TOTAL}`;}
+function nextHSlide(){goTo((cur+1)%TOTAL);}
+function prevHSlide(){goTo((cur-1+TOTAL)%TOTAL);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextHSlide();if(e.key==='ArrowLeft')prevHSlide();});
+let tx=0;track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){dx<0?nextHSlide():prevHSlide();}});
+const verdicts=["Protectorul doarme. Instinctul e acolo — potențialul există.","O sămânță de grijă. Protectorul se trezește.","Protecția crește. Energia de grijă e activă.","Protectorul este activ și cald în viața ta.","Grija e dominantă. Ești ancora grupului tău.","Protectorul la putere maximă. Ești fundația comunității!","Protector pur. Creezi siguranță oriunde mergi."];
+function toggleCheck(el){el.classList.toggle('checked');const checked=document.querySelectorAll('.checklist-item.checked').length;document.getElementById('checkScore').textContent=checked;document.getElementById('checkVerdict').textContent=verdicts[checked];document.getElementById('checklistResult').style.borderColor=checked>3?'rgba(143,188,143,0.5)':checked>1?'rgba(143,188,143,0.2)':'var(--border)';}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
+document.querySelectorAll('.content-card,.checklist-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
+</script>
+</body>
+</html>
