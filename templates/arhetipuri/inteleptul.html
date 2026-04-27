@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arhetipul Înțeleptului · Archetype Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#05050f;--bg2:#0a0a1e;--border:#15152e;--border2:#1e1e3a;--text:#f0ede8;--text2:#8a8699;--text3:#35344a;--acc:#C9A96E;--acc2:#0d1b2e}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
+.cursor{width:8px;height:8px;background:var(--acc);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(201,169,110,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:width 0.2s,height 0.2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,15,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:15px;color:var(--text2);text-decoration:none}
+.nav-logo span{color:var(--acc)}
+.nav-back{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);text-decoration:none;cursor:none;transition:color 0.2s}
+.nav-back:hover{color:var(--acc)}
+.nav-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 65% 50%,rgba(201,169,110,0.08) 0%,transparent 60%)}
+.hero-content{position:relative;padding:0 10% 0 8%;max-width:600px;z-index:1}
+.hero-num{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.25em;color:var(--acc);margin-bottom:20px;display:block;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+.hero-emoji{font-size:72px;display:block;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.3s forwards;filter:drop-shadow(0 0 30px rgba(201,169,110,0.5))}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(56px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;color:var(--text);margin-bottom:8px;opacity:0;animation:fadeUp 0.8s 0.4s forwards}
+.hero-subtitle{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,22px);font-style:italic;color:var(--acc);margin-bottom:32px;opacity:0;animation:fadeUp 0.8s 0.5s forwards}
+.hero-motto{font-size:15px;color:var(--text2);font-weight:300;line-height:1.8;margin-bottom:48px;border-left:2px solid var(--acc);padding-left:20px;opacity:0;animation:fadeUp 0.8s 0.6s forwards}
+.profile-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;opacity:0;animation:fadeUp 0.8s 0.7s forwards}
+.pill{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:6px 16px;border:1px solid var(--border2);color:var(--text2)}
+.pill.desire{border-color:rgba(34,197,94,0.4);color:#4ade80}
+.pill.fear{border-color:rgba(239,68,68,0.3);color:#f87171}
+.pill.group{border-color:rgba(201,169,110,0.4);color:var(--acc)}
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--acc);margin-bottom:16px;display:block}
+.audio-section{padding:80px 8%;max-width:1000px;margin:0 auto}
+.audio-player-card{background:var(--bg2);border:1px solid var(--border);padding:32px;display:flex;align-items:center;gap:28px;position:relative;overflow:hidden}
+.audio-player-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),transparent)}
+.audio-icon{width:64px;height:64px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;cursor:none;transition:all 0.3s}
+.audio-icon:hover{transform:scale(1.05)}
+.audio-info{flex:1}
+.audio-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px}
+.audio-sub{font-size:12px;color:var(--text2);font-weight:300;margin-bottom:16px}
+.audio-progress{width:100%;height:2px;background:var(--border2);cursor:pointer}
+.audio-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),#e8d8a0);width:0%;transition:width 0.1s}
+.audio-controls{display:flex;align-items:center;gap:16px;margin-top:12px}
+.audio-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.slides-section{padding:0 8% 80px;max-width:1200px;margin:0 auto}
+.slides-slider{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0d1b2e;border:1px solid var(--border)}
+.slides-track{display:flex;height:100%;transition:transform 0.5s cubic-bezier(0.77,0,0.18,1)}
+.hslide{min-width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif}
+.slider-controls{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding:0 4px}
+.slider-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);background:none;border:1px solid var(--border2);padding:8px 20px;cursor:none;transition:all 0.2s}
+.slider-btn:hover{border-color:var(--acc);color:var(--acc)}
+.slider-dots{display:flex;gap:6px;align-items:center}
+.slider-dot{width:6px;height:6px;border-radius:50%;background:var(--border2);cursor:none;transition:all 0.2s}
+.slider-dot.active{background:var(--acc);width:18px;border-radius:3px}
+.slider-counter{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.content-section{padding:80px 8%;max-width:1000px;margin:0 auto}
+.content-section+.content-section{border-top:1px solid var(--border)}
+.content-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.content-card{background:var(--bg2);border:1px solid var(--border);padding:28px 24px;position:relative;overflow:hidden;transition:border-color 0.3s}
+.content-card.light::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),transparent)}
+.content-card.shadow-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#7f1d1d,transparent)}
+.card-icon{font-size:28px;margin-bottom:12px;display:block}
+.card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.card-title.gold{color:var(--acc)}
+.card-title.red{color:#f87171}
+.card-text{font-size:13px;color:var(--text2);line-height:1.7;font-weight:300}
+.key-quote{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--acc);padding:40px;margin:40px 0;text-align:center}
+.key-quote-text{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,40px);font-style:italic;color:var(--acc);line-height:1.3;margin-bottom:12px}
+.key-quote-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase}
+.checklist-section{padding:80px 8%;border-top:1px solid var(--border);max-width:1000px;margin:0 auto}
+.checklist-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0}
+.checklist-item{display:flex;align-items:flex-start;gap:14px;padding:20px;background:var(--bg2);border:1px solid var(--border);cursor:none;transition:all 0.3s}
+.checklist-item:hover{border-color:rgba(201,169,110,0.3)}
+.checklist-item.checked{border-color:rgba(74,222,128,0.4);background:rgba(34,197,94,0.04)}
+.check-box{width:20px;height:20px;flex-shrink:0;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:2px;transition:all 0.3s}
+.checklist-item.checked .check-box{border-color:#4ade80;color:#4ade80;background:rgba(74,222,128,0.1)}
+.check-text{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300}
+.checklist-result{padding:24px;background:var(--bg2);border:1px solid var(--border);text-align:center;transition:all 0.4s}
+.checklist-score{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--acc);line-height:1;margin-bottom:8px}
+.checklist-score-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:0.15em;margin-bottom:16px}
+.checklist-verdict{font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--text2);line-height:1.6}
+.arch-nav{padding:60px 8%;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.arch-nav-link{text-decoration:none;display:flex;flex-direction:column;gap:4px;cursor:none;transition:opacity 0.2s;max-width:240px}
+.arch-nav-link:hover{opacity:0.7}
+.arch-nav-dir{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase}
+.arch-nav-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--text)}
+.arch-nav-name.right{text-align:right}
+.arch-cta{padding:80px 8%;border-top:1px solid var(--border);text-align:center;background:var(--bg2)}
+.arch-cta h3{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--text);margin-bottom:12px}
+.arch-cta p{font-size:14px;color:var(--text2);font-weight:300;max-width:480px;margin:0 auto 32px;line-height:1.8}
+.cta-btn{display:inline-block;background:var(--acc);color:#05050f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:14px 36px;text-decoration:none;cursor:none;transition:all 0.3s;font-weight:500}
+.cta-btn:hover{transform:translateY(-2px)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){nav{padding:14px 20px}.hero{padding:100px 20px 60px}.hero-content{padding:0}.content-grid-2,.checklist-grid{grid-template-columns:1fr}.audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta{padding-left:20px;padding-right:20px}.arch-nav{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="/" class="nav-logo"><span>Archetype</span> Academy</a>
+  <span class="nav-num">10 / 12</span>
+  <a href="/" class="nav-back">← Toate arhetipurile</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-num">Arhetipul 10 · Suflet · Cunoaștere</span>
+    <span class="hero-emoji">🦉</span>
+    <h1>Înțeleptul</h1>
+    <div class="hero-subtitle">Cel care caută adevărul dincolo de aparențe</div>
+    <p class="hero-motto">ÎNȚELEPTUL este acea voce interioară profundă care dorește cu disperare să înțeleagă lumea și să descopere adevărul obiectiv. Este căutătorul neobosit de cunoaștere care preferă mereu claritatea în locul haosului și informația corectă în locul iluziilor confortabile.</p>
+    <div class="profile-pills">
+      <span class="pill group">Suflet · Cunoaștere</span>
+      <span class="pill desire">💚 Dorință: Să înțeleagă lumea și să descopere adevărul</span>
+      <span class="pill fear">⚠ Teamă: De ignoranță și de a fi înșelat</span>
+    </div>
+  </div>
+</section>
+
+<section class="audio-section">
+  <span class="section-label">Podcast · Episodul Înțeleptului</span>
+  <div class="audio-player-card">
+    <div class="audio-icon" onclick="toggleAudio()" id="audioBtn">▶</div>
+    <div class="audio-info">
+      <div class="audio-title">Arhetipul Înțeleptului</div>
+      <div class="audio-sub">Ghidul tău prietenos pentru a descoperi vocea rațiunii și a cunoașterii din tine · NotebookLM</div>
+      <div class="audio-progress" id="progressBar" onclick="seekAudio(event)"><div class="audio-progress-fill" id="progressFill"></div></div>
+      <div class="audio-controls"><span class="audio-time" id="currentTime">0:00</span><span class="audio-time" style="color:var(--text3)">·</span><span class="audio-time" id="totalTime">--:--</span></div>
+    </div>
+    <audio id="audioPlayer" src="/static/audio/inteleptul.m4a" preload="metadata"></audio>
+  </div>
+</section>
+
+<section class="slides-section">
+  <span class="section-label" style="padding:0 0 16px">Prezentarea vizuală · 12 slide-uri</span>
+  <div class="slides-slider">
+    <div class="slides-track" id="slidesTrack">
+
+      <!-- S1 Cover -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e 0%,#0a1220 100%);flex-direction:column;align-items:center;justify-content:center;padding:5%">
+        <div style="font-size:clamp(40px,7vw,90px);margin-bottom:5%;filter:drop-shadow(0 0 30px rgba(201,169,110,0.6))">🏮</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(18px,4vw,54px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:3%">Faceți cunoștință cu ÎNȚELEPTUL</div>
+        <div style="font-size:clamp(10px,1.7vw,20px);color:rgba(255,255,255,0.6);text-align:center;font-weight:300;max-width:70%">Ghidul tău prietenos pentru a descoperi și înțelege vocea rațiunii și a cunoașterii din tine.</div>
+      </div>
+
+      <!-- S2 Ce e arhetip -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#0a1220);flex-direction:column;padding:4% 6%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:5%;width:100%">Ce este, de fapt, un arhetip?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
+          <div style="background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.3);border-radius:8px;padding:5%">
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">Sistemul de Operare</div>
+            <div style="font-size:clamp(9px,1.3vw,14px);color:rgba(255,255,255,0.7);line-height:1.6;font-weight:300">Arhetipurile sunt programele de bază universale ale psihicului uman, descrise de Carl Jung. Toți avem același sistem de bază, dar fiecare îl personalizează diferit. Astăzi explorăm arhivarul cunoașterii: Înțeleptul.</div>
+          </div>
+          <div style="background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.2);border-radius:8px;padding:5%">
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">Aplicațiile Tale</div>
+            <div style="font-size:clamp(9px,1.3vw,14px);color:rgba(255,255,255,0.7);line-height:1.6;font-weight:300">Cărțile citite, întrebările puse, documentarele vizionate, conversațiile profunde — toate acestea sunt „aplicațiile" prin care Înțeleptul din tine se manifestă și crește.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3 Cine e -->
+      <div class="hslide" style="background:linear-gradient(135deg,#c8a96e20,#f5e8c0);flex-direction:column;align-items:center;justify-content:center;padding:5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2vw,24px);color:#8B6914;margin-bottom:5%;font-weight:400">Pe scurt despre ÎNȚELEPT</div>
+        <div style="background:rgba(200,169,110,0.15);border:2px solid rgba(139,105,20,0.3);border-radius:8px;padding:6% 8%;max-width:85%;text-align:center;position:relative">
+          <div style="font-size:clamp(24px,4vw,54px);color:rgba(139,105,20,0.3);font-family:Georgia,serif;position:absolute;top:2%;left:3%;line-height:1">"</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,2vw,26px);color:#3d2800;line-height:1.5;font-weight:400">ÎNȚELEPTUL este acea voce interioară profundă care dorește cu disperare să înțeleagă lumea și să descopere adevărul obiectiv. Este căutătorul neobosit de cunoaștere care preferă mereu claritatea în locul haosului și informația corectă în locul iluziilor confortabile.</div>
+          <div style="font-size:clamp(24px,4vw,54px);color:rgba(139,105,20,0.3);font-family:Georgia,serif;position:absolute;bottom:2%;right:3%;line-height:1">"</div>
+          <div style="margin-top:4%;font-size:clamp(14px,2.5vw,32px)">📚</div>
+        </div>
+      </div>
+
+      <!-- S4 Trăsături -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#0a1220);flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:5%;width:100%">Trăsăturile principale (Fără termeni complicați)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%;width:100%;border:1px solid rgba(201,169,110,0.3)">
+          <div style="padding:4% 5%;border-right:1px solid rgba(201,169,110,0.3);border-bottom:1px solid rgba(201,169,110,0.3)">
+            <div style="font-size:clamp(20px,3vw,36px);margin-bottom:2%">🔍</div>
+            <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,1.8vw,22px);font-weight:700;color:#C9A96E;margin-bottom:2%">Curiozitate nesfârșită</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Dorința de a învăța mereu ceva nou, de a citi și de a cerceta. Se simte viu când descoperă un concept nou.</div>
+          </div>
+          <div style="padding:4% 5%;border-bottom:1px solid rgba(201,169,110,0.3)">
+            <div style="font-size:clamp(20px,3vw,36px);margin-bottom:2%">⚖️</div>
+            <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,1.8vw,22px);font-weight:700;color:#C9A96E;margin-bottom:2%">Obiectivitate</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Capacitatea de a vedea lucrurile așa cum sunt, lăsând emoțiile deoparte. Judecă situațiile cu răceală analitică.</div>
+          </div>
+          <div style="padding:4% 5%;border-right:1px solid rgba(201,169,110,0.3)">
+            <div style="font-size:clamp(20px,3vw,36px);margin-bottom:2%">💧</div>
+            <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,1.8vw,22px);font-weight:700;color:#C9A96E;margin-bottom:2%">Calm</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">O atitudine liniștită, stabilă, chiar și atunci când lucrurile din jur devin agitate. Nu reacționează impulsiv.</div>
+          </div>
+          <div style="padding:4% 5%">
+            <div style="font-size:clamp(20px,3vw,36px);margin-bottom:2%">🔷</div>
+            <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,1.8vw,22px);font-weight:700;color:#C9A96E;margin-bottom:2%">Gândire analitică</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Talentul de a lega informații aparent diferite pentru a vedea imaginea de ansamblu.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S5 Motivație -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#0a1220);flex-direction:row;align-items:stretch">
+        <div style="flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:4%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;line-height:1.2">Ce își dorește cel mai mult? (Motivația profundă)</div>
+          <div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.7);line-height:1.7;font-weight:300">Înțeleptul nu caută puterea sau dragostea — caută <strong style="color:#C9A96E">adevărul</strong>. Dorința sa profundă este să înțeleagă cum funcționează lumea cu adevărat, să descopere tiparele ascunse în spatele haosului aparent și să poată oferi celorlalți perspective clare, fără distorsiuni emoționale.</div>
+          <div style="background:rgba(201,169,110,0.1);border-left:3px solid #C9A96E;padding:4%;font-family:'Playfair Display',serif;font-size:clamp(10px,1.5vw,18px);font-style:italic;color:#C9A96E">Frică fundamentală: De ignoranță, de a fi înșelat sau de a trăi în iluzie.</div>
+        </div>
+        <div style="width:35%;display:flex;align-items:center;justify-content:center;background:rgba(201,169,110,0.05);border-left:1px solid rgba(201,169,110,0.2)">
+          <div style="font-size:clamp(60px,10vw,130px)">🦉</div>
+        </div>
+      </div>
+
+      <!-- S6 Comportament -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#0a1220);flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:5%;width:100%">Înțeleptul în viața de zi cu zi</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5% 4%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:3%">
+            <div style="font-size:clamp(20px,3.5vw,44px)">📰</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px)">Verifică faptele</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Verifică instinctiv faptele atunci când cineva îi spune o știre senzațională. Nu acceptă nimic fără dovezi.</div>
+          </div>
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5% 4%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:3%">
+            <div style="font-size:clamp(20px,3.5vw,44px)">💬</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px)">Conversații profunde</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Se plictisesc discuțiile mărunte și preferă conversațiile profunde, despre cum funcționează lumea.</div>
+          </div>
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5% 4%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:3%">
+            <div style="font-size:clamp(20px,3.5vw,44px)">🤔</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px)">Sfatul obiectiv</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Prietenii vin adesea la el nu pentru o îmbrățișare, ci pentru un sfat obiectiv și o perspectivă clară.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S7 Lumina -->
+      <div class="hslide" style="background:linear-gradient(135deg,#c8a96e15,#f5e8c0);flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#3d2800;text-align:center;margin-bottom:4%;width:100%">Partea Luminoasă: Darurile ÎNȚELEPTULUI</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
+          <div style="background:white;border-radius:8px;padding:5%;text-align:center;box-shadow:0 2px 10px rgba(139,105,20,0.1);border:1px solid rgba(139,105,20,0.2)">
+            <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,1.8vw,22px);font-weight:700;color:#3d2800;margin-bottom:3%">Înțelepciunea</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#6b4e1a;line-height:1.6;font-weight:300">Oamenii vin la el pentru că oferă perspective profunde și sfaturi excelente, lipsite de prejudecăți.</div>
+          </div>
+          <div style="background:white;border-radius:8px;padding:5%;text-align:center;box-shadow:0 2px 10px rgba(139,105,20,0.1);border:1px solid rgba(139,105,20,0.2)">
+            <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,1.8vw,22px);font-weight:700;color:#3d2800;margin-bottom:3%">Calmul în criză</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#6b4e1a;line-height:1.6;font-weight:300">Când toți ceilalți intră în panică, el rămâne o ancoră stabilă, concentrându-se pe soluții logice, nu pe dramă.</div>
+          </div>
+          <div style="background:white;border-radius:8px;padding:5%;text-align:center;box-shadow:0 2px 10px rgba(139,105,20,0.1);border:1px solid rgba(139,105,20,0.2)">
+            <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,1.8vw,22px);font-weight:700;color:#3d2800;margin-bottom:3%">Capacitatea de sinteză</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:#6b4e1a;line-height:1.6;font-weight:300">Are superputerea de a lua o cantitate uriașă de informații complicate și de a o explica simplu, pe înțelesul tuturor.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S8 Umbra -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#0a1220);flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;margin-bottom:2%;width:100%">Partea de Umbră: Riscuri și Excese</div>
+        <div style="font-size:clamp(8px,1.2vw,14px);color:rgba(255,255,255,0.5);margin-bottom:4%;font-weight:300">Când curiozitatea și rațiunea scapă de sub control:</div>
+        <div style="display:flex;flex-direction:column;gap:3%;width:100%">
+          <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#f87171;margin-bottom:1%">⚠ Răceala emoțională</div><div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Poate părea distant sau inaccesibil emoțional. Oamenii simt că le vorbește „de sus", analizând în loc să simtă alături de ei.</div></div>
+          <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#f87171;margin-bottom:1%">⚠ Paralizia prin analiză</div><div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Poate amâna deciziile la infinit pentru că vrea mereu mai multe date. Analizează totul până pierde momentul acțiunii.</div></div>
+          <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#f87171;margin-bottom:1%">⚠ Dogmatismul</div><div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Poate deveni rigid în convingerile sale „bazate pe fapte", respingând perspectivele emoționale sau intuitive ca iraționale.</div></div>
+        </div>
+      </div>
+
+      <!-- S9 Pop culture -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#0a1220);flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:4%;width:100%">Înțeleptul în Cultura Pop și Branding</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5% 4%;text-align:center">
+            <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">🧙</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Gandalf / Dumbledore</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Bătrânul înțelept care ghidează eroii cu sfaturi precise și perspective care depășesc înțelegerea obișnuită.</div>
+          </div>
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5% 4%;text-align:center">
+            <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">📖</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Sherlock Holmes</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Mintea analitică pură. Vede conexiuni invizibile pentru alții și rezolvă mistere prin rațiune, nu prin forță.</div>
+          </div>
+          <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:5% 4%;text-align:center">
+            <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">🔬</div>
+            <div style="font-weight:700;color:#C9A96E;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">National Geographic / TED</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Branduri construite pe promisiunea cunoașterii profunde și a descoperirii. Vând satisfacția înțelegerii.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S10 Citat -->
+      <div class="hslide" style="background:linear-gradient(135deg,#1a1000,#2a1800);flex-direction:column;align-items:center;justify-content:center;padding:6%">
+        <div style="font-size:clamp(24px,4vw,54px);color:rgba(201,169,110,0.3);font-family:Georgia,serif;line-height:0.8;margin-bottom:4%">"</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.8vw,38px);font-weight:700;color:#C9A96E;text-align:center;line-height:1.4;max-width:85%">Cunoașterea fără înțelepciune este periculoasă. Înțelepciunea fără compasiune este rece.</div>
+        <div style="font-size:clamp(24px,4vw,54px);color:rgba(201,169,110,0.3);font-family:Georgia,serif;line-height:0.8;margin-top:4%">"</div>
+        <div style="margin-top:4%;font-size:clamp(10px,1.4vw,16px);color:rgba(201,169,110,0.5);font-weight:300">— Esența Arhetipului Înțeleptului</div>
+      </div>
+
+      <!-- S11 Checklist -->
+      <div class="hslide" style="background:linear-gradient(135deg,#1a1000,#2a1800);flex-direction:column;padding:4% 5%">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;margin-bottom:2%;width:100%">Semne practice: Cum îl recunoști în tine sau în alții?</div>
+        <div style="font-size:clamp(8px,1.2vw,14px);color:rgba(201,169,110,0.6);margin-bottom:4%;font-weight:300;font-style:italic">Ai un ÎNȚELEPT puternic activat dacă...</div>
+        <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.2);border-radius:8px;padding:4% 5%;width:100%;display:flex;flex-direction:column;gap:4%">
+          <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);background:rgba(201,169,110,0.2);border-radius:50%;border:1px solid #C9A96E;margin-top:1%"></div><div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.8);line-height:1.5;font-weight:300">...verifici instinctiv faptele atunci când cineva îți spune o știre senzațională.</div></div>
+          <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);background:rgba(201,169,110,0.2);border-radius:50%;border:1px solid #C9A96E;margin-top:1%"></div><div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.8);line-height:1.5;font-weight:300">...te plictisesc discuțiile mărunte și preferi conversațiile profunde, despre cum funcționează lumea.</div></div>
+          <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);background:rgba(201,169,110,0.2);border-radius:50%;border:1px solid #C9A96E;margin-top:1%"></div><div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.8);line-height:1.5;font-weight:300">...prietenii vin adesea la tine nu pentru o îmbrățișare, ci pentru un sfat obiectiv și o perspectivă clară.</div></div>
+          <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);background:rgba(201,169,110,0.2);border-radius:50%;border:1px solid #C9A96E;margin-top:1%"></div><div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.8);line-height:1.5;font-weight:300">...îți găsești liniștea citind o carte, vizionând un documentar sau pur și simplu stând pe gânduri, în tăcere.</div></div>
+        </div>
+      </div>
+
+      <!-- S12 Final -->
+      <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#0a1220);flex-direction:column;align-items:center;justify-content:center;padding:5%">
+        <div style="font-size:clamp(40px,7vw,90px);margin-bottom:5%;filter:drop-shadow(0 0 30px rgba(201,169,110,0.5))">🏮</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,3vw,40px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:4%">Lumina cunoașterii</div>
+        <div style="font-size:clamp(10px,1.5vw,17px);color:rgba(255,255,255,0.6);text-align:center;line-height:1.7;max-width:75%;font-weight:300">Înțeleptul ne amintește că înțelegerea lumii este o călătorie fără sfârșit, nu o destinație. Fiecare răspuns descoperit deschide zece noi întrebări — și asta este exact frumusețea.</div>
+        <div style="margin-top:5%;font-family:'Playfair Display',serif;font-size:clamp(12px,2vw,22px);font-weight:700;color:#C9A96E;text-align:center">Tu ce întrebare te mână astăzi înainte?</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="slider-btn" onclick="prevHSlide()">← Anterior</button>
+    <div class="slider-dots" id="sliderDots"></div>
+    <button class="slider-btn" onclick="nextHSlide()">Următor →</button>
+  </div>
+  <div style="text-align:center;margin-top:8px"><span class="slider-counter" id="sliderCounter">1 / 12</span></div>
+</section>
+
+<section class="content-section">
+  <span class="section-label">Profilul Înțeleptului</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Curiozitate, obiectivitate<br>și căutarea adevărului</h2>
+  <div class="content-grid-2" style="margin-bottom:24px">
+    <div class="content-card light"><span class="card-icon">🔍</span><div class="card-title gold">Curiozitate nesfârșită</div><p class="card-text">Dorința de a învăța mereu ceva nou, de a citi și de a cerceta. Se simte viu când descoperă un concept nou.</p></div>
+    <div class="content-card light"><span class="card-icon">⚖️</span><div class="card-title gold">Obiectivitate</div><p class="card-text">Capacitatea de a vedea lucrurile așa cum sunt, lăsând emoțiile deoparte. Judecă situațiile cu răceală analitică.</p></div>
+    <div class="content-card light"><span class="card-icon">💧</span><div class="card-title gold">Calm</div><p class="card-text">O atitudine liniștită și stabilă chiar și atunci când lucrurile din jur devin agitate sau haotice.</p></div>
+    <div class="content-card light"><span class="card-icon">🔷</span><div class="card-title gold">Gândire analitică</div><p class="card-text">Talentul de a lega informații aparent diferite pentru a vedea imaginea de ansamblu și tiparele ascunse.</p></div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="key-quote">
+    <div class="key-quote-text">Cunoașterea fără înțelepciune este periculoasă. Înțelepciunea fără compasiune este rece.</div>
+    <div class="key-quote-label">Propoziția-cheie a Înțeleptului</div>
+  </div>
+</section>
+
+<section class="content-section" style="padding-top:0">
+  <span class="section-label">Lumină și Umbră</span>
+  <div class="content-grid-2">
+    <div class="content-card light">
+      <div class="card-title gold" style="margin-bottom:20px">✨ Superputerile</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Înțelepciunea</div><p class="card-text">Oamenii vin la el pentru perspective profunde și sfaturi excelente, lipsite de prejudecăți.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Calmul în criză</div><p class="card-text">Când toți intră în panică, el rămâne o ancoră stabilă, concentrat pe soluții logice.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Capacitatea de sinteză</div><p class="card-text">Ia informații complicate și le explică simplu, pe înțelesul tuturor.</p></div>
+      </div>
+    </div>
+    <div class="content-card shadow-card">
+      <div class="card-title red" style="margin-bottom:20px">🌑 Riscurile</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Răceala emoțională</div><p class="card-text">Poate părea distant sau inaccesibil emoțional, analizând în loc să simtă alături de ceilalți.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Paralizia prin analiză</div><p class="card-text">Amână deciziile la infinit pentru că vrea mereu mai multe date și certitudini.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Dogmatismul</div><p class="card-text">Poate deveni rigid, respingând perspectivele emoționale sau intuitive ca iraționale.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="checklist-section">
+  <span class="section-label">Oglinda · Autoreflecție</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.1">Cât de puternic este Înțeleptul în tine?</h2>
+  <p style="font-size:14px;color:var(--text2);font-weight:300;margin-bottom:32px;max-width:500px;line-height:1.7">Bifează întrebările care ți se potrivesc și descoperă rezonanța ta cu Înțeleptul.</p>
+  <div class="checklist-grid" id="checklist">
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Verifici instinctiv faptele când cineva îți spune o știre senzațională sau o afirmație surprinzătoare?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Te plictisesc discuțiile superficiale și preferi conversațiile profunde despre idei și concepte?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Prietenii vin la tine pentru sfaturi obiective și perspective clare, nu pentru consolare emoțională?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Îți găsești liniștea citind, studiind sau stând pe gânduri în tăcere?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Ești deranjat când oamenii iau decizii pe baza emoțiilor, fără să analizeze faptele?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Îți place să înțelegi nu doar CE s-a întâmplat, ci DE CE — cauzele profunde din spatele evenimentelor?</div></div>
+  </div>
+  <div class="checklist-result" id="checklistResult">
+    <div class="checklist-score" id="checkScore">0</div>
+    <div class="checklist-score-label">din 6 · Rezonanță cu Înțeleptul</div>
+    <div class="checklist-verdict" id="checkVerdict">Bifează întrebările de mai sus pentru a vedea cât de puternic este Înțeleptul în tine.</div>
+  </div>
+</section>
+
+<div class="arch-nav">
+  <a href="/arhetip/magicianul" class="arch-nav-link">
+    <span class="arch-nav-dir">← Arhetipul anterior</span>
+    <span class="arch-nav-name">✨ Magicianul</span>
+  </a>
+  <a href="/arhetip/conducatorul" class="arch-nav-link" style="align-items:flex-end">
+    <span class="arch-nav-dir">Arhetipul următor →</span>
+    <span class="arch-nav-name right">👑 Conducătorul</span>
+  </a>
+</div>
+
+<div class="arch-cta">
+  <h3>Vrei să analizezi Înțeleptul în discursul tău?</h3>
+  <p>TEDx SpeakerLab identifică arhetipul dominant din textul tău, scorul de autenticitate arhetipală și dinamica umbrei.</p>
+  <a href="https://tedx-speakerlab2.onrender.com" target="_blank" class="cta-btn">Încearcă SpeakerLab →</a>
+</div>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+function animCursor(){cursor.style.left=(mx-4)+'px';cursor.style.top=(my-4)+'px';rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=(rx-16)+'px';ring.style.top=(ry-16)+'px';requestAnimationFrame(animCursor);}
+animCursor();
+const audio=document.getElementById('audioPlayer'),btn=document.getElementById('audioBtn'),fill=document.getElementById('progressFill'),curr=document.getElementById('currentTime'),total=document.getElementById('totalTime');
+function toggleAudio(){if(audio.paused){audio.play();btn.textContent='⏸';}else{audio.pause();btn.textContent='▶';}}
+function formatTime(s){const m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+audio.addEventListener('timeupdate',()=>{if(audio.duration){fill.style.width=(audio.currentTime/audio.duration*100)+'%';curr.textContent=formatTime(audio.currentTime);}});
+audio.addEventListener('loadedmetadata',()=>{total.textContent=formatTime(audio.duration);});
+audio.addEventListener('ended',()=>{btn.textContent='▶';});
+function seekAudio(e){const bar=document.getElementById('progressBar');const rect=bar.getBoundingClientRect();const pct=(e.clientX-rect.left)/rect.width;if(audio.duration)audio.currentTime=pct*audio.duration;}
+const TOTAL=12;let cur=0;
+const track=document.getElementById('slidesTrack'),dots=document.getElementById('sliderDots'),counter=document.getElementById('sliderCounter');
+for(let i=0;i<TOTAL;i++){const d=document.createElement('div');d.className='slider-dot'+(i===0?' active':'');d.onclick=()=>goTo(i);dots.appendChild(d);}
+function goTo(i){cur=i;track.style.transform=`translateX(-${i*100}%)`;document.querySelectorAll('.slider-dot').forEach((d,j)=>d.className='slider-dot'+(j===i?' active':''));counter.textContent=`${i+1} / ${TOTAL}`;}
+function nextHSlide(){goTo((cur+1)%TOTAL);}
+function prevHSlide(){goTo((cur-1+TOTAL)%TOTAL);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextHSlide();if(e.key==='ArrowLeft')prevHSlide();});
+let tx=0;track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){dx<0?nextHSlide():prevHSlide();}});
+const verdicts=['Înțeleptul doarme. Dar curiozitatea e acolo, în adânc.','O scânteie de cunoaștere. Înțeleptul se trezește.','Mintea se ascute. Înțeleptul lucrează în interior.','Înțeleptul este activ — cauți adevărul cu claritate.','Înțeleptul este dominant. Perspectivele tale sunt valoroase.','Înțeleptul te definește. Ești ancora de rațiune din jurul tău.','Înțelept pur. Lumina cunoașterii tale ghidează pe alții.'];
+function toggleCheck(el){el.classList.toggle('checked');const checked=document.querySelectorAll('.checklist-item.checked').length;document.getElementById('checkScore').textContent=checked;document.getElementById('checkVerdict').textContent=verdicts[checked];document.getElementById('checklistResult').style.borderColor=checked>3?'rgba(201,169,110,0.5)':checked>1?'rgba(201,169,110,0.3)':'var(--border)';}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
+document.querySelectorAll('.content-card,.checklist-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
+</script>
+</body>
+</html>
