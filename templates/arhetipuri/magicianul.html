@@ -67,454 +67,309 @@ nav {
     radial-gradient(ellipse 50% 40% at 20% 30%, rgba(201,169,110,0.06) 0%, transparent 60%),
     radial-gradient(ellipse 40% 50% at 50% 80%, rgba(124,58,237,0.06) 0%, transparent 60%);
 }
-
-/* Geometric sacred pattern */
 .hero-geo {
-  position: absolute;
-  right: -5%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 55%;
-  aspect-ratio: 1;
-  opacity: 0.12;
+  position: absolute; right: -5%; top: 50%; transform: translateY(-50%);
+  width: 55%; aspect-ratio: 1; opacity: 0.12;
 }
-
 .hero-content {
-  position: relative;
-  padding: 0 10% 0 8%;
-  max-width: 600px;
-  z-index: 1;
+  position: relative; padding: 0 10% 0 8%; max-width: 600px; z-index: 1;
 }
-.hero-num {
-  font-family:'DM Mono',monospace;
-  font-size:11px;
-  letter-spacing:0.25em;
-  color:var(--magic2);
-  margin-bottom:20px;
-  display:block;
-  opacity:0;
-  animation: fadeUp 0.8s 0.2s forwards;
-}
-.hero-emoji {
-  font-size:72px;
-  display:block;
-  margin-bottom:20px;
-  opacity:0;
-  animation: fadeUp 0.8s 0.3s forwards;
-  filter: drop-shadow(0 0 30px rgba(124,58,237,0.5));
-}
-.hero h1 {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(56px,8vw,96px);
-  font-weight:900;
-  line-height:0.95;
-  letter-spacing:-0.02em;
-  color:var(--text);
-  margin-bottom:8px;
-  opacity:0;
-  animation: fadeUp 0.8s 0.4s forwards;
-}
-.hero-subtitle {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(16px,2vw,22px);
-  font-style:italic;
-  color:var(--gold);
-  margin-bottom:32px;
-  opacity:0;
-  animation: fadeUp 0.8s 0.5s forwards;
-}
-.hero-motto {
-  font-size:15px;
-  color:var(--text2);
-  font-weight:300;
-  line-height:1.8;
-  margin-bottom:48px;
-  border-left:2px solid var(--magic);
-  padding-left:20px;
-  opacity:0;
-  animation: fadeUp 0.8s 0.6s forwards;
-}
-
-/* PROFILE PILLS */
-.profile-pills {
-  display:flex; flex-wrap:wrap; gap:10px;
-  margin-bottom:40px;
-  opacity:0;
-  animation: fadeUp 0.8s 0.7s forwards;
-}
-.pill {
-  font-family:'DM Mono',monospace;
-  font-size:9px;
-  letter-spacing:0.15em;
-  text-transform:uppercase;
-  padding:6px 16px;
-  border:1px solid var(--border2);
-  color:var(--text2);
-}
+.hero-num { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.25em; color:var(--magic2); margin-bottom:20px; display:block; opacity:0; animation: fadeUp 0.8s 0.2s forwards; }
+.hero-emoji { font-size:72px; display:block; margin-bottom:20px; opacity:0; animation: fadeUp 0.8s 0.3s forwards; filter: drop-shadow(0 0 30px rgba(124,58,237,0.5)); }
+.hero h1 { font-family:'Playfair Display',serif; font-size:clamp(56px,8vw,96px); font-weight:900; line-height:0.95; letter-spacing:-0.02em; color:var(--text); margin-bottom:8px; opacity:0; animation: fadeUp 0.8s 0.4s forwards; }
+.hero-subtitle { font-family:'Playfair Display',serif; font-size:clamp(16px,2vw,22px); font-style:italic; color:var(--gold); margin-bottom:32px; opacity:0; animation: fadeUp 0.8s 0.5s forwards; }
+.hero-motto { font-size:15px; color:var(--text2); font-weight:300; line-height:1.8; margin-bottom:48px; border-left:2px solid var(--magic); padding-left:20px; opacity:0; animation: fadeUp 0.8s 0.6s forwards; }
+.profile-pills { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:40px; opacity:0; animation: fadeUp 0.8s 0.7s forwards; }
+.pill { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; padding:6px 16px; border:1px solid var(--border2); color:var(--text2); }
 .pill.desire { border-color:rgba(34,197,94,0.4); color:#4ade80; }
 .pill.fear { border-color:rgba(239,68,68,0.3); color:#f87171; }
 .pill.group { border-color:rgba(124,58,237,0.4); color:var(--magic2); }
 
-/* AUDIO PLAYER */
-.audio-section {
-  padding: 80px 8%;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-.section-label {
-  font-family:'DM Mono',monospace;
-  font-size:9px;
-  letter-spacing:0.25em;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:16px;
-  display:block;
-}
-.audio-player-card {
-  background:var(--bg2);
-  border:1px solid var(--border);
-  padding:32px;
-  display:flex;
-  align-items:center;
-  gap:28px;
-  position:relative;
-  overflow:hidden;
-}
-.audio-player-card::before {
-  content:'';
-  position:absolute;
-  top:0; left:0; right:0;
-  height:2px;
-  background:linear-gradient(90deg, var(--magic), var(--gold));
-}
-.audio-icon {
-  width:64px; height:64px;
-  background:var(--magic-glow);
-  border:1px solid rgba(124,58,237,0.3);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  flex-shrink:0;
-  cursor:none;
-  transition:all 0.3s;
-}
+/* AUDIO */
+.audio-section { padding: 80px 8%; max-width: 1000px; margin: 0 auto; }
+.section-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:block; }
+.audio-player-card { background:var(--bg2); border:1px solid var(--border); padding:32px; display:flex; align-items:center; gap:28px; position:relative; overflow:hidden; }
+.audio-player-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--magic), var(--gold)); }
+.audio-icon { width:64px; height:64px; background:var(--magic-glow); border:1px solid rgba(124,58,237,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; cursor:none; transition:all 0.3s; }
 .audio-icon:hover { background:rgba(124,58,237,0.25); transform:scale(1.05); }
 .audio-info { flex:1; }
-.audio-title {
-  font-family:'Playfair Display',serif;
-  font-size:18px;
-  font-weight:700;
-  color:var(--text);
-  margin-bottom:4px;
-}
+.audio-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--text); margin-bottom:4px; }
 .audio-sub { font-size:12px; color:var(--text2); font-weight:300; margin-bottom:16px; }
-.audio-progress {
-  width:100%;
-  height:2px;
-  background:var(--border2);
-  position:relative;
-  cursor:pointer;
-}
-.audio-progress-fill {
-  height:100%;
-  background:linear-gradient(90deg, var(--magic), var(--gold));
-  width:0%;
-  transition:width 0.1s;
-}
-.audio-controls {
-  display:flex; align-items:center; gap:16px; margin-top:12px;
-}
+.audio-progress { width:100%; height:2px; background:var(--border2); position:relative; cursor:pointer; }
+.audio-progress-fill { height:100%; background:linear-gradient(90deg, var(--magic), var(--gold)); width:0%; transition:width 0.1s; }
+.audio-controls { display:flex; align-items:center; gap:16px; margin-top:12px; }
 .audio-time { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); }
-.audio-player { display:none; }
 
-/* SLIDES GALLERY */
+/* ═══════════════════════════════════════════
+   SLIDES SECTION — HTML-rendered slides
+═══════════════════════════════════════════ */
 .slides-section {
   padding: 0 8% 80px;
   max-width: 1200px;
   margin: 0 auto;
 }
-.slides-gallery {
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:2px;
+
+/* Slider wrapper */
+.slides-slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #08091a;
+  border: 1px solid var(--border);
 }
-.slide-thumb {
-  aspect-ratio:16/9;
-  overflow:hidden;
-  cursor:none;
-  position:relative;
-  background:var(--bg2);
+.slides-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.77,0,0.18,1);
 }
-.slide-thumb img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:transform 0.4s, filter 0.4s;
-  filter:brightness(0.85);
+
+/* Individual slide */
+.hslide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #08091a 0%, #0d1030 60%, #080920 100%);
+  font-family: 'Outfit', sans-serif;
 }
-.slide-thumb:hover img { transform:scale(1.03); filter:brightness(1); }
-.slide-thumb-num {
-  position:absolute;
-  bottom:8px; right:10px;
+
+/* Shared decorative bg for slides */
+.hslide-bg-geo {
+  position: absolute; inset:0; pointer-events:none;
+  opacity: 0.07;
+}
+
+/* Slide controls */
+.slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 0 4px;
+}
+.slider-btn {
   font-family:'DM Mono',monospace;
-  font-size:9px;
-  color:rgba(255,255,255,0.4);
-  letter-spacing:0.1em;
-}
-
-/* FULLSCREEN LIGHTBOX */
-.lightbox {
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.95);
-  z-index:1000;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-}
-.lightbox.open { display:flex; }
-.lightbox img { max-width:90vw; max-height:85vh; object-fit:contain; }
-.lightbox-close {
-  position:absolute; top:20px; right:24px;
-  font-family:'DM Mono',monospace; font-size:11px;
-  color:var(--text2); cursor:none; letter-spacing:0.1em;
-  transition:color 0.2s;
-}
-.lightbox-close:hover { color:var(--gold); }
-.lightbox-nav {
-  display:flex; gap:20px; margin-top:16px;
-}
-.lightbox-btn {
-  font-family:'DM Mono',monospace; font-size:10px;
-  color:var(--text2); cursor:none; letter-spacing:0.15em;
-  border:1px solid var(--border2); padding:8px 20px;
-  background:none; transition:all 0.2s;
-}
-.lightbox-btn:hover { border-color:var(--gold); color:var(--gold); }
-
-/* CONTENT SECTIONS */
-.content-section {
-  padding: 80px 8%;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-.content-section + .content-section {
-  border-top: 1px solid var(--border);
-}
-
-.content-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
-.content-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-
-.content-card {
-  background:var(--bg2);
-  border:1px solid var(--border);
-  padding:28px 24px;
-  position:relative;
-  overflow:hidden;
-  transition:border-color 0.3s;
-}
-.content-card:hover { border-color:var(--border2); }
-
-.content-card.light::before {
-  content:'';
-  position:absolute;
-  top:0; left:0; right:0;
-  height:2px;
-  background:linear-gradient(90deg, #c9a96e, transparent);
-}
-.content-card.shadow-card::before {
-  content:'';
-  position:absolute;
-  top:0; left:0; right:0;
-  height:2px;
-  background:linear-gradient(90deg, #7f1d1d, transparent);
-}
-
-.card-icon { font-size:28px; margin-bottom:12px; display:block; }
-.card-title {
-  font-family:'Playfair Display',serif;
-  font-size:18px;
-  font-weight:700;
-  color:var(--text);
-  margin-bottom:8px;
-}
-.card-title.gold { color:var(--gold); }
-.card-title.red { color:#f87171; }
-.card-text { font-size:13px; color:var(--text2); line-height:1.7; font-weight:300; }
-
-/* KEY QUOTE */
-.key-quote {
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-left:3px solid var(--gold);
-  padding:40px;
-  margin:40px 0;
-  text-align:center;
-}
-.key-quote-text {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(24px,3.5vw,40px);
-  font-style:italic;
-  color:var(--gold);
-  line-height:1.3;
-  margin-bottom:12px;
-}
-.key-quote-label {
-  font-family:'DM Mono',monospace;
-  font-size:9px;
-  letter-spacing:0.2em;
-  color:var(--text3);
-  text-transform:uppercase;
-}
-
-/* CHECKLIST */
-.checklist-section {
-  padding:80px 8%;
-  border-top:1px solid var(--border);
-  max-width:1000px;
-  margin:0 auto;
-}
-.checklist-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:32px 0; }
-.checklist-item {
-  display:flex;
-  align-items:flex-start;
-  gap:14px;
-  padding:20px;
-  background:var(--bg2);
-  border:1px solid var(--border);
-  cursor:none;
-  transition:all 0.3s;
-  position:relative;
-}
-.checklist-item:hover { border-color:rgba(201,169,110,0.3); }
-.checklist-item.checked { border-color:rgba(74,222,128,0.4); background:rgba(34,197,94,0.04); }
-.check-box {
-  width:20px; height:20px; flex-shrink:0;
+  font-size:10px;
+  letter-spacing:0.15em;
+  color:var(--text2);
+  background:none;
   border:1px solid var(--border2);
-  display:flex; align-items:center; justify-content:center;
-  font-size:11px; margin-top:2px;
-  transition:all 0.3s;
+  padding:8px 20px;
+  cursor:none;
+  transition:all 0.2s;
 }
-.checklist-item.checked .check-box { border-color:#4ade80; color:#4ade80; background:rgba(74,222,128,0.1); }
-.check-text { font-size:13px; color:var(--text2); line-height:1.6; font-weight:300; }
-
-.checklist-result {
-  padding:24px;
-  background:var(--bg2);
-  border:1px solid var(--border);
-  text-align:center;
-  transition:all 0.4s;
+.slider-btn:hover { border-color:var(--gold); color:var(--gold); }
+.slider-dots {
+  display:flex; gap:6px; align-items:center;
 }
-.checklist-score {
-  font-family:'Playfair Display',serif;
-  font-size:56px;
-  font-weight:900;
-  color:var(--gold);
-  line-height:1;
-  margin-bottom:8px;
+.slider-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--border2);
+  cursor:none;
+  transition:all 0.2s;
 }
-.checklist-score-label {
+.slider-dot.active { background:var(--gold); width:18px; border-radius:3px; }
+.slider-counter {
   font-family:'DM Mono',monospace;
   font-size:10px;
   color:var(--text3);
-  letter-spacing:0.15em;
-  margin-bottom:16px;
-}
-.checklist-verdict {
-  font-family:'Playfair Display',serif;
-  font-size:16px;
-  font-style:italic;
-  color:var(--text2);
-  line-height:1.6;
+  letter-spacing:0.1em;
 }
 
-/* NAVIGATION BETWEEN ARCHETYPES */
-.arch-nav {
-  padding:60px 8%;
-  border-top:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
+/* ── SLIDE 1: Title ── */
+.s1 { flex-direction:column; gap:0; }
+.s1 .s-gem {
+  width: 28%; max-width:200px;
+  margin-bottom: 5%;
+  filter: drop-shadow(0 0 40px rgba(201,169,110,0.5));
+  animation: gemPulse 4s ease-in-out infinite;
 }
-.arch-nav-link {
-  text-decoration:none;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  cursor:none;
-  transition:opacity 0.2s;
-  max-width:240px;
+@keyframes gemPulse { 0%,100%{filter:drop-shadow(0 0 30px rgba(201,169,110,0.4))} 50%{filter:drop-shadow(0 0 60px rgba(201,169,110,0.7))} }
+.s1 .s-title { font-family:'Playfair Display',serif; font-size:clamp(28px,5.5vw,72px); font-weight:900; color:#fff; text-align:center; letter-spacing:-0.01em; margin-bottom:1.5%; }
+.s1 .s-sub { font-family:'Outfit',sans-serif; font-size:clamp(11px,1.8vw,22px); color:rgba(255,255,255,0.7); text-align:center; font-weight:300; max-width:70%; }
+.s1 .s-badge { position:absolute; bottom:3%; right:3%; font-family:'DM Mono',monospace; font-size:clamp(7px,1vw,11px); color:rgba(255,255,255,0.25); letter-spacing:0.1em; }
+
+/* ── SLIDE 2: Smartphone metaphor ── */
+.s2 { flex-direction:column; padding:4% 5%; }
+.s2 .s-title { font-family:'Playfair Display',serif; font-size:clamp(16px,2.8vw,36px); font-weight:700; color:#fff; text-align:center; margin-bottom:5%; line-height:1.2; }
+.s2 .s2-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2%; width:100%; }
+.s2 .s2-phone-col { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6%; }
+.s2 .s2-phone {
+  width:55%; aspect-ratio:0.5/1;
+  background:linear-gradient(180deg,#1a1f3a,#0a0e22);
+  border:2px solid rgba(201,169,110,0.5);
+  border-radius:12px;
+  position:relative;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  overflow:hidden;
 }
+.s2 .s2-phone::before { content:'MAGICIANUL'; position:absolute; top:30%; font-family:'DM Mono',monospace; font-size:clamp(5px,0.8vw,9px); color:var(--gold); letter-spacing:0.1em; }
+.s2 .s2-phone::after { content:''; position:absolute; top:40%; left:50%; transform:translateX(-50%); width:40%; height:40%; background:radial-gradient(circle,rgba(201,169,110,0.5),transparent 70%); border-radius:50%; }
+.s2 .s2-label { font-family:'DM Mono',monospace; font-size:clamp(5px,0.8vw,9px); color:rgba(255,255,255,0.4); letter-spacing:0.1em; text-align:center; }
+.s2 .s2-box { background:rgba(201,169,110,0.08); border:1px solid rgba(201,169,110,0.3); padding:4% 6%; border-radius:4px; }
+.s2 .s2-box p { font-size:clamp(8px,1.2vw,14px); color:rgba(255,255,255,0.8); line-height:1.6; text-align:center; font-weight:300; }
+.s2 .s2-box p strong { color:var(--gold); font-weight:600; }
+.s2 .s2-bottom { grid-column:1/-1; background:rgba(201,169,110,0.06); border:1px solid rgba(201,169,110,0.2); padding:3% 4%; text-align:center; border-radius:4px; }
+.s2 .s2-bottom p { font-size:clamp(9px,1.3vw,15px); color:rgba(255,255,255,0.75); font-weight:300; }
+
+/* ── SLIDE 3: Big quote ── */
+.s3 { flex-direction:column; padding:5% 8%; align-items:flex-start; }
+.s3 .s-label { font-family:'Playfair Display',serif; font-size:clamp(12px,1.8vw,22px); color:var(--gold); margin-bottom:5%; font-weight:400; }
+.s3 .s-quote-mark { font-size:clamp(40px,7vw,90px); color:rgba(201,169,110,0.3); line-height:0.7; margin-bottom:3%; font-family:Georgia,serif; }
+.s3 .s-quote-text { font-family:'Playfair Display',serif; font-size:clamp(12px,2.2vw,28px); color:#fff; line-height:1.5; font-weight:400; max-width:85%; }
+.s3 .s-close-mark { align-self:flex-end; font-size:clamp(30px,5vw,70px); color:rgba(201,169,110,0.3); line-height:0.7; font-family:Georgia,serif; margin-top:2%; }
+
+/* ── SLIDE 4: Three traits ── */
+.s4 { flex-direction:column; padding:4% 5%; }
+.s4 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.5vw,32px); font-weight:700; color:var(--gold); text-align:center; margin-bottom:6%; }
+.s4 .s4-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3%; width:100%; }
+.s4 .s4-card { background:rgba(201,169,110,0.05); border:1px solid rgba(201,169,110,0.15); padding:6% 5%; display:flex; flex-direction:column; align-items:center; text-align:center; gap:8%; border-radius:4px; }
+.s4 .s4-icon { font-size:clamp(22px,3.5vw,48px); filter:drop-shadow(0 0 10px rgba(201,169,110,0.4)); }
+.s4 .s4-card-title { font-family:'Outfit',sans-serif; font-size:clamp(10px,1.4vw,18px); font-weight:700; color:#fff; }
+.s4 .s4-card-text { font-size:clamp(8px,1.1vw,13px); color:rgba(255,255,255,0.6); line-height:1.6; font-weight:300; }
+
+/* ── SLIDE 5: Motivation ── */
+.s5 { flex-direction:column; padding:4% 6%; align-items:center; }
+.s5 .s-icon-big { font-size:clamp(40px,8vw,100px); filter:drop-shadow(0 0 30px rgba(201,169,110,0.5)); margin-bottom:4%; }
+.s5 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.3vw,30px); font-weight:700; color:var(--gold); text-align:center; margin-bottom:4%; }
+.s5 .s-text { font-size:clamp(9px,1.4vw,17px); color:rgba(255,255,255,0.8); text-align:center; line-height:1.7; max-width:75%; font-weight:300; }
+
+/* ── SLIDE 6: Fear (text + image) ── */
+.s6 { flex-direction:row; align-items:stretch; }
+.s6 .s6-left { flex:1; padding:6% 5%; display:flex; flex-direction:column; justify-content:center; gap:5%; }
+.s6 .s6-right { width:42%; background:linear-gradient(135deg,#0d1525,#1a2a45); display:flex; align-items:center; justify-content:center; }
+.s6 .s6-right .s6-ripple { width:70%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle, rgba(201,169,110,0.25) 0%, rgba(201,169,110,0.05) 40%, transparent 70%); position:relative; display:flex; align-items:center; justify-content:center; }
+.s6 .s6-right .s6-ripple::before { content:''; position:absolute; inset:-15%; border-radius:50%; border:1px solid rgba(201,169,110,0.15); }
+.s6 .s6-right .s6-ripple::after { content:''; position:absolute; inset:-30%; border-radius:50%; border:1px solid rgba(201,169,110,0.08); }
+.s6 .s6-drop { font-size:clamp(24px,4vw,56px); }
+.s6 .s-label { font-family:'Playfair Display',serif; font-size:clamp(12px,1.8vw,22px); color:var(--gold); font-weight:400; }
+.s6 .s-title { font-family:'Playfair Display',serif; font-size:clamp(16px,2.8vw,36px); font-weight:700; color:#fff; line-height:1.2; }
+.s6 .s-text { font-size:clamp(9px,1.3vw,15px); color:rgba(255,255,255,0.7); line-height:1.7; font-weight:300; }
+
+/* ── SLIDE 7: Three contexts ── */
+.s7 { flex-direction:column; padding:4% 5%; }
+.s7 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.4vw,30px); font-weight:700; color:var(--gold); text-align:center; margin-bottom:5%; }
+.s7 .s7-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3%; width:100%; }
+.s7 .s7-card { background:rgba(20,22,50,0.8); border:1px solid rgba(201,169,110,0.2); padding:5% 4%; display:flex; flex-direction:column; align-items:center; text-align:center; gap:5%; border-radius:4px; }
+.s7 .s7-icon { font-size:clamp(20px,3.5vw,45px); filter:drop-shadow(0 0 15px rgba(201,169,110,0.4)); }
+.s7 .s7-card-title { font-family:'Outfit',sans-serif; font-size:clamp(10px,1.4vw,17px); font-weight:600; color:var(--gold); }
+.s7 .s7-card-text { font-size:clamp(8px,1.1vw,13px); color:rgba(255,255,255,0.6); line-height:1.6; font-weight:300; }
+
+/* ── SLIDE 8: Light side ── */
+.s8 { flex-direction:column; padding:4% 5%; }
+.s8 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.4vw,30px); font-weight:700; color:#fff; text-align:center; margin-bottom:4%; }
+.s8 .s8-content { display:grid; grid-template-columns:1fr 1.4fr; gap:3%; width:100%; align-items:center; }
+.s8 .s8-rays { width:100%; aspect-ratio:1; position:relative; display:flex; align-items:center; justify-content:center; }
+.s8 .s8-star { width:30%; aspect-ratio:1; background:radial-gradient(circle, #e8c98a 0%, rgba(201,169,110,0.3) 40%, transparent 70%); border-radius:50%; filter:blur(2px); }
+.s8 .s8-ray { position:absolute; height:2px; background:linear-gradient(90deg,rgba(201,169,110,0.6),transparent); transform-origin:left center; }
+.s8 .s8-cards { display:flex; flex-direction:column; gap:4%; }
+.s8 .s8-row { background:rgba(201,169,110,0.06); border:1px solid rgba(201,169,110,0.2); padding:4% 5%; border-radius:4px; }
+.s8 .s8-row-title { font-family:'Outfit',sans-serif; font-size:clamp(9px,1.3vw,16px); font-weight:600; color:var(--gold); margin-bottom:2%; }
+.s8 .s8-row-text { font-size:clamp(8px,1.1vw,13px); color:rgba(255,255,255,0.6); line-height:1.5; font-weight:300; }
+
+/* ── SLIDE 9: Shadow ── */
+.s9 { flex-direction:column; padding:4% 5%; }
+.s9 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.4vw,30px); font-weight:700; color:#fff; text-align:center; margin-bottom:2%; }
+.s9 .s9-sub { font-size:clamp(8px,1.2vw,14px); color:rgba(255,255,255,0.5); text-align:center; margin-bottom:4%; font-weight:300; }
+.s9 .s9-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:3%; width:100%; align-items:center; }
+.s9 .s9-card { background:rgba(15,10,30,0.9); border:1px solid rgba(201,169,110,0.15); padding:5% 4%; border-radius:4px; }
+.s9 .s9-card-title { font-family:'Outfit',sans-serif; font-size:clamp(9px,1.3vw,16px); font-weight:600; color:var(--gold); margin-bottom:3%; }
+.s9 .s9-card-text { font-size:clamp(8px,1.1vw,13px); color:rgba(255,255,255,0.55); line-height:1.6; font-weight:300; }
+.s9 .s9-moon { display:flex; align-items:center; justify-content:center; }
+.s9 .s9-moon-svg { width:70%; }
+
+/* ── SLIDE 10: Famous faces ── */
+.s10 { flex-direction:column; padding:4% 5%; }
+.s10 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.4vw,30px); font-weight:700; color:#fff; text-align:center; margin-bottom:4%; }
+.s10 .s10-grid { display:flex; flex-direction:column; gap:3%; width:100%; }
+.s10 .s10-row { background:rgba(20,22,50,0.7); border:1px solid rgba(201,169,110,0.15); padding:4% 5%; border-radius:4px; display:grid; grid-template-columns:1fr auto; gap:4%; align-items:center; }
+.s10 .s10-row-label { font-family:'Outfit',sans-serif; font-size:clamp(9px,1.3vw,16px); font-weight:600; color:var(--gold); margin-bottom:2%; }
+.s10 .s10-row-text { font-size:clamp(8px,1.1vw,13px); color:rgba(255,255,255,0.65); line-height:1.5; font-weight:300; }
+.s10 .s10-icons { display:flex; gap:8px; align-items:center; }
+.s10 .s10-icon-circle { width:clamp(24px,4vw,52px); height:clamp(24px,4vw,52px); border-radius:50%; background:rgba(201,169,110,0.1); border:1px solid rgba(201,169,110,0.3); display:flex; align-items:center; justify-content:center; font-size:clamp(12px,2vw,26px); }
+
+/* ── SLIDE 11: Key sentence ── */
+.s11 { flex-direction:column; align-items:center; justify-content:center; padding:5%; background:linear-gradient(180deg,#0a0a1e,#05050f); }
+.s11 .s11-label { font-family:'DM Mono',monospace; font-size:clamp(7px,1vw,12px); letter-spacing:0.25em; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:6%; }
+.s11 .s11-text { font-family:'Playfair Display',serif; font-size:clamp(18px,4.5vw,60px); font-weight:900; color:#c9a96e; text-align:center; line-height:1.15; text-shadow:0 0 60px rgba(201,169,110,0.4), 0 0 120px rgba(201,169,110,0.15); }
+
+/* ── SLIDE 12: Checklist ── */
+.s12 { flex-direction:column; padding:4% 5%; }
+.s12 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.4vw,30px); font-weight:700; color:#fff; text-align:center; margin-bottom:4%; }
+.s12 .s12-grid { display:grid; grid-template-columns:1fr 1fr; gap:2.5%; width:100%; margin-bottom:3%; }
+.s12 .s12-item { display:flex; align-items:flex-start; gap:3%; background:rgba(20,22,50,0.6); border:1px solid rgba(201,169,110,0.15); padding:3.5% 4%; border-radius:4px; }
+.s12 .s12-check { width:clamp(14px,2vw,22px); height:clamp(14px,2vw,22px); min-width:clamp(14px,2vw,22px); background:rgba(201,169,110,0.15); border:1px solid rgba(201,169,110,0.5); border-radius:3px; display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:clamp(8px,1.2vw,14px); margin-top:1%; }
+.s12 .s12-text { font-size:clamp(7px,1.1vw,13px); color:rgba(255,255,255,0.7); line-height:1.5; font-weight:300; }
+.s12 .s12-conclusion { background:rgba(201,169,110,0.06); border:1px solid rgba(201,169,110,0.25); padding:3% 5%; border-radius:4px; text-align:center; }
+.s12 .s12-conclusion p { font-size:clamp(8px,1.2vw,14px); color:rgba(255,255,255,0.7); line-height:1.6; font-weight:300; }
+.s12 .s12-conclusion strong { color:var(--gold); font-weight:600; }
+
+/* CONTENT SECTIONS */
+.content-section { padding: 80px 8%; max-width: 1000px; margin: 0 auto; }
+.content-section + .content-section { border-top: 1px solid var(--border); }
+.content-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+.content-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+.content-card { background:var(--bg2); border:1px solid var(--border); padding:28px 24px; position:relative; overflow:hidden; transition:border-color 0.3s; }
+.content-card:hover { border-color:var(--border2); }
+.content-card.light::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, #c9a96e, transparent); }
+.content-card.shadow-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, #7f1d1d, transparent); }
+.card-icon { font-size:28px; margin-bottom:12px; display:block; }
+.card-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.card-title.gold { color:var(--gold); }
+.card-title.red { color:#f87171; }
+.card-text { font-size:13px; color:var(--text2); line-height:1.7; font-weight:300; }
+.key-quote { background:var(--bg2); border:1px solid var(--border); border-left:3px solid var(--gold); padding:40px; margin:40px 0; text-align:center; }
+.key-quote-text { font-family:'Playfair Display',serif; font-size:clamp(24px,3.5vw,40px); font-style:italic; color:var(--gold); line-height:1.3; margin-bottom:12px; }
+.key-quote-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--text3); text-transform:uppercase; }
+
+/* CHECKLIST */
+.checklist-section { padding:80px 8%; border-top:1px solid var(--border); max-width:1000px; margin:0 auto; }
+.checklist-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:32px 0; }
+.checklist-item { display:flex; align-items:flex-start; gap:14px; padding:20px; background:var(--bg2); border:1px solid var(--border); cursor:none; transition:all 0.3s; position:relative; }
+.checklist-item:hover { border-color:rgba(201,169,110,0.3); }
+.checklist-item.checked { border-color:rgba(74,222,128,0.4); background:rgba(34,197,94,0.04); }
+.check-box { width:20px; height:20px; flex-shrink:0; border:1px solid var(--border2); display:flex; align-items:center; justify-content:center; font-size:11px; margin-top:2px; transition:all 0.3s; }
+.checklist-item.checked .check-box { border-color:#4ade80; color:#4ade80; background:rgba(74,222,128,0.1); }
+.check-text { font-size:13px; color:var(--text2); line-height:1.6; font-weight:300; }
+.checklist-result { padding:24px; background:var(--bg2); border:1px solid var(--border); text-align:center; transition:all 0.4s; }
+.checklist-score { font-family:'Playfair Display',serif; font-size:56px; font-weight:900; color:var(--gold); line-height:1; margin-bottom:8px; }
+.checklist-score-label { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); letter-spacing:0.15em; margin-bottom:16px; }
+.checklist-verdict { font-family:'Playfair Display',serif; font-size:16px; font-style:italic; color:var(--text2); line-height:1.6; }
+
+/* ARCH NAV & CTA */
+.arch-nav { padding:60px 8%; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:20px; }
+.arch-nav-link { text-decoration:none; display:flex; flex-direction:column; gap:4px; cursor:none; transition:opacity 0.2s; max-width:240px; }
 .arch-nav-link:hover { opacity:0.7; }
-.arch-nav-dir {
-  font-family:'DM Mono',monospace;
-  font-size:9px;
-  letter-spacing:0.2em;
-  color:var(--text3);
-  text-transform:uppercase;
-}
-.arch-nav-name {
-  font-family:'Playfair Display',serif;
-  font-size:20px;
-  color:var(--text);
-}
+.arch-nav-dir { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--text3); text-transform:uppercase; }
+.arch-nav-name { font-family:'Playfair Display',serif; font-size:20px; color:var(--text); }
 .arch-nav-name.right { text-align:right; }
-
-/* CTA */
-.arch-cta {
-  padding:80px 8%;
-  border-top:1px solid var(--border);
-  text-align:center;
-  background:var(--bg2);
-}
-.arch-cta h3 {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(24px,3vw,36px);
-  font-weight:700;
-  color:var(--text);
-  margin-bottom:12px;
-}
-.arch-cta p {
-  font-size:14px;
-  color:var(--text2);
-  font-weight:300;
-  max-width:480px;
-  margin:0 auto 32px;
-  line-height:1.8;
-}
-.cta-btn {
-  display:inline-block;
-  background:var(--gold);
-  color:#05050f;
-  font-family:'DM Mono',monospace;
-  font-size:11px;
-  letter-spacing:0.15em;
-  text-transform:uppercase;
-  padding:14px 36px;
-  text-decoration:none;
-  cursor:none;
-  transition:all 0.3s;
-  font-weight:500;
-}
+.arch-cta { padding:80px 8%; border-top:1px solid var(--border); text-align:center; background:var(--bg2); }
+.arch-cta h3 { font-family:'Playfair Display',serif; font-size:clamp(24px,3vw,36px); font-weight:700; color:var(--text); margin-bottom:12px; }
+.arch-cta p { font-size:14px; color:var(--text2); font-weight:300; max-width:480px; margin:0 auto 32px; line-height:1.8; }
+.cta-btn { display:inline-block; background:var(--gold); color:#05050f; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; padding:14px 36px; text-decoration:none; cursor:none; transition:all 0.3s; font-weight:500; }
 .cta-btn:hover { background:var(--gold2); transform:translateY(-2px); }
 
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(20px); }
-  to { opacity:1; transform:translateY(0); }
-}
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
 @media(max-width:768px) {
   nav { padding:14px 20px; }
   .hero { padding:100px 20px 60px; }
   .hero-content { padding:0; }
-  .slides-gallery { grid-template-columns:repeat(2,1fr); }
   .content-grid-2, .content-grid-3, .checklist-grid { grid-template-columns:1fr; }
-  .audio-section, .slides-section, .content-section, .checklist-section, .arch-nav, .arch-cta { padding-left:20px; padding-right:20px; }
+  .audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta { padding-left:20px; padding-right:20px; }
   .arch-nav { flex-direction:column; }
+  .s2 .s2-grid { grid-template-columns:1fr; }
+  .s4 .s4-grid, .s7 .s7-grid, .s9 .s9-grid { grid-template-columns:1fr; gap:2%; }
+  .s8 .s8-content { grid-template-columns:1fr; }
+  .s10 .s10-row { grid-template-columns:1fr; }
+  .s12 .s12-grid { grid-template-columns:1fr; }
+  .s6 { flex-direction:column; }
+  .s6 .s6-right { width:100%; height:35%; }
 }
 </style>
 </head>
@@ -533,34 +388,24 @@ nav {
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-
-  <!-- Sacred geometry SVG -->
   <div class="hero-geo">
     <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgba(201,169,110,0.6)" stroke-width="0.5">
-      <circle cx="200" cy="200" r="180"/>
-      <circle cx="200" cy="200" r="120"/>
-      <circle cx="200" cy="200" r="60"/>
-      <polygon points="200,30 358,290 42,290" />
-      <polygon points="200,370 42,110 358,110" />
-      <line x1="200" y1="20" x2="200" y2="380"/>
-      <line x1="20" y1="200" x2="380" y2="200"/>
-      <line x1="55" y1="55" x2="345" y2="345"/>
-      <line x1="345" y1="55" x2="55" y2="345"/>
+      <circle cx="200" cy="200" r="180"/><circle cx="200" cy="200" r="120"/><circle cx="200" cy="200" r="60"/>
+      <polygon points="200,30 358,290 42,290"/><polygon points="200,370 42,110 358,110"/>
+      <line x1="200" y1="20" x2="200" y2="380"/><line x1="20" y1="200" x2="380" y2="200"/>
+      <line x1="55" y1="55" x2="345" y2="345"/><line x1="345" y1="55" x2="55" y2="345"/>
       <circle cx="200" cy="80" r="4" fill="rgba(201,169,110,0.4)"/>
       <circle cx="200" cy="320" r="4" fill="rgba(201,169,110,0.4)"/>
       <circle cx="80" cy="200" r="4" fill="rgba(201,169,110,0.4)"/>
       <circle cx="320" cy="200" r="4" fill="rgba(201,169,110,0.4)"/>
     </svg>
   </div>
-
   <div class="hero-content">
     <span class="hero-num">Arhetipul 09 · Sinele · Întoarcerea</span>
     <span class="hero-emoji">✨</span>
     <h1>Magicianul</h1>
     <div class="hero-subtitle">Arhitectul transformării</div>
-    <p class="hero-motto">
-      Magicianul este acea forță interioară care înțelege cum funcționează lucrurile în profunzime și folosește această cunoaștere pentru a transforma realitatea. Este vizionarul tăcut, cel care găsește soluții acolo unde alții văd doar haos.
-    </p>
+    <p class="hero-motto">Magicianul este acea forță interioară care înțelege cum funcționează lucrurile în profunzime și folosește această cunoaștere pentru a transforma realitatea. Este vizionarul tăcut, cel care găsește soluții acolo unde alții văd doar haos.</p>
     <div class="profile-pills">
       <span class="pill group">Sinele · Întoarcerea</span>
       <span class="pill desire">💚 Dorință: Să transforme viziunea în realitate</span>
@@ -590,110 +435,323 @@ nav {
   </div>
 </section>
 
-<!-- SLIDES GALLERY -->
+<!-- ═══════════════════════════════════════════
+     SLIDES SECTION — HTML-rendered slides
+═══════════════════════════════════════════ -->
 <section class="slides-section">
   <span class="section-label" style="padding:0 0 16px">Prezentarea vizuală · 12 slide-uri</span>
-  <div class="slides-gallery">
-    <div class="slide-thumb" onclick="openLightbox(0)">
-      <img src="/static/slides/magicianul/slide-01.jpg" alt="Slide 1" loading="lazy">
-      <span class="slide-thumb-num">01</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(1)">
-      <img src="/static/slides/magicianul/slide-02.jpg" alt="Slide 2" loading="lazy">
-      <span class="slide-thumb-num">02</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(2)">
-      <img src="/static/slides/magicianul/slide-03.jpg" alt="Slide 3" loading="lazy">
-      <span class="slide-thumb-num">03</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(3)">
-      <img src="/static/slides/magicianul/slide-04.jpg" alt="Slide 4" loading="lazy">
-      <span class="slide-thumb-num">04</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(4)">
-      <img src="/static/slides/magicianul/slide-05.jpg" alt="Slide 5" loading="lazy">
-      <span class="slide-thumb-num">05</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(5)">
-      <img src="/static/slides/magicianul/slide-06.jpg" alt="Slide 6" loading="lazy">
-      <span class="slide-thumb-num">06</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(6)">
-      <img src="/static/slides/magicianul/slide-07.jpg" alt="Slide 7" loading="lazy">
-      <span class="slide-thumb-num">07</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(7)">
-      <img src="/static/slides/magicianul/slide-08.jpg" alt="Slide 8" loading="lazy">
-      <span class="slide-thumb-num">08</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(8)">
-      <img src="/static/slides/magicianul/slide-09.jpg" alt="Slide 9" loading="lazy">
-      <span class="slide-thumb-num">09</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(9)">
-      <img src="/static/slides/magicianul/slide-10.jpg" alt="Slide 10" loading="lazy">
-      <span class="slide-thumb-num">10</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(10)">
-      <img src="/static/slides/magicianul/slide-11.jpg" alt="Slide 11" loading="lazy">
-      <span class="slide-thumb-num">11</span>
-    </div>
-    <div class="slide-thumb" onclick="openLightbox(11)">
-      <img src="/static/slides/magicianul/slide-12.jpg" alt="Slide 12" loading="lazy">
-      <span class="slide-thumb-num">12</span>
-    </div>
+
+  <div class="slides-slider">
+    <div class="slides-track" id="slidesTrack">
+
+      <!-- SLIDE 1: Cover -->
+      <div class="hslide s1">
+        <svg class="hslide-bg-geo" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.5">
+          <circle cx="700" cy="50" r="120"/><circle cx="100" cy="400" r="80"/>
+          <line x1="0" y1="225" x2="800" y2="225" stroke-dasharray="4 8"/>
+          <polygon points="400,20 780,440 20,440" opacity="0.5"/>
+        </svg>
+        <!-- Golden gem SVG -->
+        <svg class="s-gem" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="gemGrad" cx="50%" cy="40%">
+              <stop offset="0%" stop-color="#f0d080"/>
+              <stop offset="50%" stop-color="#c9a96e"/>
+              <stop offset="100%" stop-color="#8B6914"/>
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(201,169,110,0.3)" stroke-width="0.5"/>
+          <circle cx="100" cy="100" r="65" fill="none" stroke="rgba(201,169,110,0.3)" stroke-width="0.5"/>
+          <polygon points="100,10 175,55 175,145 100,190 25,145 25,55" fill="none" stroke="url(#gemGrad)" stroke-width="1.5"/>
+          <polygon points="100,10 175,55 100,100" fill="rgba(201,169,110,0.15)" stroke="url(#gemGrad)" stroke-width="1"/>
+          <polygon points="100,10 25,55 100,100" fill="rgba(201,169,110,0.1)" stroke="url(#gemGrad)" stroke-width="1"/>
+          <polygon points="25,55 25,145 100,100" fill="rgba(201,169,110,0.08)" stroke="url(#gemGrad)" stroke-width="1"/>
+          <polygon points="175,55 175,145 100,100" fill="rgba(201,169,110,0.12)" stroke="url(#gemGrad)" stroke-width="1"/>
+          <polygon points="25,145 100,190 100,100" fill="rgba(201,169,110,0.06)" stroke="url(#gemGrad)" stroke-width="1"/>
+          <polygon points="175,145 100,190 100,100" fill="rgba(201,169,110,0.1)" stroke="url(#gemGrad)" stroke-width="1"/>
+          <line x1="100" y1="10" x2="100" y2="190" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+          <line x1="25" y1="55" x2="175" y2="145" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+          <line x1="175" y1="55" x2="25" y2="145" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+          <circle cx="100" cy="100" r="8" fill="rgba(240,208,120,0.6)"/>
+        </svg>
+        <div class="s1 s-title" style="font-family:'Playfair Display',serif;font-size:clamp(28px,5.5vw,72px);font-weight:900;color:#fff;text-align:center;letter-spacing:-0.01em;margin-bottom:1.5%">Arhetipul Magicianului</div>
+        <div class="s1 s-sub" style="font-family:'Outfit',sans-serif;font-size:clamp(11px,1.8vw,22px);color:rgba(255,255,255,0.7);text-align:center;font-weight:300;max-width:70%">Arhitectul transformării: Cum să recunoști și să folosești forța viziunii din tine.</div>
+        <div class="s1 s-badge" style="position:absolute;bottom:3%;right:3%;font-family:'DM Mono',monospace;font-size:clamp(7px,1vw,11px);color:rgba(255,255,255,0.2);letter-spacing:0.1em">NotebookLM</div>
+      </div>
+
+      <!-- SLIDE 2: Smartphone metaphor -->
+      <div class="hslide s2">
+        <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
+          <circle cx="650" cy="80" r="100"/><circle cx="150" cy="380" r="60"/>
+        </svg>
+        <div class="s-title" style="font-family:'Playfair Display',serif;font-size:clamp(16px,2.8vw,36px);font-weight:700;color:#fff;text-align:center;margin-bottom:5%;line-height:1.2;width:100%">Ce este un arhetip?<br>Mintea ta ca un smartphone.</div>
+        <div class="s2-grid" style="display:grid;grid-template-columns:1fr 0.8fr 1fr;gap:3%;width:100%">
+          <div class="s2-box" style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.3);padding:5% 6%;border-radius:4px;align-self:center">
+            <p style="font-size:clamp(8px,1.2vw,14px);color:rgba(255,255,255,0.8);line-height:1.6;text-align:center;font-weight:300">Imaginează-ți că mintea umană este ca un smartphone abia scos din cutie. „Hardware-ul" este corpul nostru, iar „sistemul de operare" de bază este la fel pentru toți.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8%">
+            <div style="width:55%;aspect-ratio:0.48/1;background:linear-gradient(180deg,#1a1f3a,#0a0e22);border:1.5px solid rgba(201,169,110,0.5);border-radius:12px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden">
+              <div style="position:absolute;top:18%;font-family:'DM Mono',monospace;font-size:clamp(4px,0.7vw,8px);color:var(--gold);letter-spacing:0.1em;text-align:center">MAGICIANUL</div>
+              <div style="width:40%;aspect-ratio:1;background:radial-gradient(circle,rgba(201,169,110,0.6),transparent 70%);border-radius:50%;margin-top:20%"></div>
+              <div style="position:absolute;bottom:10%;font-family:'DM Mono',monospace;font-size:clamp(4px,0.6vw,7px);color:rgba(255,255,255,0.3);letter-spacing:0.05em">Sistem de Operare</div>
+            </div>
+            <div style="font-family:'DM Mono',monospace;font-size:clamp(4px,0.7vw,9px);color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-align:center">Hardware (Corpul Uman)</div>
+          </div>
+          <div class="s2-box" style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.3);padding:5% 6%;border-radius:4px;align-self:center">
+            <p style="font-size:clamp(8px,1.2vw,14px);color:rgba(255,255,255,0.8);line-height:1.6;text-align:center;font-weight:300">Pe acest sistem vin preinstalate anumite aplicații de bază. Aceste „aplicații" sunt <strong style="color:var(--gold)">arhetipurile</strong> — tipare universale de comportament plantate în noi toți.</p>
+          </div>
+          <div style="grid-column:1/-1;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);padding:3% 4%;border-radius:4px;text-align:center">
+            <p style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.75);font-weight:300">Astăzi, deschidem o singură aplicație pentru a vedea cum funcționează: <strong style="color:var(--gold)">Magicianul.</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Big quote -->
+      <div class="hslide s3">
+        <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
+          <circle cx="700" cy="400" r="150"/><polygon points="400,10 790,440 10,440"/>
+        </svg>
+        <div class="s-label" style="font-family:'Playfair Display',serif;font-size:clamp(12px,1.8vw,22px);color:var(--gold);margin-bottom:5%;font-weight:400;width:85%">Pe scurt: Cine este Magicianul?</div>
+        <div class="s-quote-mark" style="font-size:clamp(40px,7vw,90px);color:rgba(201,169,110,0.3);line-height:0.7;margin-bottom:3%;font-family:Georgia,serif;width:85%">"</div>
+        <div class="s-quote-text" style="font-family:'Playfair Display',serif;font-size:clamp(12px,2.2vw,28px);color:#fff;line-height:1.5;font-weight:400;max-width:85%">Magicianul este acea forță interioară care înțelege cum funcționează lucrurile în profunzime și folosește această cunoaștere pentru a transforma realitatea. Este vizionarul tăcut, cel care găsește soluții acolo unde alții văd doar haos și cel care are capacitatea de a transforma invizibilul (ideile) în ceva palpabil."</div>
+        <div style="align-self:flex-end;font-size:clamp(30px,5vw,70px);color:rgba(201,169,110,0.3);line-height:0.7;font-family:Georgia,serif;margin-top:2%">"</div>
+      </div>
+
+      <!-- SLIDE 4: Three traits -->
+      <div class="hslide s4">
+        <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
+          <polygon points="400,20 780,440 20,440"/><circle cx="400" cy="225" r="180"/>
+        </svg>
+        <div class="s-title" style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,32px);font-weight:700;color:var(--gold);text-align:center;margin-bottom:6%;width:100%">Trăsăturile principale: Cum gândește Magicianul</div>
+        <div class="s4-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
+          <div class="s4-card" style="background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.15);padding:6% 5%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5%;border-radius:4px">
+            <div style="font-size:clamp(22px,3.5vw,48px);filter:drop-shadow(0 0 10px rgba(201,169,110,0.4))">👁️</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(10px,1.4vw,18px);font-weight:700;color:#fff">Observator profund</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Vede conexiuni, tipare și sensuri pe care majoritatea oamenilor le ratează. Nu se oprește niciodată la suprafața lucrurilor.</div>
+          </div>
+          <div class="s4-card" style="background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.15);padding:6% 5%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5%;border-radius:4px">
+            <div style="font-size:clamp(22px,3.5vw,48px);filter:drop-shadow(0 0 10px rgba(201,169,110,0.4))">🔗</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(10px,1.4vw,18px);font-weight:700;color:#fff">Curiozitate nesfârșită</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Este mereu însetat să înțeleagă de ce și cum funcționează lumea, mintea umană sau tehnologia.</div>
+          </div>
+          <div class="s4-card" style="background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.15);padding:6% 5%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5%;border-radius:4px">
+            <div style="font-size:clamp(22px,3.5vw,48px);filter:drop-shadow(0 0 10px rgba(201,169,110,0.4))">⚖️</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(10px,1.4vw,18px);font-weight:700;color:#fff">Calm și echilibrat</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Gândește înainte să reacționeze; se detașează de emoțiile de moment pentru a vedea clar situația.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: Motivation -->
+      <div class="hslide s5">
+        <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
+          <circle cx="400" cy="225" r="200"/><circle cx="400" cy="225" r="130"/><circle cx="400" cy="225" r="60"/>
+        </svg>
+        <div style="font-size:clamp(40px,8vw,100px);filter:drop-shadow(0 0 30px rgba(201,169,110,0.5));margin-bottom:4%">🗝️</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.3vw,30px);font-weight:700;color:var(--gold);text-align:center;margin-bottom:4%">Ce își dorește cel mai mult? (Motivația profundă)</div>
+        <div style="font-size:clamp(9px,1.4vw,17px);color:rgba(255,255,255,0.8);text-align:center;line-height:1.7;max-width:75%;font-weight:300">Să descifreze legile fundamentale ale vieții și ale universului pentru a face visele să devină realitate. Magicianul nu vrea putere brută; el dorește cunoaștere și claritate pentru a cataliza schimbări pozitive, transformând ideile bune în rezultate uimitoare.</div>
+      </div>
+
+      <!-- SLIDE 6: Fear -->
+      <div class="hslide s6" style="flex-direction:row;align-items:stretch">
+        <div class="s6-left" style="flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:5%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,1.8vw,22px);color:var(--gold);font-weight:400">De ce se teme Magicianul?</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,2.8vw,36px);font-weight:700;color:#fff;line-height:1.2">Consecințele negative neintenționate.</div>
+          <div style="font-size:clamp(9px,1.3vw,15px);color:rgba(255,255,255,0.7);line-height:1.7;font-weight:300">Pentru că știe cât de mare este puterea transformării, Magicianul se teme ca nu cumva acțiunile, sfaturile sau cunoașterea sa să aducă haos sau să facă rău din greșeală. De aceea, preferă uneori să observe tăcut de pe margine în loc să intervină direct.</div>
+        </div>
+        <div class="s6-right" style="width:42%;background:linear-gradient(135deg,#0d1525,#1a2a45);display:flex;align-items:center;justify-content:center">
+          <div style="width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,0.25) 0%,rgba(201,169,110,0.05) 40%,transparent 70%);position:relative;display:flex;align-items:center;justify-content:center">
+            <div style="position:absolute;inset:-15%;border-radius:50%;border:1px solid rgba(201,169,110,0.15)"></div>
+            <div style="position:absolute;inset:-30%;border-radius:50%;border:1px solid rgba(201,169,110,0.08)"></div>
+            <div style="font-size:clamp(24px,4vw,56px)">💧</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: Three contexts -->
+      <div class="hslide s7">
+        <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
+          <circle cx="400" cy="225" r="200"/><polygon points="400,30 770,430 30,430"/>
+        </svg>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:700;color:var(--gold);text-align:center;margin-bottom:5%;width:100%">Cum se comportă în viața de zi cu zi</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
+          <div style="background:rgba(20,22,50,0.8);border:1px solid rgba(201,169,110,0.2);padding:5% 4%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5%;border-radius:4px">
+            <div style="font-size:clamp(20px,3.5vw,45px);filter:drop-shadow(0 0 15px rgba(201,169,110,0.4))">☕</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(10px,1.4vw,17px);font-weight:600;color:var(--gold)">În discuții</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Este prietenul la care mergi când ai o problemă complicată. Ascultă tăcut, apoi îți pune acea întrebare care îți schimbă complet perspectiva.</div>
+          </div>
+          <div style="background:rgba(20,22,50,0.8);border:1px solid rgba(201,169,110,0.2);padding:5% 4%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5%;border-radius:4px">
+            <div style="font-size:clamp(20px,3.5vw,45px);filter:drop-shadow(0 0 15px rgba(201,169,110,0.4))">⚙️</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(10px,1.4vw,17px);font-weight:600;color:var(--gold)">La job</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Este colegul care nu face mult zgomot, dar vine cu o inovație sau o soluție tehnică ingenioasă care rezolvă o criză de care echipa nici nu știa că se apropie.</div>
+          </div>
+          <div style="background:rgba(20,22,50,0.8);border:1px solid rgba(201,169,110,0.2);padding:5% 4%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5%;border-radius:4px">
+            <div style="font-size:clamp(20px,3.5vw,45px);filter:drop-shadow(0 0 15px rgba(201,169,110,0.4))">📚</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(10px,1.4vw,17px);font-weight:600;color:var(--gold)">În timpul liber</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Este mereu absorbit de o carte de psihologie, documentare despre univers, dezvoltare personală sau tehnologii de ultimă oră.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: Light side -->
+      <div class="hslide s8">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:700;color:#fff;text-align:center;margin-bottom:4%;width:100%">Partea luminoasă: Magicianul la potențial maxim</div>
+        <div style="display:grid;grid-template-columns:0.8fr 1.4fr;gap:4%;width:100%;align-items:center">
+          <!-- Ray burst -->
+          <div style="display:flex;align-items:center;justify-content:center;aspect-ratio:1;position:relative">
+            <div style="width:35%;aspect-ratio:1;background:radial-gradient(circle,#e8c98a,rgba(201,169,110,0.2) 50%,transparent 70%);border-radius:50%;filter:blur(3px);z-index:1"></div>
+            <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 200 200" fill="none">
+              <line x1="100" y1="100" x2="100" y2="10" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"/>
+              <line x1="100" y1="100" x2="182" y2="41" stroke="rgba(201,169,110,0.4)" stroke-width="1.2"/>
+              <line x1="100" y1="100" x2="190" y2="126" stroke="rgba(201,169,110,0.35)" stroke-width="1"/>
+              <line x1="100" y1="100" x2="141" y2="190" stroke="rgba(201,169,110,0.4)" stroke-width="1.2"/>
+              <line x1="100" y1="100" x2="59" y2="190" stroke="rgba(201,169,110,0.35)" stroke-width="1"/>
+              <line x1="100" y1="100" x2="10" y2="126" stroke="rgba(201,169,110,0.4)" stroke-width="1.2"/>
+              <line x1="100" y1="100" x2="18" y2="41" stroke="rgba(201,169,110,0.3)" stroke-width="1"/>
+            </svg>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3%">
+            <div style="background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);padding:4% 5%;border-radius:4px">
+              <div style="font-family:'Outfit',sans-serif;font-size:clamp(9px,1.3vw,16px);font-weight:600;color:var(--gold);margin-bottom:2%">Vindecătorul</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Capacitatea uriașă de a alina și ajuta, oferind sfaturi care aduc liniște și claritate.</div>
+            </div>
+            <div style="background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);padding:4% 5%;border-radius:4px">
+              <div style="font-family:'Outfit',sans-serif;font-size:clamp(9px,1.3vw,16px);font-weight:600;color:var(--gold);margin-bottom:2%">Soluții Win-Win</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Găsește mereu rezolvări elegante din care toată lumea are de câștigat, armonizând conflictele.</div>
+            </div>
+            <div style="background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);padding:4% 5%;border-radius:4px">
+              <div style="font-family:'Outfit',sans-serif;font-size:clamp(9px,1.3vw,16px);font-weight:600;color:var(--gold);margin-bottom:2%">Catalizatorul</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300">Inspiră și îi ghidează pe ceilalți să își atingă potențialul maxim, făcându-i să creadă că orice este posibil.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: Shadow -->
+      <div class="hslide s9">
+        <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
+          <circle cx="400" cy="225" r="200"/><circle cx="400" cy="225" r="100"/>
+        </svg>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:700;color:#fff;text-align:center;margin-bottom:2%;width:100%">Partea de umbră: Riscuri și excese</div>
+        <div style="font-size:clamp(8px,1.2vw,14px);color:rgba(255,255,255,0.5);text-align:center;margin-bottom:4%;font-weight:300;width:100%">Când energia Magicianului nu este echilibrată, ea se împarte în două extreme:</div>
+        <div style="display:grid;grid-template-columns:1fr 0.7fr 1fr;gap:3%;width:100%;align-items:center">
+          <div style="background:rgba(15,10,30,0.9);border:1px solid rgba(201,169,110,0.15);padding:5% 4%;border-radius:4px">
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(9px,1.3vw,16px);font-weight:600;color:var(--gold);margin-bottom:3%">Manipulatorul</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.55);line-height:1.6;font-weight:300">Folosește informația doar pentru a-i controla pe alții. Ține secrete pentru a se simți superior, folosind cunoașterea strict în propriul interes, lipsit de empatie.</div>
+          </div>
+          <!-- Moon eclipse SVG -->
+          <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="45" fill="#0a0a2e" stroke="rgba(201,169,110,0.3)" stroke-width="0.5"/>
+            <circle cx="60" cy="60" r="30" fill="#05050f" stroke="rgba(201,169,110,0.5)" stroke-width="1"/>
+            <path d="M60 15 Q90 60 60 105 Q30 60 60 15" fill="none" stroke="rgba(201,169,110,0.4)" stroke-width="0.8"/>
+            <line x1="60" y1="105" x2="30" y2="150" stroke="rgba(201,169,110,0.4)" stroke-width="1.5"/>
+            <line x1="60" y1="105" x2="90" y2="150" stroke="rgba(201,169,110,0.4)" stroke-width="1.5"/>
+            <circle cx="30" cy="152" r="3" fill="rgba(201,169,110,0.5)"/>
+            <circle cx="90" cy="152" r="3" fill="rgba(201,169,110,0.5)"/>
+          </svg>
+          <div style="background:rgba(15,10,30,0.9);border:1px solid rgba(201,169,110,0.15);padding:5% 4%;border-radius:4px">
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(9px,1.3vw,16px);font-weight:600;color:var(--gold);margin-bottom:3%">Visătorul pasiv (Inocentul care neagă)</div>
+            <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.55);line-height:1.6;font-weight:300">Se blochează în propria minte. Citește și analizează la nesfârșit, dar refuză să aplice ceea ce știe în viața reală din teama de a nu greși sau de a-și asuma responsabilitatea.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: Famous faces -->
+      <div class="hslide s10">
+        <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
+          <polygon points="400,20 780,440 20,440"/>
+        </svg>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:700;color:#fff;text-align:center;margin-bottom:4%;width:100%">Fețe cunoscute: Unde ai mai văzut Magicianul?</div>
+        <div style="display:flex;flex-direction:column;gap:3%;width:100%">
+          <div style="background:rgba(20,22,50,0.7);border:1px solid rgba(201,169,110,0.15);padding:4% 5%;border-radius:4px;display:grid;grid-template-columns:1fr auto;gap:4%;align-items:center">
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-size:clamp(9px,1.3vw,16px);font-weight:600;color:var(--gold);margin-bottom:2%">🎬 În filme</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.65);line-height:1.5;font-weight:300">Yoda (Star Wars), Gandalf (Stăpânul Inelelor) sau Albus Dumbledore (Harry Potter) — mentorii tăcuți care dețin cunoașterea secretă și ghidează, ajutându-l pe erou să își găsească propria putere.</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <div style="width:clamp(24px,4vw,52px);height:clamp(24px,4vw,52px);border-radius:50%;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-size:clamp(12px,2vw,26px)">🧙</div>
+              <div style="width:clamp(24px,4vw,52px);height:clamp(24px,4vw,52px);border-radius:50%;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-size:clamp(12px,2vw,26px)">🌌</div>
+              <div style="width:clamp(24px,4vw,52px);height:clamp(24px,4vw,52px);border-radius:50%;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-size:clamp(12px,2vw,26px)">⚡</div>
+            </div>
+          </div>
+          <div style="background:rgba(20,22,50,0.7);border:1px solid rgba(201,169,110,0.15);padding:4% 5%;border-radius:4px;display:grid;grid-template-columns:1fr auto;gap:4%;align-items:center">
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-size:clamp(9px,1.3vw,16px);font-weight:600;color:var(--gold);margin-bottom:2%">⚡ În realitate</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.65);line-height:1.5;font-weight:300">Nikola Tesla — un vizionar care a înțeles legile invizibile ale energiei și a transformat complet modul în care trăim, transformând un concept magic în tehnologie palpabilă.</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <div style="width:clamp(24px,4vw,52px);height:clamp(24px,4vw,52px);border-radius:50%;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-size:clamp(12px,2vw,26px)">🔬</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 11: Key sentence -->
+      <div class="hslide s11" style="background:linear-gradient(180deg,#0a0a1e,#05050f)">
+        <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.3">
+          <circle cx="400" cy="225" r="200"/><circle cx="400" cy="225" r="150"/><circle cx="400" cy="225" r="100"/>
+          <polygon points="400,30 770,430 30,430"/>
+        </svg>
+        <div style="font-family:'DM Mono',monospace;font-size:clamp(7px,1vw,12px);letter-spacing:0.25em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:6%">Propoziția-cheie</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,5vw,64px);font-weight:900;color:#c9a96e;text-align:center;line-height:1.15;text-shadow:0 0 60px rgba(201,169,110,0.4),0 0 120px rgba(201,169,110,0.15);max-width:85%">Eu transform viziunea în realitate prin înțelegere și claritate.</div>
+      </div>
+
+      <!-- SLIDE 12: Checklist/Mirror -->
+      <div class="hslide s12">
+        <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
+          <polygon points="400,20 780,440 20,440"/><circle cx="400" cy="225" r="180"/>
+        </svg>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:700;color:#fff;text-align:center;margin-bottom:4%;width:100%">Oglinda: Cum îl recunoști în tine?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5%;width:100%;margin-bottom:3%">
+          <div style="display:flex;align-items:flex-start;gap:3%;background:rgba(20,22,50,0.6);border:1px solid rgba(201,169,110,0.15);padding:3.5% 4%;border-radius:4px">
+            <div style="width:clamp(14px,2vw,22px);height:clamp(14px,2vw,22px);min-width:clamp(14px,2vw,22px);background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.5);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:clamp(8px,1.2vw,14px);margin-top:1%">✓</div>
+            <div style="font-size:clamp(7px,1.1vw,13px);color:rgba(255,255,255,0.7);line-height:1.5;font-weight:300">Observi mult înainte să vorbești sau să acționezi?</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:3%;background:rgba(20,22,50,0.6);border:1px solid rgba(201,169,110,0.15);padding:3.5% 4%;border-radius:4px">
+            <div style="width:clamp(14px,2vw,22px);height:clamp(14px,2vw,22px);min-width:clamp(14px,2vw,22px);background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.5);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:clamp(8px,1.2vw,14px);margin-top:1%">✓</div>
+            <div style="font-size:clamp(7px,1.1vw,13px);color:rgba(255,255,255,0.7);line-height:1.5;font-weight:300">Cei din jur apelează frecvent la tine pentru sfaturi de profunzime?</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:3%;background:rgba(20,22,50,0.6);border:1px solid rgba(201,169,110,0.15);padding:3.5% 4%;border-radius:4px">
+            <div style="width:clamp(14px,2vw,22px);height:clamp(14px,2vw,22px);min-width:clamp(14px,2vw,22px);background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.5);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:clamp(8px,1.2vw,14px);margin-top:1%">✓</div>
+            <div style="font-size:clamp(7px,1.1vw,13px);color:rgba(255,255,255,0.7);line-height:1.5;font-weight:300">Te fascinează misterele vieții, modul în care funcționează mintea umană sau inovațiile tehnologice?</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:3%;background:rgba(20,22,50,0.6);border:1px solid rgba(201,169,110,0.15);padding:3.5% 4%;border-radius:4px">
+            <div style="width:clamp(14px,2vw,22px);height:clamp(14px,2vw,22px);min-width:clamp(14px,2vw,22px);background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.5);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:clamp(8px,1.2vw,14px);margin-top:1%">✓</div>
+            <div style="font-size:clamp(7px,1.1vw,13px);color:rgba(255,255,255,0.7);line-height:1.5;font-weight:300">Ai un radar intern care detectează imediat când ceva nu se leagă sau când cineva nu este autentic?</div>
+          </div>
+        </div>
+        <div style="background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.25);padding:3% 5%;border-radius:4px;text-align:center;width:100%">
+          <p style="font-size:clamp(8px,1.2vw,14px);color:rgba(255,255,255,0.7);line-height:1.6;font-weight:300">Dacă ai răspuns cu <strong style="color:var(--gold)">„Da"</strong> la aceste întrebări, Magicianul din tine este o aplicație deschisă și gata să creeze magie în viața ta!</p>
+        </div>
+      </div>
+
+    </div><!-- /slides-track -->
+  </div><!-- /slides-slider -->
+
+  <!-- Controls -->
+  <div class="slider-controls">
+    <button class="slider-btn" onclick="prevHSlide()">← Anterior</button>
+    <div class="slider-dots" id="sliderDots"></div>
+    <button class="slider-btn" onclick="nextHSlide()">Următor →</button>
+  </div>
+  <div style="text-align:center;margin-top:8px">
+    <span class="slider-counter" id="sliderCounter">1 / 12</span>
   </div>
 </section>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <span class="lightbox-close" onclick="closeLightbox()">ESC · Închide</span>
-  <img id="lightboxImg" src="" alt="">
-  <div class="lightbox-nav" onclick="event.stopPropagation()">
-    <button class="lightbox-btn" onclick="prevSlide()">← Anterior</button>
-    <button class="lightbox-btn" onclick="nextSlide()">Următor →</button>
-  </div>
-</div>
 
 <!-- TRĂSĂTURI -->
 <section class="content-section">
   <span class="section-label">Profilul Magicianului</span>
   <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Cum gândește,<br>cum simte, cum acționează</h2>
-
   <div class="content-grid-3" style="margin-bottom:24px">
-    <div class="content-card">
-      <span class="card-icon">👁️</span>
-      <div class="card-title gold">Observator Profund</div>
-      <p class="card-text">Vede conexiuni, tipare și sensuri pe care majoritatea oamenilor le ratează. Nu se oprește niciodată la suprafața lucrurilor.</p>
-    </div>
-    <div class="content-card">
-      <span class="card-icon">🧲</span>
-      <div class="card-title gold">Curiozitate Nesfârșită</div>
-      <p class="card-text">Este mereu însetat să înțeleagă de ce și cum funcționează lumea, mintea umană sau tehnologia.</p>
-    </div>
-    <div class="content-card">
-      <span class="card-icon">⚖️</span>
-      <div class="card-title gold">Calm și Echilibrat</div>
-      <p class="card-text">Gândește înainte să reacționeze; se detașează de emoțiile de moment pentru a vedea clar situația.</p>
-    </div>
+    <div class="content-card"><span class="card-icon">👁️</span><div class="card-title gold">Observator Profund</div><p class="card-text">Vede conexiuni, tipare și sensuri pe care majoritatea oamenilor le ratează. Nu se oprește niciodată la suprafața lucrurilor.</p></div>
+    <div class="content-card"><span class="card-icon">🧲</span><div class="card-title gold">Curiozitate Nesfârșită</div><p class="card-text">Este mereu însetat să înțeleagă de ce și cum funcționează lumea, mintea umană sau tehnologia.</p></div>
+    <div class="content-card"><span class="card-icon">⚖️</span><div class="card-title gold">Calm și Echilibrat</div><p class="card-text">Gândește înainte să reacționeze; se detașează de emoțiile de moment pentru a vedea clar situația.</p></div>
   </div>
-
   <div class="content-grid-3">
-    <div class="content-card">
-      <span class="card-icon">☕</span>
-      <div class="card-title" style="color:var(--text2)">În discuții</div>
-      <p class="card-text">Este prietenul la care mergi când ai o problemă complicată. Ascultă tăcut, apoi îți pune acea întrebare care îți schimbă complet perspectiva.</p>
-    </div>
-    <div class="content-card">
-      <span class="card-icon">⚙️</span>
-      <div class="card-title" style="color:var(--text2)">La job</div>
-      <p class="card-text">Este colegul care nu face mult zgomot, dar vine cu o inovație sau o soluție tehnică ingenioasă care rezolvă o criză de care echipa nici nu știa că se apropie.</p>
-    </div>
-    <div class="content-card">
-      <span class="card-icon">📚</span>
-      <div class="card-title" style="color:var(--text2)">În timpul liber</div>
-      <p class="card-text">Este mereu absorbit de o carte de psihologie, documentare despre univers, dezvoltare personală sau tehnologii de ultimă oră.</p>
-    </div>
+    <div class="content-card"><span class="card-icon">☕</span><div class="card-title" style="color:var(--text2)">În discuții</div><p class="card-text">Este prietenul la care mergi când ai o problemă complicată. Ascultă tăcut, apoi îți pune acea întrebare care îți schimbă complet perspectiva.</p></div>
+    <div class="content-card"><span class="card-icon">⚙️</span><div class="card-title" style="color:var(--text2)">La job</div><p class="card-text">Este colegul care nu face mult zgomot, dar vine cu o inovație sau o soluție tehnică ingenioasă care rezolvă o criză de care echipa nici nu știa că se apropie.</p></div>
+    <div class="content-card"><span class="card-icon">📚</span><div class="card-title" style="color:var(--text2)">În timpul liber</div><p class="card-text">Este mereu absorbit de o carte de psihologie, documentare despre univers, dezvoltare personală sau tehnologii de ultimă oră.</p></div>
   </div>
 </section>
 
@@ -704,45 +762,27 @@ nav {
     <div class="key-quote-text">Să descifreze legile fundamentale ale vieții și ale universului pentru a face visele să devină realitate.</div>
     <div class="key-quote-label">Dorința fundamentală a Magicianului</div>
   </div>
-  <p style="font-size:14px;color:var(--text2);line-height:1.8;font-weight:300;max-width:600px">
-    Magicianul nu vrea putere brută; el dorește cunoaștere și claritate pentru a cataliza schimbări pozitive, transformând ideile bune în rezultate uimitoare. Teama sa cea mai profundă: să producă consecințe negative neintenționate prin acțiunile, sfaturile sau cunoașterea sa.
-  </p>
+  <p style="font-size:14px;color:var(--text2);line-height:1.8;font-weight:300;max-width:600px">Magicianul nu vrea putere brută; el dorește cunoaștere și claritate pentru a cataliza schimbări pozitive, transformând ideile bune în rezultate uimitoare. Teama sa cea mai profundă: să producă consecințe negative neintenționate prin acțiunile, sfaturile sau cunoașterea sa.</p>
 </section>
 
 <!-- LUMINA SI UMBRA -->
 <section class="content-section">
   <span class="section-label">Lumină și Umbră</span>
   <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Dualitatea Magicianului</h2>
-
   <div class="content-grid-2" style="margin-bottom:24px">
     <div class="content-card light">
       <div class="card-title gold" style="margin-bottom:20px">✨ Partea Luminoasă</div>
       <div style="display:flex;flex-direction:column;gap:16px">
-        <div>
-          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Vindecătorul</div>
-          <p class="card-text">Capacitatea uriașă de a alina și ajuta, oferind sfaturi care aduc liniște și claritate.</p>
-        </div>
-        <div>
-          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Soluții Win-Win</div>
-          <p class="card-text">Găsește mereu rezolvări elegante din care toată lumea are de câștigat, armonizând conflictele.</p>
-        </div>
-        <div>
-          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Catalizatorul</div>
-          <p class="card-text">Inspiră și îi ghidează pe ceilalți să își atingă potențialul maxim, făcându-i să creadă că orice este posibil.</p>
-        </div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Vindecătorul</div><p class="card-text">Capacitatea uriașă de a alina și ajuta, oferind sfaturi care aduc liniște și claritate.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Soluții Win-Win</div><p class="card-text">Găsește mereu rezolvări elegante din care toată lumea are de câștigat, armonizând conflictele.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Catalizatorul</div><p class="card-text">Inspiră și îi ghidează pe ceilalți să își atingă potențialul maxim, făcându-i să creadă că orice este posibil.</p></div>
       </div>
     </div>
     <div class="content-card shadow-card">
       <div class="card-title red" style="margin-bottom:20px">🌑 Partea de Umbră</div>
       <div style="display:flex;flex-direction:column;gap:16px">
-        <div>
-          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Manipulatorul</div>
-          <p class="card-text">Folosește informația doar pentru a-i controla pe alții. Ține secrete pentru a se simți superior, folosind cunoașterea strict în propriul interes, lipsit de empatie.</p>
-        </div>
-        <div>
-          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Visătorul Pasiv</div>
-          <p class="card-text">Se blochează în propria minte. Citește și analizează la nesfârșit, dar refuză să aplice ceea ce știe în viața reală din teama de a nu greși.</p>
-        </div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Manipulatorul</div><p class="card-text">Folosește informația doar pentru a-i controla pe alții. Ține secrete pentru a se simți superior, folosind cunoașterea strict în propriul interes, lipsit de empatie.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Visătorul Pasiv</div><p class="card-text">Se blochează în propria minte. Citește și analizează la nesfârșit, dar refuză să aplice ceea ce știe în viața reală din teama de a nu greși.</p></div>
       </div>
     </div>
   </div>
@@ -752,16 +792,9 @@ nav {
 <section class="content-section">
   <span class="section-label">Fețe Cunoscute</span>
   <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Unde ai mai văzut Magicianul?</h2>
-
   <div class="content-grid-2">
-    <div class="content-card">
-      <div class="card-title" style="margin-bottom:16px;color:var(--text)">🎬 În filme</div>
-      <p class="card-text" style="margin-bottom:12px">Yoda (Star Wars), Gandalf (Stăpânul Inelelor) sau Albus Dumbledore (Harry Potter) — mentorii tăcuți care dețin cunoașterea secretă și ghidează, ajutându-l pe erou să își găsească propria putere.</p>
-    </div>
-    <div class="content-card">
-      <div class="card-title" style="margin-bottom:16px;color:var(--text)">⚡ În realitate</div>
-      <p class="card-text">Nikola Tesla — un vizionar care a înțeles legile invizibile ale energiei și a transformat complet modul în care trăim, transformând un concept magic în tehnologie palpabilă.</p>
-    </div>
+    <div class="content-card"><div class="card-title" style="margin-bottom:16px;color:var(--text)">🎬 În filme</div><p class="card-text">Yoda (Star Wars), Gandalf (Stăpânul Inelelor) sau Albus Dumbledore (Harry Potter) — mentorii tăcuți care dețin cunoașterea secretă și ghidează, ajutându-l pe erou să își găsească propria putere.</p></div>
+    <div class="content-card"><div class="card-title" style="margin-bottom:16px;color:var(--text)">⚡ În realitate</div><p class="card-text">Nikola Tesla — un vizionar care a înțeles legile invizibile ale energiei și a transformat complet modul în care trăim, transformând un concept magic în tehnologie palpabilă.</p></div>
   </div>
 </section>
 
@@ -769,9 +802,7 @@ nav {
 <section class="content-section" style="padding-top:0">
   <div class="key-quote" style="border-left-color:var(--magic)">
     <div class="key-quote-label" style="margin-bottom:16px">Propoziția-cheie a Magicianului</div>
-    <div class="key-quote-text" style="font-size:clamp(28px,4vw,52px)">
-      Eu transform viziunea în realitate prin înțelegere și claritate.
-    </div>
+    <div class="key-quote-text" style="font-size:clamp(28px,4vw,52px)">Eu transform viziunea în realitate prin înțelegere și claritate.</div>
   </div>
 </section>
 
@@ -780,34 +811,14 @@ nav {
   <span class="section-label">Oglinda · Autoreflecție</span>
   <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.1">Cum îl recunoști în tine?</h2>
   <p style="font-size:14px;color:var(--text2);font-weight:300;margin-bottom:32px;max-width:500px;line-height:1.7">Dacă răspunzi cu „Da" la aceste întrebări, Magicianul din tine este o aplicație deschisă și gata să creeze magie în viața ta!</p>
-
   <div class="checklist-grid" id="checklist">
-    <div class="checklist-item" onclick="toggleCheck(this)">
-      <div class="check-box">✓</div>
-      <div class="check-text">Observi mult înainte să vorbești sau să acționezi?</div>
-    </div>
-    <div class="checklist-item" onclick="toggleCheck(this)">
-      <div class="check-box">✓</div>
-      <div class="check-text">Cei din jur apelează frecvent la tine pentru sfaturi de profunzime?</div>
-    </div>
-    <div class="checklist-item" onclick="toggleCheck(this)">
-      <div class="check-box">✓</div>
-      <div class="check-text">Te fascinează misterele vieții, modul în care funcționează mintea umană sau inovațiile tehnologice?</div>
-    </div>
-    <div class="checklist-item" onclick="toggleCheck(this)">
-      <div class="check-box">✓</div>
-      <div class="check-text">Ai un radar intern care detectează imediat când ceva nu se leagă sau când cineva nu este autentic?</div>
-    </div>
-    <div class="checklist-item" onclick="toggleCheck(this)">
-      <div class="check-box">✓</div>
-      <div class="check-text">Când rezolvi o problemă, cauți soluția elegantă — nu doar cea rapidă?</div>
-    </div>
-    <div class="checklist-item" onclick="toggleCheck(this)">
-      <div class="check-box">✓</div>
-      <div class="check-text">Simți că ai o misiune mai mare, că ești chemat să transformi ceva important în lume?</div>
-    </div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Observi mult înainte să vorbești sau să acționezi?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Cei din jur apelează frecvent la tine pentru sfaturi de profunzime?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Te fascinează misterele vieții, modul în care funcționează mintea umană sau inovațiile tehnologice?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Ai un radar intern care detectează imediat când ceva nu se leagă sau când cineva nu este autentic?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Când rezolvi o problemă, cauți soluția elegantă — nu doar cea rapidă?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Simți că ai o misiune mai mare, că ești chemat să transformi ceva important în lume?</div></div>
   </div>
-
   <div class="checklist-result" id="checklistResult">
     <div class="checklist-score" id="checkScore">0</div>
     <div class="checklist-score-label">din 6 · Rezonanță cu Magicianul</div>
@@ -848,86 +859,76 @@ function animCursor(){
 }
 animCursor();
 
-// AUDIO PLAYER
+// AUDIO
 const audio = document.getElementById('audioPlayer');
 const btn = document.getElementById('audioBtn');
 const fill = document.getElementById('progressFill');
 const curr = document.getElementById('currentTime');
 const total = document.getElementById('totalTime');
+function toggleAudio(){if(audio.paused){audio.play();btn.textContent='⏸';}else{audio.pause();btn.textContent='▶';}}
+function formatTime(s){const m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+audio.addEventListener('timeupdate',()=>{if(audio.duration){fill.style.width=(audio.currentTime/audio.duration*100)+'%';curr.textContent=formatTime(audio.currentTime);}});
+audio.addEventListener('loadedmetadata',()=>{total.textContent=formatTime(audio.duration);});
+audio.addEventListener('ended',()=>{btn.textContent='▶';});
+function seekAudio(e){const bar=document.getElementById('progressBar');const rect=bar.getBoundingClientRect();const pct=(e.clientX-rect.left)/rect.width;if(audio.duration)audio.currentTime=pct*audio.duration;}
 
-function toggleAudio() {
-  if(audio.paused) { audio.play(); btn.textContent='⏸'; }
-  else { audio.pause(); btn.textContent='▶'; }
-}
-function formatTime(s) {
-  const m=Math.floor(s/60);
-  return m+':'+(Math.floor(s%60)+'').padStart(2,'0');
-}
-audio.addEventListener('timeupdate',()=>{
-  if(audio.duration) {
-    fill.style.width=(audio.currentTime/audio.duration*100)+'%';
-    curr.textContent=formatTime(audio.currentTime);
-  }
-});
-audio.addEventListener('loadedmetadata',()=>{
-  total.textContent=formatTime(audio.duration);
-});
-audio.addEventListener('ended',()=>{ btn.textContent='▶'; });
-function seekAudio(e) {
-  const bar=document.getElementById('progressBar');
-  const rect=bar.getBoundingClientRect();
-  const pct=(e.clientX-rect.left)/rect.width;
-  if(audio.duration) audio.currentTime=pct*audio.duration;
+// HTML SLIDER
+const TOTAL_SLIDES = 12;
+let currentHSlide = 0;
+const track = document.getElementById('slidesTrack');
+const dotsContainer = document.getElementById('sliderDots');
+const counter = document.getElementById('sliderCounter');
+
+// Build dots
+for(let i=0;i<TOTAL_SLIDES;i++){
+  const d=document.createElement('div');
+  d.className='slider-dot'+(i===0?' active':'');
+  d.onclick=()=>goToHSlide(i);
+  dotsContainer.appendChild(d);
 }
 
-// LIGHTBOX
-const slides=['/static/slides/magicianul/slide-01.jpg','/static/slides/magicianul/slide-02.jpg','/static/slides/magicianul/slide-03.jpg','/static/slides/magicianul/slide-04.jpg','/static/slides/magicianul/slide-05.jpg','/static/slides/magicianul/slide-06.jpg','/static/slides/magicianul/slide-07.jpg','/static/slides/magicianul/slide-08.jpg','/static/slides/magicianul/slide-09.jpg','/static/slides/magicianul/slide-10.jpg','/static/slides/magicianul/slide-11.jpg','/static/slides/magicianul/slide-12.jpg'];
-let currentSlide=0;
-function openLightbox(idx){
-  currentSlide=idx;
-  document.getElementById('lightboxImg').src=slides[idx];
-  document.getElementById('lightbox').classList.add('open');
+function goToHSlide(idx){
+  currentHSlide=idx;
+  track.style.transform=`translateX(-${idx*100}%)`;
+  document.querySelectorAll('.slider-dot').forEach((d,i)=>{
+    d.className='slider-dot'+(i===idx?' active':'');
+  });
+  counter.textContent=`${idx+1} / ${TOTAL_SLIDES}`;
 }
-function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
-function nextSlide(){currentSlide=(currentSlide+1)%slides.length;document.getElementById('lightboxImg').src=slides[currentSlide];}
-function prevSlide(){currentSlide=(currentSlide-1+slides.length)%slides.length;document.getElementById('lightboxImg').src=slides[currentSlide];}
+function nextHSlide(){goToHSlide((currentHSlide+1)%TOTAL_SLIDES);}
+function prevHSlide(){goToHSlide((currentHSlide-1+TOTAL_SLIDES)%TOTAL_SLIDES);}
+
+// Keyboard nav for slider
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape') closeLightbox();
-  if(e.key==='ArrowRight') nextSlide();
-  if(e.key==='ArrowLeft') prevSlide();
+  if(e.key==='ArrowRight') nextHSlide();
+  if(e.key==='ArrowLeft') prevHSlide();
+});
+
+// Touch/swipe support
+let touchStartX=0;
+track.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
+track.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-touchStartX;
+  if(Math.abs(dx)>50){dx<0?nextHSlide():prevHSlide();}
 });
 
 // CHECKLIST
-const verdicts = [
-  'Magicianul doarme. Dar e acolo — potențialul există.',
-  'O scânteie. Magicianul se trezește în tine.',
-  'Energie în creștere. Magicianul lucrează subtil.',
-  'Magicianul este activ și influent în viața ta.',
-  'Magicianul este dominant. Folosește-l cu responsabilitate.',
-  'Magicianul este deschis la maximum. Ești în elementul tău!',
-  'Magicianul pur. Transformi realitatea prin viziune și claritate.'
-];
-function toggleCheck(el) {
+const verdicts=['Magicianul doarme. Dar e acolo — potențialul există.','O scânteie. Magicianul se trezește în tine.','Energie în creștere. Magicianul lucrează subtil.','Magicianul este activ și influent în viața ta.','Magicianul este dominant. Folosește-l cu responsabilitate.','Magicianul este deschis la maximum. Ești în elementul tău!','Magicianul pur. Transformi realitatea prin viziune și claritate.'];
+function toggleCheck(el){
   el.classList.toggle('checked');
   const checked=document.querySelectorAll('.checklist-item.checked').length;
   document.getElementById('checkScore').textContent=checked;
   document.getElementById('checkVerdict').textContent=verdicts[checked];
-  const result=document.getElementById('checklistResult');
-  result.style.borderColor=checked>3?'rgba(201,169,110,0.4)':checked>1?'rgba(124,58,237,0.3)':'var(--border)';
+  document.getElementById('checklistResult').style.borderColor=checked>3?'rgba(201,169,110,0.4)':checked>1?'rgba(124,58,237,0.3)':'var(--border)';
 }
 
 // SCROLL ANIMATIONS
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
-  });
-},{threshold:0.1});
-document.querySelectorAll('.content-card,.slide-thumb,.checklist-item').forEach((el,i)=>{
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
+document.querySelectorAll('.content-card,.checklist-item').forEach((el,i)=>{
   el.style.opacity='0';el.style.transform='translateY(24px)';
   el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;
   obs.observe(el);
 });
 </script>
-
 </body>
 </html>
