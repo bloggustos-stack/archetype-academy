@@ -345,7 +345,7 @@ def serve_slide(arch, filename):
 @app.route('/static/audio/<filename>')
 def serve_audio(filename):
     audio_dir = os.path.join(app.root_path, 'static', 'audio')
-    return send_from_directory(audio_dir, filename)
+    return send_from_directory(audio_dir, filename, mimetype='audio/mpeg')
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5001))
