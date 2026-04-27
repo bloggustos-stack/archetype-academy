@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arhetipul Creatorului · Archetype Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#05050f;--bg2:#0a0a1e;--border:#15152e;--border2:#1e1e3a;--text:#f0ede8;--text2:#8a8699;--text3:#35344a;--acc:#FF6B35;--acc2:#F7C948}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
+.cursor{width:8px;height:8px;background:var(--acc);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(255,107,53,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:width 0.2s,height 0.2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,15,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:15px;color:var(--text2);text-decoration:none}
+.nav-logo span{color:var(--acc)}
+.nav-back{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);text-decoration:none;cursor:none;transition:color 0.2s}
+.nav-back:hover{color:var(--acc)}
+.nav-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 65% 50%,rgba(255,107,53,0.08) 0%,transparent 60%)}
+.hero-content{position:relative;padding:0 10% 0 8%;max-width:600px;z-index:1}
+.hero-num{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.25em;color:var(--acc);margin-bottom:20px;display:block;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+.hero-emoji{font-size:72px;display:block;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.3s forwards;filter:drop-shadow(0 0 30px rgba(255,107,53,0.5))}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(56px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;color:var(--text);margin-bottom:8px;opacity:0;animation:fadeUp 0.8s 0.4s forwards}
+.hero-subtitle{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,22px);font-style:italic;color:var(--acc);margin-bottom:32px;opacity:0;animation:fadeUp 0.8s 0.5s forwards}
+.hero-motto{font-size:15px;color:var(--text2);font-weight:300;line-height:1.8;margin-bottom:48px;border-left:2px solid var(--acc);padding-left:20px;opacity:0;animation:fadeUp 0.8s 0.6s forwards}
+.profile-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;opacity:0;animation:fadeUp 0.8s 0.7s forwards}
+.pill{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:6px 16px;border:1px solid var(--border2);color:var(--text2)}
+.pill.desire{border-color:rgba(34,197,94,0.4);color:#4ade80}
+.pill.fear{border-color:rgba(239,68,68,0.3);color:#f87171}
+.pill.group{border-color:rgba(255,107,53,0.4);color:var(--acc)}
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--acc);margin-bottom:16px;display:block}
+.audio-section{padding:80px 8%;max-width:1000px;margin:0 auto}
+.audio-player-card{background:var(--bg2);border:1px solid var(--border);padding:32px;display:flex;align-items:center;gap:28px;position:relative;overflow:hidden}
+.audio-player-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+.audio-icon{width:64px;height:64px;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;cursor:none;transition:all 0.3s}
+.audio-icon:hover{transform:scale(1.05)}
+.audio-info{flex:1}
+.audio-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px}
+.audio-sub{font-size:12px;color:var(--text2);font-weight:300;margin-bottom:16px}
+.audio-progress{width:100%;height:2px;background:var(--border2);cursor:pointer}
+.audio-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));width:0%;transition:width 0.1s}
+.audio-controls{display:flex;align-items:center;gap:16px;margin-top:12px}
+.audio-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.slides-section{padding:0 8% 80px;max-width:1200px;margin:0 auto}
+.slides-slider{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#f5f3ef;border:1px solid var(--border)}
+.slides-track{display:flex;height:100%;transition:transform 0.5s cubic-bezier(0.77,0,0.18,1)}
+.hslide{min-width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif}
+.slider-controls{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding:0 4px}
+.slider-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);background:none;border:1px solid var(--border2);padding:8px 20px;cursor:none;transition:all 0.2s}
+.slider-btn:hover{border-color:var(--acc);color:var(--acc)}
+.slider-dots{display:flex;gap:6px;align-items:center}
+.slider-dot{width:6px;height:6px;border-radius:50%;background:var(--border2);cursor:none;transition:all 0.2s}
+.slider-dot.active{background:var(--acc);width:18px;border-radius:3px}
+.slider-counter{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.content-section{padding:80px 8%;max-width:1000px;margin:0 auto}
+.content-section+.content-section{border-top:1px solid var(--border)}
+.content-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.content-card{background:var(--bg2);border:1px solid var(--border);padding:28px 24px;position:relative;overflow:hidden;transition:border-color 0.3s}
+.content-card.light::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),transparent)}
+.content-card.shadow-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#7f1d1d,transparent)}
+.card-icon{font-size:28px;margin-bottom:12px;display:block}
+.card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.card-title.gold{color:var(--acc)}
+.card-title.red{color:#f87171}
+.card-text{font-size:13px;color:var(--text2);line-height:1.7;font-weight:300}
+.key-quote{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--acc);padding:40px;margin:40px 0;text-align:center}
+.key-quote-text{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,40px);font-style:italic;color:var(--acc);line-height:1.3;margin-bottom:12px}
+.key-quote-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase}
+.checklist-section{padding:80px 8%;border-top:1px solid var(--border);max-width:1000px;margin:0 auto}
+.checklist-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0}
+.checklist-item{display:flex;align-items:flex-start;gap:14px;padding:20px;background:var(--bg2);border:1px solid var(--border);cursor:none;transition:all 0.3s}
+.checklist-item:hover{border-color:rgba(255,107,53,0.3)}
+.checklist-item.checked{border-color:rgba(74,222,128,0.4);background:rgba(34,197,94,0.04)}
+.check-box{width:20px;height:20px;flex-shrink:0;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:2px;transition:all 0.3s}
+.checklist-item.checked .check-box{border-color:#4ade80;color:#4ade80;background:rgba(74,222,128,0.1)}
+.check-text{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300}
+.checklist-result{padding:24px;background:var(--bg2);border:1px solid var(--border);text-align:center;transition:all 0.4s}
+.checklist-score{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--acc);line-height:1;margin-bottom:8px}
+.checklist-score-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:0.15em;margin-bottom:16px}
+.checklist-verdict{font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--text2);line-height:1.6}
+.arch-nav{padding:60px 8%;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.arch-nav-link{text-decoration:none;display:flex;flex-direction:column;gap:4px;cursor:none;transition:opacity 0.2s;max-width:240px}
+.arch-nav-link:hover{opacity:0.7}
+.arch-nav-dir{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase}
+.arch-nav-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--text)}
+.arch-nav-name.right{text-align:right}
+.arch-cta{padding:80px 8%;border-top:1px solid var(--border);text-align:center;background:var(--bg2)}
+.arch-cta h3{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--text);margin-bottom:12px}
+.arch-cta p{font-size:14px;color:var(--text2);font-weight:300;max-width:480px;margin:0 auto 32px;line-height:1.8}
+.cta-btn{display:inline-block;background:var(--acc);color:#05050f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:14px 36px;text-decoration:none;cursor:none;transition:all 0.3s;font-weight:500}
+.cta-btn:hover{transform:translateY(-2px)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){nav{padding:14px 20px}.hero{padding:100px 20px 60px}.hero-content{padding:0}.content-grid-2,.checklist-grid{grid-template-columns:1fr}.audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta{padding-left:20px;padding-right:20px}.arch-nav{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="/" class="nav-logo"><span>Archetype</span> Academy</a>
+  <span class="nav-num">08 / 12</span>
+  <a href="/" class="nav-back">← Toate arhetipurile</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-num">Arhetipul 08 · Suflet · Creare</span>
+    <span class="hero-emoji">🎨</span>
+    <h1>Creatorul</h1>
+    <div class="hero-subtitle">Arhitectul propriei tale vieți</div>
+    <p class="hero-motto">Arhetipul Creatorului este acea voce interioară care refuză să accepte lumea exact așa cum este, alegând în schimb să o remodeleze. Este forța psihologică prin care transformăm purul potențial și imaginația în forme tangibile, reale. Pentru Creator, exprimarea de sine nu este un lux, ci o necesitate absolută pentru a da sens vieții.</p>
+    <div class="profile-pills">
+      <span class="pill group">Suflet · Creare</span>
+      <span class="pill desire">💚 Dorință: Să lase o moștenire valoroasă</span>
+      <span class="pill fear">⚠ Teamă: Mediocritate și lipsa autenticității</span>
+    </div>
+  </div>
+</section>
+
+<section class="audio-section">
+  <span class="section-label">Podcast · Episodul Creatorului</span>
+  <div class="audio-player-card">
+    <div class="audio-icon" onclick="toggleAudio()" id="audioBtn">▶</div>
+    <div class="audio-info">
+      <div class="audio-title">Arhetipul Creatorului</div>
+      <div class="audio-sub">Arhitectul propriei tale vieți · O introducere în psihologia inovației și imaginației · NotebookLM</div>
+      <div class="audio-progress" id="progressBar" onclick="seekAudio(event)"><div class="audio-progress-fill" id="progressFill"></div></div>
+      <div class="audio-controls"><span class="audio-time" id="currentTime">0:00</span><span class="audio-time" style="color:var(--text3)">·</span><span class="audio-time" id="totalTime">--:--</span></div>
+    </div>
+    <audio id="audioPlayer" src="/static/audio/creatorul.m4a" preload="metadata"></audio>
+  </div>
+</section>
+
+<section class="slides-section">
+  <span class="section-label" style="padding:0 0 16px">Prezentarea vizuală · 12 slide-uri</span>
+  <div class="slides-slider">
+    <div class="slides-track" id="slidesTrack">
+
+      <!-- S1 Cover -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:column;padding:5%;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:absolute;top:5%;right:5%;font-size:clamp(10px,1.5vw,16px);color:#999">✂ - - - - - - - - -</div>
+        <div style="position:relative;text-align:center">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,4.5vw,62px);font-weight:900;color:#1a1a2e;margin-bottom:3%">Arhetipul CREATORULUI</div>
+          <div style="font-size:clamp(10px,1.7vw,20px);color:#4a5568;font-weight:300;margin-bottom:5%">Arhitectul propriei tale vieți. O introducere simplă în psihologia inovației și a imaginației.</div>
+          <div style="display:inline-block;position:relative">
+            <div style="width:clamp(60px,10vw,120px);height:clamp(60px,10vw,120px);background:rgba(255,107,53,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(30px,5vw,60px);margin:0 auto">💡</div>
+            <div style="position:absolute;inset:-4px;border:2px dashed rgba(255,107,53,0.4);border-radius:50%"></div>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:5%;left:5%;font-size:clamp(10px,1.5vw,16px);color:#999">✂ - - - - - - - - -</div>
+      </div>
+
+      <!-- S2 Ce e arhetip -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:column;padding:4% 6%;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;width:100%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a1a2e;text-align:center;margin-bottom:5%">Ce este, de fapt, un arhetip?</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%">
+            <div style="background:white;border-radius:8px;padding:5%;border-left:4px solid #FF6B35">
+              <div style="font-weight:700;color:#1a1a2e;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">Sistemul de Operare</div>
+              <div style="font-size:clamp(9px,1.3vw,14px);color:#4a5568;line-height:1.6;font-weight:300">Arhetipurile sunt programele de bază universale ale psihicului uman. Toți avem același sistem de bază, dar fiecare dintre noi îl personalizează diferit. Astăzi explorăm arhetipul care transformă potențialul în realitate: Creatorul.</div>
+            </div>
+            <div style="background:#1a1a2e;border-radius:8px;padding:5%">
+              <div style="font-weight:700;color:#FF6B35;font-size:clamp(10px,1.4vw,16px);margin-bottom:3%">Aplicațiile Tale</div>
+              <div style="font-size:clamp(9px,1.3vw,14px);color:#e8e0d0;line-height:1.6;font-weight:300">Experiențele tale unice — primele proiecte create, momentele de flow pur, obiectele construite cu mâinile tale — modelează cum se exprimă Creatorul în tine. Tu alegi ce construiești și cum.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3 Cine e -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:row;align-items:stretch;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:4%">
+          <div style="font-size:clamp(12px,1.8vw,22px);color:#999;font-weight:300">CREATORUL, pe scurt</div>
+          <div style="background:#1a1a2e;border-radius:8px;padding:5% 6%;position:relative">
+            <div style="font-family:'Outfit',sans-serif;font-size:clamp(10px,1.4vw,17px);color:#FF6B35;font-weight:700;margin-bottom:3%">CREATORUL</div>
+            <div style="font-size:clamp(9px,1.3vw,15px);color:#e8e0d0;line-height:1.7;font-weight:300">Arhetipul Creatorului este acea voce interioară care refuză să accepte lumea exact așa cum este, alegând în schimb să o remodeleze. Este forța psihologică prin care transformăm purul potențial și imaginația în forme tangibile, reale. Pentru Creator, exprimarea de sine nu este un lux, ci o necesitate absolută pentru a da sens vieții.</div>
+          </div>
+        </div>
+        <div style="position:relative;width:35%;display:flex;align-items:center;justify-content:center;background:rgba(255,107,53,0.08)">
+          <div style="font-size:clamp(60px,10vw,130px)">🎨</div>
+        </div>
+      </div>
+
+      <!-- S4 Trăsături -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:column;padding:4% 5%;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;width:100%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a1a2e;text-align:center;margin-bottom:5%">Cum arată ADN-ul unui Creator?</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%">
+            <div style="display:flex;gap:3%;align-items:flex-start">
+              <div style="background:#FF6B35;width:clamp(20px,3vw,36px);height:clamp(20px,3vw,36px);min-width:clamp(20px,3vw,36px);display:flex;align-items:center;justify-content:center;border-radius:4px;margin-top:1%"><div style="color:white;font-size:clamp(10px,1.5vw,18px)">✦</div></div>
+              <div><div style="font-family:'Playfair Display',serif;font-size:clamp(11px,1.6vw,20px);font-weight:700;color:#1a1a2e;margin-bottom:2%">Inovator</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Caută mereu soluții noi. Refuză să facă lucrurile așa cum s-au făcut mereu.</div></div>
+            </div>
+            <div style="display:flex;gap:3%;align-items:flex-start">
+              <div style="background:#FF6B35;width:clamp(20px,3vw,36px);height:clamp(20px,3vw,36px);min-width:clamp(20px,3vw,36px);display:flex;align-items:center;justify-content:center;border-radius:4px;margin-top:1%"><div style="color:white;font-size:clamp(10px,1.5vw,18px)">✦</div></div>
+              <div><div style="font-family:'Playfair Display',serif;font-size:clamp(11px,1.6vw,20px);font-weight:700;color:#1a1a2e;margin-bottom:2%">Imaginativ</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Vede potențial acolo unde alții văd doar o pânză goală.</div></div>
+            </div>
+            <div style="display:flex;gap:3%;align-items:flex-start">
+              <div style="background:#FF6B35;width:clamp(20px,3vw,36px);height:clamp(20px,3vw,36px);min-width:clamp(20px,3vw,36px);display:flex;align-items:center;justify-content:center;border-radius:4px;margin-top:1%"><div style="color:white;font-size:clamp(10px,1.5vw,18px)">✦</div></div>
+              <div><div style="font-family:'Playfair Display',serif;font-size:clamp(11px,1.6vw,20px);font-weight:700;color:#1a1a2e;margin-bottom:2%">Autentic</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Nu suportă să fie o simplă copie la indigo. Are nevoie să își lase amprenta personală.</div></div>
+            </div>
+            <div style="display:flex;gap:3%;align-items:flex-start">
+              <div style="background:#FF6B35;width:clamp(20px,3vw,36px);height:clamp(20px,3vw,36px);min-width:clamp(20px,3vw,36px);display:flex;align-items:center;justify-content:center;border-radius:4px;margin-top:1%"><div style="color:white;font-size:clamp(10px,1.5vw,18px)">✦</div></div>
+              <div><div style="font-family:'Playfair Display',serif;font-size:clamp(11px,1.6vw,20px);font-weight:700;color:#1a1a2e;margin-bottom:2%">Non-conformist</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.6;font-weight:300">Urăște stagnarea și regulile rigide care îi îngrădesc libertatea de exprimare.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S5 Motivație -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:row;align-items:stretch;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:4%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a1a2e;line-height:1.2">Ce își dorește cel mai mult? (Motivația profundă)</div>
+          <div style="font-size:clamp(14px,2vw,24px);font-weight:700;color:#1a1a2e">Să lase o moștenire valoroasă.</div>
+          <div style="font-size:clamp(9px,1.3vw,15px);color:#4a5568;line-height:1.7;font-weight:300">Motivația lui profundă nu este faima superficială, ci realizarea unei viziuni. Creatorul vrea să creeze lucruri (obiecte, arte, sisteme, idei) care să aibă o valoare durabilă, care să depășească timpul prezent.</div>
+          <div style="font-style:italic;color:#FF6B35;font-size:clamp(10px,1.5vw,18px);font-family:'Playfair Display',serif">„dacă ceva poate fi imaginat, atunci cu siguranță poate fi construit."</div>
+        </div>
+        <div style="position:relative;width:40%;display:flex;align-items:center;justify-content:center;background:#1a1a2e">
+          <div style="font-size:clamp(60px,10vw,130px)">⭐</div>
+        </div>
+      </div>
+
+      <!-- S6 Frică -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:column;padding:4% 6%;align-items:center;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;width:100%;text-align:center">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a1a2e;margin-bottom:5%">De ce se teme cel mai mult? (Frica fundamentală)</div>
+          <div style="background:white;border-radius:8px;padding:5% 8%;max-width:80%;margin:0 auto;box-shadow:0 4px 20px rgba(0,0,0,0.08);border-left:4px solid #dc2626">
+            <div style="font-weight:700;font-size:clamp(10px,1.5vw,18px);color:#991b1b;margin-bottom:3%">De mediocritate și lipsă de autenticitate.</div>
+            <div style="font-size:clamp(9px,1.3vw,14px);color:#4a5568;line-height:1.7;font-weight:300">Creatorul se teme că va trăi o viață banală, fără a lăsa nicio urmă în lume. Se teme că va fi forțat să trăiască după regulile altora, renunțând la propria viziune pentru conformism. Frica de a fi „ca toți ceilalți" este coșmarul lui cel mai profund.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S7 Zi cu zi -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:column;padding:4% 5%;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;width:100%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a1a2e;margin-bottom:5%">Creatorul la o cafea (Cum se comportă zi de zi)</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%">
+            <div style="background:white;border-radius:8px;padding:4%;display:flex;gap:3%;align-items:flex-start;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+              <div style="font-size:clamp(16px,2.5vw,30px)">👔</div>
+              <div><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;margin-bottom:1%">Stilul personal</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Alege haine sau accesorii care îi exprimă clar individualitatea, evitând uniformizarea. Biroul sau casa sunt redecorate constant pentru a se potrivi cu viziunea sa estetică.</div></div>
+            </div>
+            <div style="background:white;border-radius:8px;padding:4%;display:flex;gap:3%;align-items:flex-start;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+              <div style="font-size:clamp(16px,2.5vw,30px)">🔨</div>
+              <div><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;margin-bottom:1%">Proiecte DIY</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Are mereu un proiect de tip DIY în desfășurare. Preferă să repare sau să construiască ceva singur decât să cumpere de-a gata.</div></div>
+            </div>
+            <div style="background:white;border-radius:8px;padding:4%;display:flex;gap:3%;align-items:flex-start;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+              <div style="font-size:clamp(16px,2.5vw,30px)">💼</div>
+              <div><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;margin-bottom:1%">La job</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Propune mereu moduri noi de a eficientiza un proces sau de a redesena o prezentare pentru a arăta impecabil. Nu suportă „am mai făcut asta dintotdeauna".</div></div>
+            </div>
+            <div style="background:white;border-radius:8px;padding:4%;display:flex;gap:3%;align-items:flex-start;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+              <div style="font-size:clamp(16px,2.5vw,30px)">📚</div>
+              <div><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;margin-bottom:1%">Zeci de idei</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Are zeci de idei și proiecte începute (și poate neterminate) prin casă sau prin calculator. Mintea lui generează constant posibilități noi.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S8 Lumina -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:row;align-items:stretch;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:4%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a1a2e;line-height:1.2">Partea Luminoasă:<br>Superputerile Creatorului</div>
+          <div style="display:flex;flex-direction:column;gap:4%">
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="color:#4ade80;font-size:clamp(14px,2vw,22px);font-weight:700">✓</div><div><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;margin-bottom:1%">Viziunea transformatoare</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Are capacitatea rară de a vedea ce ar putea fi, nu doar ce este. Transformă problemele în oportunități creative.</div></div></div>
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="color:#4ade80;font-size:clamp(14px,2vw,22px);font-weight:700">✓</div><div><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;margin-bottom:1%">Rezolvarea creativă</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Găsește soluții neconvenționale la probleme vechi. Gândește lateral acolo unde alții se blochează.</div></div></div>
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="color:#4ade80;font-size:clamp(14px,2vw,22px);font-weight:700">✓</div><div><div style="font-weight:700;font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;margin-bottom:1%">Moștenire durabilă</div><div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Tot ce construiește are o calitate intrinsecă și o intenție profundă. Lasă lucruri în urmă care rezistă timpului.</div></div></div>
+          </div>
+        </div>
+        <div style="position:relative;width:35%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#FF6B35,#F7C948)">
+          <div style="font-size:clamp(60px,9vw,120px)">✨</div>
+        </div>
+      </div>
+
+      <!-- S9 Umbra -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:row;align-items:stretch;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:4%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a1a2e;line-height:1.2">Partea de umbră:<br>Când perfecționismul devine toxic</div>
+          <div style="font-size:clamp(8px,1.2vw,14px);color:#4a5568;font-weight:300">Când dorința de excelență scapă de sub control, Creatorul cade în tirania lui «așa ar trebui să fie».</div>
+          <div style="display:flex;flex-direction:column;gap:3%">
+            <div style="background:#fee2e2;border-radius:6px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,14px);color:#991b1b;margin-bottom:1%">✗ Paralizia perfecționistului</div><div style="font-size:clamp(8px,1.1vw,13px);color:#7f1d1d;line-height:1.4;font-weight:300">Refuză să lanseze sau să termine un proiect pentru că încă nu e perfect.</div></div>
+            <div style="background:#fee2e2;border-radius:6px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,14px);color:#991b1b;margin-bottom:1%">✗ Procrastinarea</div><div style="font-size:clamp(8px,1.1vw,13px);color:#7f1d1d;line-height:1.4;font-weight:300">Din frica teribilă de eșec, se simte stors de energie și amână să înceapă munca.</div></div>
+            <div style="background:#fee2e2;border-radius:6px;padding:3% 4%"><div style="font-weight:700;font-size:clamp(9px,1.3vw,14px);color:#991b1b;margin-bottom:1%">✗ Deconectarea</div><div style="font-size:clamp(8px,1.1vw,13px);color:#7f1d1d;line-height:1.4;font-weight:300">Se poate izola în propriul cap, pierzând legătura cu realitatea practică a celor din jur.</div></div>
+          </div>
+        </div>
+        <div style="position:relative;width:35%;display:flex;align-items:center;justify-content:center;background:#e8e4dc">
+          <div style="font-size:clamp(60px,9vw,120px)">🪞</div>
+        </div>
+      </div>
+
+      <!-- S10 Pop culture -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:column;padding:4% 5%;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;width:100%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a1a2e;text-align:center;margin-bottom:4%">Creatorul în Cultura Pop și Branding</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%">
+            <div style="background:white;border-radius:8px;padding:5% 4%;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06)">
+              <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">🎭</div>
+              <div style="font-weight:700;color:#1a1a2e;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Da Vinci / Picasso</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Artiști care au refuzat să accepte limitele existente, inventând noi limbaje vizuale și schimbând pentru totdeauna cum vedem lumea.</div>
+            </div>
+            <div style="background:white;border-radius:8px;padding:5% 4%;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06)">
+              <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">🏗️</div>
+              <div style="font-weight:700;color:#1a1a2e;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">LEGO / Minecraft</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">Branduri construite în jurul actului pur de a crea. Promisiunea lor: cu imaginație, poți construi orice lume vrei.</div>
+            </div>
+            <div style="background:white;border-radius:8px;padding:5% 4%;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06)">
+              <div style="font-size:clamp(24px,4vw,50px);margin-bottom:3%">🍎</div>
+              <div style="font-weight:700;color:#1a1a2e;font-size:clamp(10px,1.3vw,16px);margin-bottom:2%">Apple</div>
+              <div style="font-size:clamp(8px,1.1vw,13px);color:#4a5568;line-height:1.5;font-weight:300">„Think Different" — sloganul perfect al Creatorului. Un brand construit pe premisa că cei care sunt destul de nebuni să creadă că pot schimba lumea sunt cei care o schimbă.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S11 Checklist -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:column;padding:4% 5%;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;width:100%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a1a2e;margin-bottom:2%">Checklist: Ești și tu dominat de Creator?</div>
+          <div style="font-size:clamp(8px,1.2vw,14px);color:#4a5568;margin-bottom:4%;font-weight:300">Bifează afirmațiile în care te regăsești:</div>
+          <div style="background:white;border-radius:8px;padding:4% 5%;display:flex;flex-direction:column;gap:4%;box-shadow:0 4px 15px rgba(0,0,0,0.06)">
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);border:2px solid #FF6B35;border-radius:3px;margin-top:1%"></div><div style="font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;line-height:1.5;font-weight:300">Te simți neliniștit sau frustrat dacă trece mult timp fără să construiești, să desenezi sau să inventezi ceva.</div></div>
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);border:2px solid #FF6B35;border-radius:3px;margin-top:1%"></div><div style="font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;line-height:1.5;font-weight:300">Te deranjează fizic lucrurile ineficiente sau lipsite de estetică.</div></div>
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);border:2px solid #FF6B35;border-radius:3px;margin-top:1%;background:#FF6B35;display:flex;align-items:center;justify-content:center"><div style="color:white;font-size:clamp(8px,1.2vw,14px);font-weight:700">✓</div></div><div style="font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;line-height:1.5;font-weight:300">Ai zeci de idei și proiecte începute (și poate neterminate) prin casă sau prin calculator.</div></div>
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);border:2px solid #FF6B35;border-radius:3px;margin-top:1%"></div><div style="font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;line-height:1.5;font-weight:300">Preferi să faci un lucru cu mâna ta pentru a te asigura că iese exact cum trebuie.</div></div>
+            <div style="display:flex;gap:3%;align-items:flex-start"><div style="width:clamp(16px,2vw,24px);height:clamp(16px,2vw,24px);min-width:clamp(16px,2vw,24px);border:2px solid #FF6B35;border-radius:3px;margin-top:1%"></div><div style="font-size:clamp(9px,1.3vw,15px);color:#1a1a2e;line-height:1.5;font-weight:300">Pentru tine, calitatea muncii tale este o reflecție directă a valorii tale ca om.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S12 Final -->
+      <div class="hslide" style="background:#f5f3ef;flex-direction:column;padding:4% 8%;position:relative">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:clamp(20px,3vw,40px) clamp(20px,3vw,40px)"></div>
+        <div style="position:relative;width:100%">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:700;color:#1a1a2e;margin-bottom:3%">Concluzia (la asta cu tine)</div>
+          <div style="font-size:clamp(9px,1.3vw,15px);color:#4a5568;margin-bottom:6%;font-weight:300;line-height:1.6">Arhetipul Creatorului ne invită să fim demiurgii propriei noastre vieți. El ne învață o lecție simplă, dar profundă:</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,3.5vw,48px);font-style:italic;color:#1a1a2e;line-height:1.3">Pânza albă nu este o amenințare, ci o invitație: <span style="text-decoration:underline;text-decoration-color:#FF6B35;text-underline-offset:4px">dacă poate fi imaginat</span>, poate fi și <span style="text-decoration:underline;text-decoration-color:#FF6B35;text-underline-offset:4px">construit</span>.</div>
+          <div style="margin-top:6%;display:flex;align-items:center;gap:3%"><div style="flex:1;height:1px;background:#ddd"></div><div style="font-size:clamp(16px,3vw,36px)">✦</div><div style="flex:1;height:1px;background:#ddd"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="slider-btn" onclick="prevHSlide()">← Anterior</button>
+    <div class="slider-dots" id="sliderDots"></div>
+    <button class="slider-btn" onclick="nextHSlide()">Următor →</button>
+  </div>
+  <div style="text-align:center;margin-top:8px"><span class="slider-counter" id="sliderCounter">1 / 12</span></div>
+</section>
+
+<section class="content-section">
+  <span class="section-label">Profilul Creatorului</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Inovație, imaginație<br>și moștenire durabilă</h2>
+  <div class="content-grid-2" style="margin-bottom:24px">
+    <div class="content-card light"><span class="card-icon">💡</span><div class="card-title gold">Inovator</div><p class="card-text">Caută mereu soluții noi. Refuză să facă lucrurile așa cum s-au făcut mereu. Vede potențial acolo unde alții văd obstacole.</p></div>
+    <div class="content-card light"><span class="card-icon">🧠</span><div class="card-title gold">Imaginativ</div><p class="card-text">Vede potențial acolo unde alții văd doar o pânză goală. Mintea lui generează constant posibilități noi.</p></div>
+    <div class="content-card light"><span class="card-icon">🎭</span><div class="card-title gold">Autentic</div><p class="card-text">Nu suportă să fie o simplă copie la indigo. Are nevoie absolută să își lase amprenta personală pe tot ce creează.</p></div>
+    <div class="content-card light"><span class="card-icon">🚪</span><div class="card-title gold">Non-conformist</div><p class="card-text">Urăște stagnarea și regulile rigide care îi îngrădesc libertatea de exprimare și inovație.</p></div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="key-quote">
+    <div class="key-quote-text">Nu construiești o casă. Construiești un vas pentru viața cuiva.</div>
+    <div class="key-quote-label">Propoziția-cheie a Creatorului</div>
+  </div>
+</section>
+
+<section class="content-section" style="padding-top:0">
+  <span class="section-label">Lumină și Umbră</span>
+  <div class="content-grid-2">
+    <div class="content-card light">
+      <div class="card-title gold" style="margin-bottom:20px">✨ Superputerile</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Viziunea transformatoare</div><p class="card-text">Vede ce ar putea fi, nu doar ce este. Transformă problemele în oportunități creative.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Rezolvarea creativă</div><p class="card-text">Găsește soluții neconvenționale la probleme vechi. Gândește lateral acolo unde alții se blochează.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Moștenire durabilă</div><p class="card-text">Tot ce construiește are o calitate intrinsecă. Lasă lucruri în urmă care rezistă timpului.</p></div>
+      </div>
+    </div>
+    <div class="content-card shadow-card">
+      <div class="card-title red" style="margin-bottom:20px">🌑 Riscurile</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Paralizia perfecționistului</div><p class="card-text">Refuză să lanseze proiecte pentru că nu sunt încă perfecte.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Procrastinarea</div><p class="card-text">Din frica de eșec, amână să înceapă munca sau abandonează proiecte la jumătate.</p></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Deconectarea</div><p class="card-text">Se poate izola în propriul cap, pierzând legătura cu realitatea practică a celor din jur.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="checklist-section">
+  <span class="section-label">Oglinda · Autoreflecție</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.1">Cât de puternic este Creatorul în tine?</h2>
+  <p style="font-size:14px;color:var(--text2);font-weight:300;margin-bottom:32px;max-width:500px;line-height:1.7">Bifează întrebările care ți se potrivesc și descoperă rezonanța ta cu Creatorul.</p>
+  <div class="checklist-grid" id="checklist">
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Te simți neliniștit dacă trece mult timp fără să creezi, construiești sau inventezi ceva?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Te deranjează fizic lucrurile ineficiente sau lipsite de estetică din jur?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Ai zeci de idei și proiecte începute (și poate neterminate) prin casă sau calculator?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Preferi să faci un lucru cu mâna ta pentru a te asigura că iese exact cum trebuie?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Calitatea muncii tale este pentru tine o reflecție directă a valorii tale ca om?</div></div>
+    <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-text">Propui mereu metode noi de a face lucrurile mai bine, chiar dacă ceilalți spun că „merge și așa"?</div></div>
+  </div>
+  <div class="checklist-result" id="checklistResult">
+    <div class="checklist-score" id="checkScore">0</div>
+    <div class="checklist-score-label">din 6 · Rezonanță cu Creatorul</div>
+    <div class="checklist-verdict" id="checkVerdict">Bifează întrebările de mai sus pentru a vedea cât de puternic este Creatorul în tine.</div>
+  </div>
+</section>
+
+<div class="arch-nav">
+  <a href="/arhetip/iubitorului" class="arch-nav-link">
+    <span class="arch-nav-dir">← Arhetipul anterior</span>
+    <span class="arch-nav-name">💗 Iubitorului</span>
+  </a>
+  <a href="/arhetip/magicianul" class="arch-nav-link" style="align-items:flex-end">
+    <span class="arch-nav-dir">Arhetipul următor →</span>
+    <span class="arch-nav-name right">✨ Magicianul</span>
+  </a>
+</div>
+
+<div class="arch-cta">
+  <h3>Vrei să analizezi Creatorul în discursul tău?</h3>
+  <p>TEDx SpeakerLab identifică arhetipul dominant din textul tău, scorul de autenticitate arhetipală și dinamica umbrei.</p>
+  <a href="https://tedx-speakerlab2.onrender.com" target="_blank" class="cta-btn">Încearcă SpeakerLab →</a>
+</div>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+function animCursor(){cursor.style.left=(mx-4)+'px';cursor.style.top=(my-4)+'px';rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=(rx-16)+'px';ring.style.top=(ry-16)+'px';requestAnimationFrame(animCursor);}
+animCursor();
+const audio=document.getElementById('audioPlayer'),btn=document.getElementById('audioBtn'),fill=document.getElementById('progressFill'),curr=document.getElementById('currentTime'),total=document.getElementById('totalTime');
+function toggleAudio(){if(audio.paused){audio.play();btn.textContent='⏸';}else{audio.pause();btn.textContent='▶';}}
+function formatTime(s){const m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+audio.addEventListener('timeupdate',()=>{if(audio.duration){fill.style.width=(audio.currentTime/audio.duration*100)+'%';curr.textContent=formatTime(audio.currentTime);}});
+audio.addEventListener('loadedmetadata',()=>{total.textContent=formatTime(audio.duration);});
+audio.addEventListener('ended',()=>{btn.textContent='▶';});
+function seekAudio(e){const bar=document.getElementById('progressBar');const rect=bar.getBoundingClientRect();const pct=(e.clientX-rect.left)/rect.width;if(audio.duration)audio.currentTime=pct*audio.duration;}
+const TOTAL=12;let cur=0;
+const track=document.getElementById('slidesTrack'),dots=document.getElementById('sliderDots'),counter=document.getElementById('sliderCounter');
+for(let i=0;i<TOTAL;i++){const d=document.createElement('div');d.className='slider-dot'+(i===0?' active':'');d.onclick=()=>goTo(i);dots.appendChild(d);}
+function goTo(i){cur=i;track.style.transform=`translateX(-${i*100}%)`;document.querySelectorAll('.slider-dot').forEach((d,j)=>d.className='slider-dot'+(j===i?' active':''));counter.textContent=`${i+1} / ${TOTAL}`;}
+function nextHSlide(){goTo((cur+1)%TOTAL);}
+function prevHSlide(){goTo((cur-1+TOTAL)%TOTAL);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextHSlide();if(e.key==='ArrowLeft')prevHSlide();});
+let tx=0;track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){dx<0?nextHSlide():prevHSlide();}});
+const verdicts=['Creatorul doarme. Dar potențialul e acolo, neexplorat.','O scânteie de creativitate. Creatorul se trezește.','Viziunea prinde contur. Creatorul lucrează în interior.','Creatorul este activ — transformi idei în realitate.','Creatorul este dominant. Pânza ta albă e mereu plină.','Creatorul te definește. Lași urme valoroase în lume.','Creator pur. Ești arhitectul propriei tale lumi.'];
+function toggleCheck(el){el.classList.toggle('checked');const checked=document.querySelectorAll('.checklist-item.checked').length;document.getElementById('checkScore').textContent=checked;document.getElementById('checkVerdict').textContent=verdicts[checked];document.getElementById('checklistResult').style.borderColor=checked>3?'rgba(255,107,53,0.5)':checked>1?'rgba(247,201,72,0.4)':'var(--border)';}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
+document.querySelectorAll('.content-card,.checklist-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
+</script>
+</body>
+</html>
