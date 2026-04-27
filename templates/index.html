@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archetype Academy — Cele 12 Arhetipuri</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0c0c0e;
+  --bg2: #111114;
+  --text: #f0ede8;
+  --text2: #8a8680;
+  --text3: #3a3835;
+  --border: #1e1e22;
+  --gold: #c9a96e;
+  --gold2: #e8c98a;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+.cursor { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference; }
+.cursor-ring { width:32px;height:32px;border:1px solid rgba(201,169,110,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:width 0.2s,height 0.2s; }
+
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  padding: 20px 48px;
+  display: flex; align-items:center; justify-content:space-between;
+  background: linear-gradient(to bottom, rgba(12,12,14,0.95), transparent);
+  backdrop-filter: blur(8px);
+}
+.nav-logo { font-family:'Playfair Display',serif; font-size:18px; color:var(--text); letter-spacing:0.02em; }
+.nav-logo span { color:var(--gold); }
+.nav-links { display:flex; align-items:center; gap:32px; }
+.nav-links a { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text2); text-decoration:none; transition:color 0.2s; }
+.nav-links a:hover { color:var(--gold); }
+.nav-lang { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; border:1px solid var(--border); padding:6px 14px; background:none; color:var(--text2); cursor:none; transition:all 0.2s; }
+.nav-lang:hover { border-color:var(--gold); color:var(--gold); }
+
+.hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 48px 80px; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201,169,110,0.06) 0%, transparent 70%), radial-gradient(ellipse 40% 30% at 20% 70%, rgba(55,48,163,0.08) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 80% 20%, rgba(180,50,50,0.06) 0%, transparent 60%); pointer-events:none; }
+
+.hero-eyebrow { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; opacity:0; animation:fadeUp 0.8s 0.2s forwards; }
+.hero h1 { font-family:'Playfair Display',serif; font-size:clamp(52px,9vw,110px); font-weight:900; line-height:0.95; letter-spacing:-0.02em; color:var(--text); margin-bottom:12px; opacity:0; animation:fadeUp 0.8s 0.4s forwards; }
+.hero h1 em { font-style:italic; color:var(--gold); }
+.hero-sub { font-family:'Playfair Display',serif; font-size:clamp(18px,2.5vw,28px); font-style:italic; color:var(--text2); margin-bottom:48px; opacity:0; animation:fadeUp 0.8s 0.6s forwards; }
+.hero-desc { font-size:15px; color:var(--text2); max-width:520px; line-height:1.8; margin-bottom:56px; font-weight:300; opacity:0; animation:fadeUp 0.8s 0.8s forwards; }
+.hero-cta { display:flex; align-items:center; gap:20px; opacity:0; animation:fadeUp 0.8s 1s forwards; }
+.btn-primary { background:var(--gold); color:#0c0c0e; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; padding:16px 36px; text-decoration:none; transition:all 0.3s; cursor:none; font-weight:500; }
+.btn-primary:hover { background:var(--gold2); transform:translateY(-2px); }
+.btn-secondary { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text2); text-decoration:none; display:flex; align-items:center; gap:8px; transition:color 0.2s; cursor:none; }
+.btn-secondary:hover { color:var(--text); }
+.hero-scroll { position:absolute; bottom:40px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; animation:fadeUp 0.8s 1.4s forwards; }
+.hero-scroll span { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--text3); text-transform:uppercase; }
+.scroll-line { width:1px; height:48px; background:linear-gradient(to bottom, var(--gold), transparent); animation:scrollPulse 2s infinite; }
+
+.map-section { padding:100px 48px; max-width:1100px; margin:0 auto; }
+.section-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:block; }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(32px,4vw,52px); font-weight:700; color:var(--text); margin-bottom:8px; line-height:1.1; }
+.section-sub { font-size:14px; color:var(--text2); font-weight:300; margin-bottom:56px; max-width:480px; line-height:1.7; }
+
+.pearson-map { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:16px; }
+.pearson-group { padding:28px 24px; border:1px solid var(--border); position:relative; overflow:hidden; transition:transform 0.3s; }
+.pearson-group:hover { transform:translateY(-4px); }
+.pearson-group::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+.pg-ego::before { background:linear-gradient(90deg,#c9a96e,#8b7355); }
+.pg-soul::before { background:linear-gradient(90deg,#7c3aed,#4f46e5); }
+.pg-self::before { background:linear-gradient(90deg,#0f766e,#0891b2); }
+.pg-ego { background:rgba(201,169,110,0.04); }
+.pg-soul { background:rgba(124,58,237,0.04); }
+.pg-self { background:rgba(15,118,110,0.04); }
+.pearson-group-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:16px; font-weight:500; }
+.pg-ego .pearson-group-label { color:#c9a96e; }
+.pg-soul .pearson-group-label { color:#a78bfa; }
+.pg-self .pearson-group-label { color:#2dd4bf; }
+.pearson-group-archs { display:flex; flex-direction:column; gap:8px; }
+.pg-arch-item { font-size:13px; color:var(--text2); display:flex; align-items:center; gap:8px; }
+.pg-arch-item span { font-size:16px; }
+
+.archetypes-section { padding:0 48px 120px; max-width:1400px; margin:0 auto; }
+.arch-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+.arch-card { position:relative; overflow:hidden; aspect-ratio:3/4; cursor:none; text-decoration:none; display:block; }
+.arch-card-bg { position:absolute; inset:0; background-size:cover; background-position:center; transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); filter:brightness(0.4) saturate(0.8); }
+.arch-card:hover .arch-card-bg { transform:scale(1.05); filter:brightness(0.55) saturate(1); }
+.arch-card-color { position:absolute; inset:0; opacity:0.6; transition:opacity 0.4s; }
+.arch-card:hover .arch-card-color { opacity:0.4; }
+.arch-card-content { position:absolute; inset:0; padding:28px 24px; display:flex; flex-direction:column; justify-content:flex-end; }
+.arch-card-num { position:absolute; top:20px; right:20px; font-family:'DM Mono',monospace; font-size:10px; color:rgba(255,255,255,0.3); letter-spacing:0.1em; }
+.arch-card-emoji { font-size:32px; margin-bottom:12px; display:block; transform:translateY(8px); transition:transform 0.4s; }
+.arch-card:hover .arch-card-emoji { transform:translateY(0); }
+.arch-card-group { font-family:'DM Mono',monospace; font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:6px; }
+.arch-card-name { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:white; line-height:1.1; margin-bottom:8px; }
+.arch-card-essence { font-size:12px; color:rgba(255,255,255,0.6); line-height:1.5; font-weight:300; max-height:0; overflow:hidden; transition:max-height 0.4s; }
+.arch-card:hover .arch-card-essence { max-height:80px; }
+.arch-card-arrow { position:absolute; bottom:24px; right:24px; width:36px; height:36px; border:1px solid rgba(255,255,255,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:14px; transform:translateX(8px); opacity:0; transition:all 0.3s; }
+.arch-card:hover .arch-card-arrow { transform:translateX(0); opacity:1; }
+
+.arch-inocentul .arch-card-color { background:linear-gradient(135deg,#87CEEB,#FFD700); }
+.arch-orfanul .arch-card-color { background:linear-gradient(135deg,#D2691E,#F4A460); }
+.arch-razboinicul .arch-card-color { background:linear-gradient(135deg,#8B4513,#CD853F); }
+.arch-protectorul .arch-card-color { background:linear-gradient(135deg,#556B2F,#8FBC8F); }
+.arch-exploratorul .arch-card-color { background:linear-gradient(135deg,#8B6914,#DAA520); }
+.arch-rebelul .arch-card-color { background:linear-gradient(135deg,#1a1a1a,#FFD700); }
+.arch-iubitorului .arch-card-color { background:linear-gradient(135deg,#8B0000,#FF69B4); }
+.arch-creatorul .arch-card-color { background:linear-gradient(135deg,#FF6B35,#F7C948); }
+.arch-magicianul .arch-card-color { background:linear-gradient(135deg,#0a0a2e,#C9A96E); }
+.arch-inteleptul .arch-card-color { background:linear-gradient(135deg,#0d1b2e,#C9A96E); }
+.arch-conducatorul .arch-card-color { background:linear-gradient(135deg,#1a0a0a,#8B0000); }
+.arch-bufonul .arch-card-color { background:linear-gradient(135deg,#FFB800,#FF6B35); }
+
+.quote-section { padding:120px 48px; text-align:center; border-top:1px solid var(--border); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+.quote-section::before { content:'❝'; position:absolute; top:40px; left:50%; transform:translateX(-50%); font-size:120px; color:rgba(201,169,110,0.06); font-family:'Playfair Display',serif; line-height:1; }
+.quote-text { font-family:'Playfair Display',serif; font-size:clamp(22px,3.5vw,40px); font-style:italic; color:var(--text); max-width:800px; margin:0 auto 24px; line-height:1.4; position:relative; }
+.quote-author { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; }
+
+.cta-section { padding:100px 48px; max-width:900px; margin:0 auto; text-align:center; }
+.cta-section h2 { font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,48px); font-weight:700; color:var(--text); margin-bottom:16px; line-height:1.2; }
+.cta-section p { font-size:15px; color:var(--text2); font-weight:300; line-height:1.8; margin-bottom:40px; max-width:560px; margin-left:auto; margin-right:auto; }
+.cta-link { display:inline-block; background:none; border:1px solid var(--gold); color:var(--gold); font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; padding:16px 40px; text-decoration:none; transition:all 0.3s; cursor:none; }
+.cta-link:hover { background:var(--gold); color:var(--bg); }
+
+footer { padding:40px 48px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.footer-logo { font-family:'Playfair Display',serif; font-size:14px; color:var(--text2); }
+.footer-logo span { color:var(--gold); }
+.footer-note { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.1em; color:var(--text3); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes scrollPulse { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.1)} }
+
+.lang-ro .en { display:none; }
+.lang-en .ro { display:none; }
+
+@media(max-width:1024px) { .arch-grid{grid-template-columns:repeat(3,1fr)} .pearson-map{grid-template-columns:1fr} }
+@media(max-width:768px) { nav{padding:16px 24px} .hero,.archetypes-section,.map-section,.quote-section,.cta-section{padding-left:24px;padding-right:24px} .arch-grid{grid-template-columns:repeat(2,1fr)} .nav-links{display:none} footer{flex-direction:column;gap:12px;text-align:center} }
+@media(max-width:480px) { .arch-grid{grid-template-columns:1fr 1fr} .hero h1{font-size:42px} }
+</style>
+</head>
+<body class="lang-ro">
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo"><span>Archetype</span> Academy</div>
+  <div class="nav-links">
+    <a href="#arhetipuri" class="ro">Cele 12 Arhetipuri</a>
+    <a href="#arhetipuri" class="en">The 12 Archetypes</a>
+    <a href="#despre" class="ro">Despre</a>
+    <a href="#despre" class="en">About</a>
+    <a href="https://tedx-speakerlab2.onrender.com" target="_blank">SpeakerLab →</a>
+    <button class="nav-lang" onclick="toggleLang()">EN / RO</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow ro">Carol S. Pearson · Carl Jung · 12 Arhetipuri</div>
+  <div class="hero-eyebrow en">Carol S. Pearson · Carl Jung · 12 Archetypes</div>
+  <h1 class="ro">Cine ești<br><em>cu adevărat?</em></h1>
+  <h1 class="en">Who are you<br><em>really?</em></h1>
+  <div class="hero-sub ro">Descoperă arhetipul care te definește</div>
+  <div class="hero-sub en">Discover the archetype that defines you</div>
+  <p class="hero-desc ro">Cele 12 arhetipuri ale lui Carol S. Pearson sunt oglinzi ale psihicului uman — tipare universale care ne modelează felul în care iubim, luptăm, creăm și căutăm sensul vieții.</p>
+  <p class="hero-desc en">Carol S. Pearson's 12 archetypes are mirrors of the human psyche — universal patterns that shape how we love, fight, create and seek meaning in life.</p>
+  <div class="hero-cta">
+    <a href="#arhetipuri" class="btn-primary ro">Explorează arhetipurile</a>
+    <a href="#arhetipuri" class="btn-primary en">Explore the archetypes</a>
+    <a href="#despre" class="btn-secondary ro">Află mai mult <span>→</span></a>
+    <a href="#despre" class="btn-secondary en">Learn more <span>→</span></a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<section class="map-section" id="despre">
+  <span class="section-label ro">Modelul Pearson</span>
+  <span class="section-label en">The Pearson Model</span>
+  <h2 class="section-title ro">Harta Psihicului Uman</h2>
+  <h2 class="section-title en">The Map of the Human Psyche</h2>
+  <p class="section-sub ro">Carol S. Pearson a organizat cele 12 arhetipuri în 3 etape ale călătoriei interioare — de la supraviețuire la semnificație.</p>
+  <p class="section-sub en">Carol S. Pearson organized the 12 archetypes into 3 stages of the inner journey — from survival to significance.</p>
+  <div class="pearson-map">
+    <div class="pearson-group pg-ego">
+      <div class="pearson-group-label ro">Ego — Pregătirea</div>
+      <div class="pearson-group-label en">Ego — Preparation</div>
+      <div class="pearson-group-archs">
+        <div class="pg-arch-item"><span>🌱</span> <span class="ro">Inocentul</span><span class="en">The Innocent</span></div>
+        <div class="pg-arch-item"><span>🌿</span> <span class="ro">Orfanul</span><span class="en">The Orphan</span></div>
+        <div class="pg-arch-item"><span>🦁</span> <span class="ro">Războinicul</span><span class="en">The Warrior</span></div>
+        <div class="pg-arch-item"><span>🛡️</span> <span class="ro">Protectorul</span><span class="en">The Protector</span></div>
+      </div>
+    </div>
+    <div class="pearson-group pg-soul">
+      <div class="pearson-group-label ro">Suflet — Călătoria</div>
+      <div class="pearson-group-label en">Soul — The Journey</div>
+      <div class="pearson-group-archs">
+        <div class="pg-arch-item"><span>🚀</span> <span class="ro">Exploratorul</span><span class="en">The Explorer</span></div>
+        <div class="pg-arch-item"><span>⚡</span> <span class="ro">Rebelul</span><span class="en">The Rebel</span></div>
+        <div class="pg-arch-item"><span>💫</span> <span class="ro">Iubitorului</span><span class="en">The Lover</span></div>
+        <div class="pg-arch-item"><span>🎨</span> <span class="ro">Creatorul</span><span class="en">The Creator</span></div>
+      </div>
+    </div>
+    <div class="pearson-group pg-self">
+      <div class="pearson-group-label ro">Sinele — Întoarcerea</div>
+      <div class="pearson-group-label en">The Self — The Return</div>
+      <div class="pearson-group-archs">
+        <div class="pg-arch-item"><span>✨</span> <span class="ro">Magicianul</span><span class="en">The Magician</span></div>
+        <div class="pg-arch-item"><span>🔮</span> <span class="ro">Înțeleptul</span><span class="en">The Sage</span></div>
+        <div class="pg-arch-item"><span>👑</span> <span class="ro">Conducătorul</span><span class="en">The Ruler</span></div>
+        <div class="pg-arch-item"><span>🤡</span> <span class="ro">Bufonul</span><span class="en">The Jester</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="archetypes-section" id="arhetipuri">
+  <div style="margin-bottom:48px">
+    <span class="section-label ro">Cele 12 Arhetipuri</span>
+    <span class="section-label en">The 12 Archetypes</span>
+    <h2 class="section-title ro">Alege arhetipul tău</h2>
+    <h2 class="section-title en">Choose your archetype</h2>
+    <p class="section-sub ro">Fiecare arhetip include prezentare vizuală, podcast audio și ghid de autoreflecție.</p>
+    <p class="section-sub en">Each archetype includes visual presentation, audio podcast and self-reflection guide.</p>
+  </div>
+  <div class="arch-grid">
+    <a href="/arhetip/inocentul" class="arch-card arch-inocentul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">01</span><span class="arch-card-emoji">🌱</span>
+        <div class="arch-card-group ro">Ego · Pregătire</div><div class="arch-card-group en">Ego · Preparation</div>
+        <div class="arch-card-name ro">Inocentul</div><div class="arch-card-name en">The Innocent</div>
+        <div class="arch-card-essence ro">Optimism, puritate, credință în bine</div>
+        <div class="arch-card-essence en">Optimism, purity, faith in good</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/orfanul" class="arch-card arch-orfanul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">02</span><span class="arch-card-emoji">🌿</span>
+        <div class="arch-card-group ro">Ego · Pregătire</div><div class="arch-card-group en">Ego · Preparation</div>
+        <div class="arch-card-name ro">Orfanul</div><div class="arch-card-name en">The Orphan</div>
+        <div class="arch-card-essence ro">Conexiune, vulnerabilitate, empatie</div>
+        <div class="arch-card-essence en">Connection, vulnerability, empathy</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/razboinicul" class="arch-card arch-razboinicul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">03</span><span class="arch-card-emoji">🦁</span>
+        <div class="arch-card-group ro">Ego · Pregătire</div><div class="arch-card-group en">Ego · Preparation</div>
+        <div class="arch-card-name ro">Războinicul</div><div class="arch-card-name en">The Warrior</div>
+        <div class="arch-card-essence ro">Curaj, disciplină, depășirea obstacolelor</div>
+        <div class="arch-card-essence en">Courage, discipline, overcoming obstacles</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/protectorul" class="arch-card arch-protectorul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">04</span><span class="arch-card-emoji">🛡️</span>
+        <div class="arch-card-group ro">Ego · Pregătire</div><div class="arch-card-group en">Ego · Preparation</div>
+        <div class="arch-card-name ro">Protectorul</div><div class="arch-card-name en">The Protector</div>
+        <div class="arch-card-essence ro">Compasiune, protecție, grijă</div>
+        <div class="arch-card-essence en">Compassion, protection, care</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/exploratorul" class="arch-card arch-exploratorul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">05</span><span class="arch-card-emoji">🚀</span>
+        <div class="arch-card-group ro">Suflet · Călătoria</div><div class="arch-card-group en">Soul · The Journey</div>
+        <div class="arch-card-name ro">Exploratorul</div><div class="arch-card-name en">The Explorer</div>
+        <div class="arch-card-essence ro">Libertate, autenticitate, descoperire</div>
+        <div class="arch-card-essence en">Freedom, authenticity, discovery</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/rebelul" class="arch-card arch-rebelul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">06</span><span class="arch-card-emoji">⚡</span>
+        <div class="arch-card-group ro">Suflet · Călătoria</div><div class="arch-card-group en">Soul · The Journey</div>
+        <div class="arch-card-name ro">Rebelul</div><div class="arch-card-name en">The Rebel</div>
+        <div class="arch-card-essence ro">Revoluție, ruptură, schimbare radicală</div>
+        <div class="arch-card-essence en">Revolution, disruption, radical change</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/iubitorului" class="arch-card arch-iubitorului">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">07</span><span class="arch-card-emoji">💫</span>
+        <div class="arch-card-group ro">Suflet · Călătoria</div><div class="arch-card-group en">Soul · The Journey</div>
+        <div class="arch-card-name ro">Iubitorului</div><div class="arch-card-name en">The Lover</div>
+        <div class="arch-card-essence ro">Pasiune, conexiune autentică, frumusețe</div>
+        <div class="arch-card-essence en">Passion, authentic connection, beauty</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/creatorul" class="arch-card arch-creatorul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">08</span><span class="arch-card-emoji">🎨</span>
+        <div class="arch-card-group ro">Suflet · Călătoria</div><div class="arch-card-group en">Soul · The Journey</div>
+        <div class="arch-card-name ro">Creatorul</div><div class="arch-card-name en">The Creator</div>
+        <div class="arch-card-essence ro">Inovație, imaginație, expresie</div>
+        <div class="arch-card-essence en">Innovation, imagination, expression</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/magicianul" class="arch-card arch-magicianul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">09</span><span class="arch-card-emoji">✨</span>
+        <div class="arch-card-group ro">Sinele · Întoarcerea</div><div class="arch-card-group en">The Self · The Return</div>
+        <div class="arch-card-name ro">Magicianul</div><div class="arch-card-name en">The Magician</div>
+        <div class="arch-card-essence ro">Transformare, viziune, forța invizibilului</div>
+        <div class="arch-card-essence en">Transformation, vision, invisible power</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/inteleptul" class="arch-card arch-inteleptul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">10</span><span class="arch-card-emoji">🔮</span>
+        <div class="arch-card-group ro">Sinele · Întoarcerea</div><div class="arch-card-group en">The Self · The Return</div>
+        <div class="arch-card-name ro">Înțeleptul</div><div class="arch-card-name en">The Sage</div>
+        <div class="arch-card-essence ro">Cunoaștere, claritate, adevăr</div>
+        <div class="arch-card-essence en">Knowledge, clarity, truth</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/conducatorul" class="arch-card arch-conducatorul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">11</span><span class="arch-card-emoji">👑</span>
+        <div class="arch-card-group ro">Sinele · Întoarcerea</div><div class="arch-card-group en">The Self · The Return</div>
+        <div class="arch-card-name ro">Conducătorul</div><div class="arch-card-name en">The Ruler</div>
+        <div class="arch-card-essence ro">Ordine, responsabilitate, leadership</div>
+        <div class="arch-card-essence en">Order, responsibility, leadership</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="/arhetip/bufonul" class="arch-card arch-bufonul">
+      <div class="arch-card-bg"></div><div class="arch-card-color"></div>
+      <div class="arch-card-content">
+        <span class="arch-card-num">12</span><span class="arch-card-emoji">🤡</span>
+        <div class="arch-card-group ro">Sinele · Întoarcerea</div><div class="arch-card-group en">The Self · The Return</div>
+        <div class="arch-card-name ro">Bufonul</div><div class="arch-card-name en">The Jester</div>
+        <div class="arch-card-essence ro">Umor, bucurie, adevăr prin râs</div>
+        <div class="arch-card-essence en">Humor, joy, truth through laughter</div>
+        <div class="arch-card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="quote-section">
+  <div class="quote-text ro">„Nu ești ceea ce crezi că ești. Ești ceea ce ascunzi."</div>
+  <div class="quote-text en">„You are not what you think you are. You are what you hide."</div>
+  <div class="quote-author">C.G. Jung</div>
+</section>
+
+<section class="cta-section">
+  <h2 class="ro">Vrei să îți analizezi arhetipul în discursul tău?</h2>
+  <h2 class="en">Want to analyze your archetype in your speech?</h2>
+  <p class="ro">TEDx SpeakerLab analizează textul discursului tău și identifică arhetipul dominant, autenticitatea arhetipală și dinamica umbrei.</p>
+  <p class="en">TEDx SpeakerLab analyzes your speech text and identifies the dominant archetype, archetypal authenticity and shadow dynamics.</p>
+  <a href="https://tedx-speakerlab2.onrender.com" target="_blank" class="cta-link ro">Încearcă SpeakerLab →</a>
+  <a href="https://tedx-speakerlab2.onrender.com" target="_blank" class="cta-link en">Try SpeakerLab →</a>
+</section>
+
+<footer>
+  <div class="footer-logo"><span>Archetype</span> Academy</div>
+  <div class="footer-note ro">Bazat pe modelul Carol S. Pearson · Inspirat de C.G. Jung</div>
+  <div class="footer-note en">Based on Carol S. Pearson's model · Inspired by C.G. Jung</div>
+</footer>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<script>
+const cursor=document.getElementById('cursor');
+const ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+function animCursor(){
+  cursor.style.left=(mx-4)+'px';cursor.style.top=(my-4)+'px';
+  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+  ring.style.left=(rx-16)+'px';ring.style.top=(ry-16)+'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';});
+});
+
+let currentLang='ro';
+function toggleLang(){
+  currentLang=currentLang==='ro'?'en':'ro';
+  document.body.className='lang-'+currentLang;
+  document.documentElement.lang=currentLang;
+}
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
+  });
+},{threshold:0.1});
+document.querySelectorAll('.arch-card,.pearson-group').forEach((el,i)=>{
+  el.style.opacity='0';el.style.transform='translateY(32px)';
+  el.style.transition=`opacity 0.6s ${i*0.05}s,transform 0.6s ${i*0.05}s`;
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
