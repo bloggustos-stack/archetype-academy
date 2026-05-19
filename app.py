@@ -346,10 +346,6 @@ def serve_slide(arch, filename):
 def serve_audio(filename):
     audio_dir = os.path.join(app.root_path, 'static', 'audio')
     return send_from_directory(audio_dir, filename, mimetype='audio/mpeg')
-@app.route('/static/audio/<filename>')
-def serve_audio(filename):
-    audio_dir = os.path.join(app.root_path, 'static', 'audio')
-    return send_from_directory(audio_dir, filename, mimetype='audio/mpeg')
 
 @app.route('/static/<filename>')
 def serve_static(filename):
