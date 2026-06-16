@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Archetype Lab · Descoperă ADN-ul Brandului Tău</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05050f;--bg2:#0a0a1e;--border:#15152e;--border2:#1e1e3a;
+  --text:#f0ede8;--text2:#8a8699;--text3:#35344a;
+  --gold:#c9a96e;--gold2:#e8c98a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
+.cursor{width:8px;height:8px;background:var(--gold2);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(201,169,110,0.3);border-radius:50%;position:fixed;pointer-events:none;z-index:9998}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,15,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:15px;color:var(--text2);text-decoration:none}
+.nav-logo span{color:var(--gold2)}
+.nav-back{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:8px}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 48px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(201,169,110,0.07) 0%,transparent 70%)}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(48px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;color:var(--text);margin-bottom:16px;opacity:0;animation:fadeUp 0.8s 0.4s forwards}
+.hero h1 em{font-style:italic;color:var(--gold2)}
+.hero-sub{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,22px);font-style:italic;color:var(--text2);margin-bottom:40px;opacity:0;animation:fadeUp 0.8s 0.6s forwards}
+.hero-desc{font-size:15px;color:var(--text2);max-width:560px;margin:0 auto 48px;line-height:1.8;font-weight:300;opacity:0;animation:fadeUp 0.8s 0.8s forwards}
+.btn-start{display:inline-block;background:var(--gold2);color:#05050f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:16px 40px;text-decoration:none;cursor:none;transition:all 0.3s;font-weight:500;opacity:0;animation:fadeUp 0.8s 1s forwards}
+.btn-start:hover{background:var(--gold);transform:translateY(-2px)}
+
+/* QUIZ SECTION */
+.quiz-section{padding:100px 48px;max-width:800px;margin:0 auto}
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.quiz-progress{width:100%;height:2px;background:var(--border2);margin-bottom:48px;position:relative}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width 0.4s ease;width:0%}
+.quiz-progress-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:0.15em;margin-top:8px;display:block}
+
+.question-card{display:none;opacity:0;transform:translateY(20px);transition:all 0.4s}
+.question-card.active{display:block;opacity:1;transform:translateY(0)}
+.question-num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;color:var(--gold);margin-bottom:16px;display:block}
+.question-text{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,32px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.3}
+
+.options{display:flex;flex-direction:column;gap:12px}
+.option{padding:20px 24px;border:1px solid var(--border2);background:var(--bg2);cursor:none;transition:all 0.25s;display:flex;align-items:center;gap:16px;text-align:left}
+.option:hover{border-color:var(--gold);background:rgba(201,169,110,0.05)}
+.option.selected{border-color:var(--gold2);background:rgba(232,201,138,0.08)}
+.option-letter{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--gold);width:20px;flex-shrink:0}
+.option-text{font-size:14px;color:var(--text2);font-weight:300;line-height:1.5}
+
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px}
+.btn-nav{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:12px 28px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:none;transition:all 0.2s}
+.btn-nav:hover{border-color:var(--gold);color:var(--gold)}
+.btn-nav.primary{background:var(--gold2);color:#05050f;border-color:var(--gold2)}
+.btn-nav.primary:hover{background:var(--gold);border-color:var(--gold)}
+.btn-nav:disabled{opacity:0.3;pointer-events:none}
+
+/* RESULT SECTION */
+.result-section{display:none;padding:100px 48px;max-width:900px;margin:0 auto}
+.result-section.visible{display:block}
+.result-header{text-align:center;margin-bottom:64px}
+.result-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.result-emoji{font-size:80px;display:block;margin-bottom:20px}
+.result-name{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--text);margin-bottom:12px;line-height:1}
+.result-subtitle{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,22px);font-style:italic;color:var(--gold2);margin-bottom:32px}
+.result-desc{font-size:15px;color:var(--text2);max-width:600px;margin:0 auto;line-height:1.8;font-weight:300}
+
+.result-reco{margin-top:64px}
+.reco-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--text);margin-bottom:32px}
+.reco-grid{display:flex;flex-direction:column;gap:16px}
+.reco-card{background:var(--bg2);border:1px solid var(--border);padding:28px;position:relative;overflow:hidden}
+.reco-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.reco-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:0.15em;margin-bottom:8px;display:block}
+.reco-text{font-size:14px;color:var(--text2);line-height:1.7;font-weight:300}
+
+.result-brands{margin-top:48px;padding:32px;background:var(--bg2);border:1px solid var(--border)}
+.brands-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:block}
+.brands-list{display:flex;flex-wrap:wrap;gap:12px}
+.brand-pill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;padding:8px 18px;border:1px solid var(--border2);color:var(--text2)}
+
+.result-actions{display:flex;gap:16px;margin-top:48px;flex-wrap:wrap}
+.btn-restart{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:14px 32px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:none;transition:all 0.2s;text-decoration:none;display:inline-block}
+.btn-restart:hover{border-color:var(--gold);color:var(--gold)}
+.btn-speakerlab{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:14px 32px;background:var(--gold2);color:#05050f;cursor:none;transition:all 0.2s;text-decoration:none;display:inline-block;border:none}
+.btn-speakerlab:hover{background:var(--gold)}
+
+/* ABOUT SECTION */
+.about-section{padding:100px 48px;border-top:1px solid var(--border);max-width:900px;margin:0 auto}
+.about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-top:48px}
+.about-card{background:var(--bg2);border:1px solid var(--border);padding:28px 24px}
+.about-card-icon{font-size:28px;margin-bottom:16px;display:block}
+.about-card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.about-card-text{font-size:13px;color:var(--text2);line-height:1.7;font-weight:300}
+
+footer{padding:40px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.footer-logo{font-family:'Playfair Display',serif;font-size:14px;color:var(--text2)}
+.footer-logo span{color:var(--gold2)}
+.footer-note{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--text3)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){
+  nav{padding:14px 20px}
+  .hero,.quiz-section,.result-section,.about-section{padding-left:20px;padding-right:20px}
+  .about-grid{grid-template-columns:1fr}
+  .result-actions{flex-direction:column}
+  footer{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="https://archetype-academy.onrender.com" class="nav-logo"><span>Archetype</span> Academy</a>
+  <a href="https://archetype-academy.onrender.com" class="nav-back">← Înapoi la Academy</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div>
+    <span class="hero-eyebrow">Brand Archetype Lab · Instrument de Branding</span>
+    <h1>Descoperă ADN-ul<br><em>Brandului Tău</em></h1>
+    <div class="hero-sub">7 întrebări. Arhetipul tău dominant. Direcție clară.</div>
+    <p class="hero-desc">Brandurile puternice nu se construiesc din trenduri — se construiesc din arhetipuri. Descoperă în 3 minute ce arhetip definește brandul tău și cum să comunici mai autentic și mai eficient.</p>
+    <a href="#quiz" class="btn-start" onclick="startQuiz()">Începe analiza →</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <span class="section-label">De ce arhetipuri?</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--text);line-height:1.1">Brandurile care câștigă<br>vorbesc un limbaj arhetype</h2>
+  <div class="about-grid">
+    <div class="about-card">
+      <span class="about-card-icon">🧠</span>
+      <div class="about-card-title">Psihologie profundă</div>
+      <p class="about-card-text">Bazat pe teoria lui Carl Jung și modelul de branding Mark & Pearson — folosit de cele mai puternice branduri globale.</p>
+    </div>
+    <div class="about-card">
+      <span class="about-card-icon">🎯</span>
+      <div class="about-card-title">Comunicare precisă</div>
+      <p class="about-card-text">Când știi arhetipul brandului tău, știi exact ce ton să folosești, ce povești să spui și ce emoții să activezi.</p>
+    </div>
+    <div class="about-card">
+      <span class="about-card-icon">⚡</span>
+      <div class="about-card-title">Diferențiere reală</div>
+      <p class="about-card-text">Într-o piață saturată, arhetipul este cel care face brandul tău memorabil și irezistibil pentru audiența potrivită.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="quiz-section" id="quiz">
+  <span class="section-label">Analiza Arhetipului · 7 Întrebări</span>
+  <div class="quiz-progress">
+    <div class="quiz-progress-fill" id="progressFill"></div>
+  </div>
+  <span class="quiz-progress-label" id="progressLabel">Întrebarea 1 din 7</span>
+
+  <!-- Q1 -->
+  <div class="question-card active" data-q="0">
+    <span class="question-num">01 / 07</span>
+    <div class="question-text">Care este misiunea principală a brandului tău?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this,'A')"><span class="option-letter">A</span><span class="option-text">Să inspire și să aducă bucurie oamenilor</span></div>
+      <div class="option" onclick="selectOption(this,'B')"><span class="option-letter">B</span><span class="option-text">Să educe și să ofere cunoaștere valoroasă</span></div>
+      <div class="option" onclick="selectOption(this,'C')"><span class="option-letter">C</span><span class="option-text">Să protejeze și să ofere siguranță</span></div>
+      <div class="option" onclick="selectOption(this,'D')"><span class="option-letter">D</span><span class="option-text">Să transforme și să schimbe lumea</span></div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-card" data-q="1">
+    <span class="question-num">02 / 07</span>
+    <div class="question-text">Cum comunică brandul tău cu clienții?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this,'A')"><span class="option-letter">A</span><span class="option-text">Cald, empatic și aproape de oameni</span></div>
+      <div class="option" onclick="selectOption(this,'B')"><span class="option-letter">B</span><span class="option-text">Autoritar, expert și bazat pe date</span></div>
+      <div class="option" onclick="selectOption(this,'C')"><span class="option-letter">C</span><span class="option-text">Rebel, provocator și neconvențional</span></div>
+      <div class="option" onclick="selectOption(this,'D')"><span class="option-letter">D</span><span class="option-text">Inspirațional, vizionar și creativ</span></div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-card" data-q="2">
+    <span class="question-num">03 / 07</span>
+    <div class="question-text">Ce valoare pune brandul tău pe primul loc?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this,'A')"><span class="option-letter">A</span><span class="option-text">Libertatea și autenticitatea</span></div>
+      <div class="option" onclick="selectOption(this,'B')"><span class="option-letter">B</span><span class="option-text">Adevărul și cunoașterea</span></div>
+      <div class="option" onclick="selectOption(this,'C')"><span class="option-letter">C</span><span class="option-text">Conexiunea și apartenența</span></div>
+      <div class="option" onclick="selectOption(this,'D')"><span class="option-letter">D</span><span class="option-text">Ordinea și excelența</span></div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-card" data-q="3">
+    <span class="question-num">04 / 07</span>
+    <div class="question-text">Cum arată clientul ideal al brandului tău?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this,'A')"><span class="option-letter">A</span><span class="option-text">Curios, dornic să învețe și să crească</span></div>
+      <div class="option" onclick="selectOption(this,'B')"><span class="option-letter">B</span><span class="option-text">Ambițios, orientat spre succes și rezultate</span></div>
+      <div class="option" onclick="selectOption(this,'C')"><span class="option-letter">C</span><span class="option-text">Creativ, sensibil și pasionat</span></div>
+      <div class="option" onclick="selectOption(this,'D')"><span class="option-letter">D</span><span class="option-text">Pragmatic, serios și orientat spre calitate</span></div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-card" data-q="4">
+    <span class="question-num">05 / 07</span>
+    <div class="question-text">Care dintre aceste branduri seamănă cel mai mult cu al tău?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this,'A')"><span class="option-letter">A</span><span class="option-text">Google / National Geographic / TED</span></div>
+      <div class="option" onclick="selectOption(this,'B')"><span class="option-letter">B</span><span class="option-text">Nike / Red Bull / Harley Davidson</span></div>
+      <div class="option" onclick="selectOption(this,'C')"><span class="option-letter">C</span><span class="option-text">Apple / LEGO / Pixar</span></div>
+      <div class="option" onclick="selectOption(this,'D')"><span class="option-letter">D</span><span class="option-text">Volvo / Johnson & Johnson / IKEA</span></div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-card" data-q="5">
+    <span class="question-num">06 / 07</span>
+    <div class="question-text">Care este frica principală a brandului tău?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this,'A')"><span class="option-letter">A</span><span class="option-text">Să fie irelevant sau ignorat</span></div>
+      <div class="option" onclick="selectOption(this,'B')"><span class="option-letter">B</span><span class="option-text">Să dezinformeze sau să piardă credibilitatea</span></div>
+      <div class="option" onclick="selectOption(this,'C')"><span class="option-letter">C</span><span class="option-text">Să fie conformist și să se piardă în mulțime</span></div>
+      <div class="option" onclick="selectOption(this,'D')"><span class="option-letter">D</span><span class="option-text">Să piardă controlul sau să dezamăgească</span></div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question-card" data-q="6">
+    <span class="question-num">07 / 07</span>
+    <div class="question-text">Ce vrei ca oamenii să simtă după ce interacționează cu brandul tău?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this,'A')"><span class="option-letter">A</span><span class="option-text">Inspirati și energizați</span></div>
+      <div class="option" onclick="selectOption(this,'B')"><span class="option-letter">B</span><span class="option-text">Mai informați și mai înțelepți</span></div>
+      <div class="option" onclick="selectOption(this,'C')"><span class="option-letter">C</span><span class="option-text">Conectați și înțeleși</span></div>
+      <div class="option" onclick="selectOption(this,'D')"><span class="option-letter">D</span><span class="option-text">În siguranță și în mâini bune</span></div>
+    </div>
+  </div>
+
+  <div class="quiz-nav">
+    <button class="btn-nav" id="btnPrev" onclick="prevQuestion()" disabled>← Înapoi</button>
+    <button class="btn-nav primary" id="btnNext" onclick="nextQuestion()" disabled>Următorul →</button>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section class="result-section" id="result">
+  <div class="result-header">
+    <span class="result-label">Arhetipul Brandului Tău</span>
+    <span class="result-emoji" id="resultEmoji"></span>
+    <div class="result-name" id="resultName"></div>
+    <div class="result-subtitle" id="resultSubtitle"></div>
+    <p class="result-desc" id="resultDesc"></p>
+  </div>
+  <div class="result-reco">
+    <div class="reco-title">3 Recomandări de Comunicare</div>
+    <div class="reco-grid" id="recoGrid"></div>
+  </div>
+  <div class="result-brands">
+    <span class="brands-label">Branduri care împărtășesc acest arhetip</span>
+    <div class="brands-list" id="brandsList"></div>
+  </div>
+  <div class="result-actions">
+    <a href="#quiz" class="btn-restart" onclick="restartQuiz()">← Reia analiza</a>
+    <a href="https://tedx-speakerlab2.onrender.com/psych" target="_blank" class="btn-speakerlab">Analizează și discursul tău →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><span>Brand</span> Archetype Lab</div>
+  <div class="footer-note">Bazat pe modelul Mark & Pearson · Inspirat de C.G. Jung</div>
+</footer>
+
+<script>
+// CURSOR
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+function animCursor(){cursor.style.left=(mx-4)+'px';cursor.style.top=(my-4)+'px';rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=(rx-16)+'px';ring.style.top=(ry-16)+'px';requestAnimationFrame(animCursor);}
+animCursor();
+
+// ARCHETYPES DATA
+const ARCHETYPES = {
+  'inocentul': {
+    name:'Inocentul', emoji:'🌱', subtitle:'Optimism, puritate și credință în bine',
+    desc:'Brandul tău comunică optimism, puritate și încredere. Ești vocea care spune că lumea poate fi mai bună și că oamenii merită ce e mai bun. Clienții tăi simt siguranță și bucurie când interacționează cu tine.',
+    recos:['Folosește un limbaj simplu, cald și pozitiv — fără jargon sau complexitate inutilă','Construiește campanii în jurul valorilor universale: familie, natură, bucurie, autenticitate','Evită controversele — brandul tău câștigă prin consistență și puritate, nu prin provocare'],
+    brands:['Coca-Cola','Dove','McDonald\'s']
+  },
+  'orfanul': {
+    name:'Orfanul', emoji:'🌿', subtitle:'Conexiune, vulnerabilitate și apartenența',
+    desc:'Brandul tău construiește comunitate și apartenența. Ești vocea celor care se simt neînțeleși sau ignorați de sistemul tradițional. Clienții tăi nu cumpără un produs — ei se alătură unei familii care îi înțelege.',
+    recos:['Construiește povești reale cu oameni reali — testimoniale autentice, nu actori sau imagini perfecte','Creează comunități online și offline unde clienții se pot conecta între ei','Comunică empatie și solidaritate — brandul tău luptă ALĂTURI de client, nu deasupra lui'],
+    brands:['eBay','Airbnb','Patagonia']
+  },
+  'razboinicul': {
+    name:'Războinicul', emoji:'🦁', subtitle:'Performanță, disciplină și depășirea limitelor',
+    desc:'Brandul tău este despre performanță, disciplină și depășirea limitelor. Ești vocea care îi provoacă pe clienți să devină cea mai bună versiune a lor. Clienții tăi nu vor confort — vor să câștige.',
+    recos:['Folosește un limbaj puternic, direct și motivațional — fără scuze, fără jumătăți de măsură','Construiește campanii în jurul provocării și depășirii obstacolelor','Arată transformarea — înainte și după, slăbiciune transformată în forță'],
+    brands:['Nike','Red Bull','Under Armour']
+  },
+  'protectorul': {
+    name:'Protectorul', emoji:'🛡️', subtitle:'Siguranță, stabilitate și grijă autentică',
+    desc:'Brandul tău oferă siguranță, stabilitate și grijă autentică. Ești vocea care spune "eu am grijă de tine și de cei dragi ție". Clienții tăi caută un partener de încredere care îi protejează în momentele importante.',
+    recos:['Comunică constant fiabilitate și consecvență — fii prezent și predictibil în toate punctele de contact','Construiește campanii în jurul familiei, siguranței și responsabilității','Oferă garanții, certificate și dovezi concrete ale calității'],
+    brands:['Volvo','Johnson & Johnson','Allianz']
+  },
+  'exploratorul': {
+    name:'Exploratorul', emoji:'🧭', subtitle:'Libertate, descoperire și autenticitate',
+    desc:'Brandul tău este despre libertate, descoperire și autenticitate. Ești vocea care îi invită pe oameni să iasă din rutină și să descopere cine sunt cu adevărat. Clienții tăi vor experiențe care le schimbă perspectiva.',
+    recos:['Construiește campanii în jurul experiențelor reale și autentice — nu studiourile perfecte, ci lumea reală','Invită comunitatea să împărtășească propriile povești de explorare','Surprinde constant cu formate noi, locații neașteptate și perspective proaspete'],
+    brands:['Jeep','The North Face','Patagonia']
+  },
+  'rebelul': {
+    name:'Rebelul', emoji:'⚡', subtitle:'Revoluție, ruptură și schimbare radicală',
+    desc:'Brandul tău sfidează status quo-ul și provoacă sistemul. Ești vocea care spune că regulile vechi trebuie schimbate. Clienții tăi vor să facă parte dintr-o mișcare care schimbă lumea.',
+    recos:['Îndrăznește să iei poziție publică față de subiecte importante din industria ta','Construiește campanii care sfidează așteptările — surprinde și rupe tiparele categoriei tale','Transformă clienții în rebeli alături de tine — ei nu sunt consumatori, sunt complici'],
+    brands:['Harley Davidson','Apple','Diesel']
+  },
+  'iubitorului': {
+    name:'Iubitorului', emoji:'💫', subtitle:'Pasiune, senzorialitate și conexiune profundă',
+    desc:'Brandul tău este despre pasiune, senzorialitate și conexiune profundă. Clienții tăi nu cumpără un produs — trăiesc o poveste de dragoste cu brandul tău.',
+    recos:['Investește masiv în estetica vizuală și senzorială — fiecare punct de contact trebuie să fie frumos și memorabil','Construiește campanii în jurul dorinței, pasiunii și conexiunii umane','Personalizează comunicarea la maximum — clientul tău vrea să simtă că îi vorbești doar lui'],
+    brands:['Chanel','Victoria\'s Secret','Alfa Romeo']
+  },
+  'creatorul': {
+    name:'Creatorul', emoji:'🎨', subtitle:'Inovație, imaginație și expresie autentică',
+    desc:'Brandul tău este despre inovație, imaginație și expresie autentică. Clienții tăi nu vor să consume — vor să creeze alături de tine și să își exprime unicitatea prin brandul tău.',
+    recos:['Arată procesul creativ din spatele produselor tale — oamenii vor să vadă cum se naște magia','Oferă clienților instrumente prin care să își exprime propria creativitate folosind brandul tău','Colaborează cu artiști și creatori independenți — autenticitatea se câștigă prin asociere'],
+    brands:['Apple','LEGO','Adobe']
+  },
+  'magicianul': {
+    name:'Magicianul', emoji:'✨', subtitle:'Transformare, viziune și forța invizibilului',
+    desc:'Brandul tău transformă realitatea clienților în mod vizibil și memorabil. Clienții tăi nu cumpără un produs — cumpără o transformare. Înainte și după interacțiunea cu brandul tău, lumea lor arată diferit.',
+    recos:['Construiește campanii în jurul transformării vizibile — arată concret cum brandul tău schimbă viețile clienților','Folosește un limbaj vizionar și inspirațional — vorbește despre viitor și posibilități','Creează momente WOW în experiența clientului — Magicianul livrează revelații, nu produse'],
+    brands:['Disney','Tesla','Dyson']
+  },
+  'inteleptul': {
+    name:'Înțeleptul', emoji:'🔮', subtitle:'Cunoaștere, claritate și autoritate',
+    desc:'Brandul tău este despre cunoaștere, claritate și adevăr. Ești vocea de autoritate în care oamenii au încredere când vor să înțeleagă lumea mai bine. Clienții tăi caută orientare, discernământ și informație de calitate.',
+    recos:['Investește constant în conținut educațional de înaltă calitate — articole, rapoarte, podcasturi, studii de caz','Vorbește întotdeauna bazat pe date, cercetare și exemple concrete — credibilitatea se construiește prin dovezi','Poziționează-te ca ghid, nu ca vânzător — clientul tău vrea să învețe de la tine'],
+    brands:['Google','TED','National Geographic']
+  },
+  'conducatorul': {
+    name:'Conducătorul', emoji:'👑', subtitle:'Excelență, autoritate și leadership',
+    desc:'Brandul tău reprezintă excelență, autoritate și leadership. Ești vocea care stabilește standardele în industria ta. Clienții tăi nu caută cel mai ieftin produs — caută cel mai bun și sunt dispuși să plătească pentru asta.',
+    recos:['Comunică din poziția de lider — nu urmări trenduri, creează-le. Brandul tău stabilește direcția','Investește în premium la toate nivelurile — packaging, servicii, experiența clientului','Construiește campanii în jurul moștenirii și viziunii pe termen lung'],
+    brands:['Mercedes-Benz','Rolex','Harvard University']
+  },
+  'bufonul': {
+    name:'Bufonul', emoji:'🤡', subtitle:'Umor, bucurie și adevăr prin râs',
+    desc:'Brandul tău aduce bucurie, umor și autenticitate în viața clienților. Ești vocea care spune că viața e prea scurtă pentru a fi luată prea în serios. Clienții tăi nu cumpără un produs — cumpără o stare de spirit.',
+    recos:['Construiește campanii care fac oamenii să râdă și să se simtă bine — umorul autentic e arma ta principală','Fii spontan și surprinzător în comunicare — rutina e dușmanul brandului tău','Creează momente de conexiune prin joc, ironie și auto-ironie'],
+    brands:['Old Spice','Skittles','Ben & Jerry\'s']
+  }
+};
+
+// QUIZ LOGIC
+const TOTAL = 7;
+let current = 0;
+let answers = new Array(TOTAL).fill(null);
+
+// Mapping: scor per literă → arhetip
+function getArchetype(counts) {
+  const A = counts.A || 0;
+  const B = counts.B || 0;
+  const C = counts.C || 0;
+  const D = counts.D || 0;
+  const max = Math.max(A, B, C, D);
+
+  if (max === A) {
+    // A → Inocentul, Exploratorul, Iubitorului
+    if (A >= 5) return 'inocentul';
+    if (A >= 3) return 'exploratorul';
+    return 'iubitorului';
+  }
+  if (max === B) {
+    // B → Înțeleptul, Conducătorul, Magicianul
+    if (B >= 5) return 'inteleptul';
+    if (B >= 3) return 'conducatorul';
+    return 'magicianul';
+  }
+  if (max === C) {
+    // C → Rebelul, Creatorul, Bufonul
+    if (C >= 5) return 'rebelul';
+    if (C >= 3) return 'creatorul';
+    return 'bufonul';
+  }
+  if (max === D) {
+    // D → Protectorul, Războinicul, Orfanul
+    if (D >= 5) return 'protectorul';
+    if (D >= 3) return 'razboinicul';
+    return 'orfanul';
+  }
+  return 'inteleptul';
+}
+
+function startQuiz() {
+  setTimeout(() => {
+    document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+  }, 100);
+}
+
+function selectOption(el, letter) {
+  const card = el.closest('.question-card');
+  card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[current] = letter;
+  document.getElementById('btnNext').disabled = false;
+}
+
+function updateProgress() {
+  const pct = ((current) / TOTAL) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `Întrebarea ${current + 1} din ${TOTAL}`;
+}
+
+function showQuestion(idx) {
+  document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
+  const card = document.querySelector(`[data-q="${idx}"]`);
+  card.classList.add('active');
+  current = idx;
+  updateProgress();
+  document.getElementById('btnPrev').disabled = idx === 0;
+  document.getElementById('btnNext').disabled = answers[idx] === null;
+  if (idx === TOTAL - 1) {
+    document.getElementById('btnNext').textContent = 'Vezi rezultatul →';
+  } else {
+    document.getElementById('btnNext').textContent = 'Următorul →';
+  }
+}
+
+function nextQuestion() {
+  if (current < TOTAL - 1) {
+    showQuestion(current + 1);
+  } else {
+    showResult();
+  }
+}
+
+function prevQuestion() {
+  if (current > 0) showQuestion(current - 1);
+}
+
+function showResult() {
+  // Count answers
+  const counts = {A:0, B:0, C:0, D:0};
+  answers.forEach(a => { if(a) counts[a]++; });
+  const archKey = getArchetype(counts);
+  const arch = ARCHETYPES[archKey];
+
+  document.getElementById('resultEmoji').textContent = arch.emoji;
+  document.getElementById('resultName').textContent = arch.name;
+  document.getElementById('resultSubtitle').textContent = arch.subtitle;
+  document.getElementById('resultDesc').textContent = arch.desc;
+
+  const recoGrid = document.getElementById('recoGrid');
+  recoGrid.innerHTML = arch.recos.map((r, i) => `
+    <div class="reco-card">
+      <span class="reco-num">0${i+1}</span>
+      <div class="reco-text">${r}</div>
+    </div>
+  `).join('');
+
+  const brandsList = document.getElementById('brandsList');
+  brandsList.innerHTML = arch.brands.map(b => `<span class="brand-pill">${b}</span>`).join('');
+
+  document.getElementById('quiz').style.display = 'none';
+  const resultSection = document.getElementById('result');
+  resultSection.classList.add('visible');
+  resultSection.scrollIntoView({behavior:'smooth'});
+}
+
+function restartQuiz() {
+  answers = new Array(TOTAL).fill(null);
+  current = 0;
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  document.getElementById('quiz').style.display = 'block';
+  document.getElementById('result').classList.remove('visible');
+  showQuestion(0);
+  document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+}
+
+// Init
+updateProgress();
+</script>
+</body>
+</html>
