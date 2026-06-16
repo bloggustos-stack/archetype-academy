@@ -322,6 +322,9 @@ ARCHETYPE_ORDER = ['inocentul','orfanul','razboinicul','protectorul','explorator
 @app.route('/')
 def index():
     return render_template('index.html', archetypes=ARCHETYPES, order=ARCHETYPE_ORDER)
+@app.route('/branduri')
+def branduri():
+    return render_template('brand.html')
 
 @app.route('/arhetip/<slug>')
 def arhetip(slug):
