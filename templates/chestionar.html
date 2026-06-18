@@ -1,250 +1,107 @@
-
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chestionar Arhetipuri · Archetype Academy</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --purple: #534AB7;
-      --purple-dark: #3C3489;
-      --purple-light: #EEEDFE;
-      --teal: #1D9E75;
-      --teal-light: #E1F5EE;
-      --pink: #D4537E;
-      --pink-light: #FBEAF0;
-      --text: #1a1a1a;
-      --text-muted: #6b6b6b;
-      --border: rgba(0,0,0,0.12);
-      --bg: #f8f7f4;
-      --card: #ffffff;
-      --radius: 12px;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(248,247,244,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 1.5rem;
-      height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo {
-      font-size: 15px; font-weight: 600; color: var(--text);
-      text-decoration: none; letter-spacing: -0.3px;
-    }
-    .nav-logo span { color: var(--purple); }
-    .nav-back {
-      font-size: 13px; color: var(--text-muted); text-decoration: none;
-      display: flex; align-items: center; gap: 5px;
-      transition: color .15s;
-    }
-    .nav-back:hover { color: var(--purple); }
-
-    /* ── LAYOUT ── */
-    .page { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
-
-    .page-header { text-align: center; margin-bottom: 2.5rem; }
-    .page-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: .5rem; }
-    .page-header p { font-size: 15px; color: var(--text-muted); line-height: 1.6; max-width: 480px; margin: 0 auto; }
-
-    /* ── TABS ── */
-    .tabs {
-      display: flex; border: 1px solid var(--border); border-radius: var(--radius);
-      overflow: hidden; margin-bottom: 1.75rem; background: var(--card);
-    }
-    .tab-btn {
-      flex: 1; padding: 11px 8px; font-size: 13px; font-weight: 500;
-      border: none; background: transparent; color: var(--text-muted);
-      cursor: pointer; transition: all .15s; display: flex; align-items: center;
-      justify-content: center; gap: 6px;
-    }
-    .tab-btn:not(:last-child) { border-right: 1px solid var(--border); }
-    .tab-btn.active { background: var(--purple); color: #fff; }
-    .tab-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
-
-    /* ── SECTION ── */
-    .section { display: none; }
-    .section.visible { display: block; }
-
-    /* ── CARD ── */
-    .card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1rem;
-    }
-    .card-label {
-      font-size: 11px; font-weight: 600; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: .06em; margin-bottom: .75rem;
-    }
-
-    /* ── TEXTAREA ── */
-    textarea {
-      width: 100%; min-height: 140px; resize: vertical;
-      border: 1px solid var(--border); border-radius: 8px;
-      padding: 12px 14px; font-size: 14px; line-height: 1.65;
-      font-family: inherit; color: var(--text); background: var(--bg);
-      transition: border-color .15s;
-    }
-    textarea:focus { outline: none; border-color: var(--purple); }
-
-    /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500;
-      border: 1px solid var(--border); background: var(--card); color: var(--text);
-      cursor: pointer; transition: all .15s; text-decoration: none;
-    }
-    .btn:hover { background: var(--bg); }
-    .btn:active { transform: scale(0.98); }
-    .btn-primary { background: var(--purple); border-color: var(--purple); color: #fff; }
-    .btn-primary:hover { background: var(--purple-dark); border-color: var(--purple-dark); }
-    .btn:disabled { opacity: .4; cursor: default; pointer-events: none; }
-    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-
-    /* ── PROGRESS ── */
-    .progress-wrap { margin-bottom: 1.25rem; }
-    .progress-track {
-      height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
-    }
-    .progress-fill {
-      height: 4px; background: var(--purple); border-radius: 2px;
-      transition: width .4s ease;
-    }
-    .progress-label {
-      display: flex; justify-content: space-between;
-      font-size: 12px; color: var(--text-muted); margin-bottom: 6px;
-    }
-
-    /* ── QUESTION ── */
-    .q-text {
-      font-size: 16px; font-weight: 500; line-height: 1.55;
-      color: var(--text); margin-bottom: 1.5rem; min-height: 52px;
-    }
-
-    /* ── LIKERT ── */
-    .likert { display: flex; gap: 8px; justify-content: space-between; margin-bottom: .6rem; }
-    .likert label { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
-    .likert input[type="radio"] { display: none; }
-    .likert-dot {
-      width: 42px; height: 42px; border-radius: 50%;
-      border: 1px solid var(--border); background: var(--card);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 600; color: var(--text-muted);
-      transition: all .15s;
-    }
-    .likert input:checked + .likert-dot { background: var(--purple); border-color: var(--purple); color: #fff; }
-    .likert label:hover .likert-dot { border-color: var(--purple); color: var(--purple); }
-    .likert-labels {
-      display: flex; justify-content: space-between;
-      font-size: 11px; color: var(--text-muted); margin-bottom: 1.25rem;
-    }
-
-    /* ── NAV QUIZ ── */
-    .quiz-nav { display: flex; gap: 10px; flex-wrap: wrap; }
-
-    /* ── BARS ── */
-    .arch-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .arch-bar-name { font-size: 13px; font-weight: 500; width: 120px; flex-shrink: 0; color: var(--text); }
-    .arch-bar-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
-    .arch-bar-fill { height: 8px; border-radius: 4px; transition: width .7s ease; }
-    .arch-bar-score { font-size: 12px; color: var(--text-muted); width: 36px; text-align: right; flex-shrink: 0; }
-
-    /* ── BADGES ── */
-    .badge {
-      display: inline-block; font-size: 11px; font-weight: 600;
-      padding: 3px 10px; border-radius: 20px; margin-bottom: 6px;
-    }
-    .badge-purple { background: var(--purple-light); color: var(--purple-dark); }
-    .badge-pink { background: var(--pink-light); color: #993556; }
-    .badge-teal { background: var(--teal-light); color: #085041; }
-
-    /* ── METRIC GRID ── */
-    .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1rem; }
-    .metric {
-      background: var(--bg); border-radius: 8px; padding: .875rem 1rem;
-      border: 1px solid var(--border);
-    }
-    .metric-val { font-size: 15px; font-weight: 700; color: var(--text); }
-    .metric-lbl { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
-
-    /* ── LEGEND ── */
-    .legend-row { display: flex; gap: 16px; margin-bottom: 1rem; flex-wrap: wrap; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
-    .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-
-    /* ── INSIGHT ── */
-    .insight {
-      background: var(--bg); border-radius: 8px; padding: .875rem 1rem;
-      margin-bottom: .75rem; font-size: 13px; line-height: 1.65; color: var(--text);
-      border-left: 3px solid var(--purple);
-    }
-    .insight strong { font-weight: 600; }
-
-    /* ── SPINNER ── */
-    .spinner {
-      display: inline-block; width: 15px; height: 15px;
-      border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
-      border-radius: 50%; animation: spin .7s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .status-txt { font-size: 13px; color: var(--text-muted); margin-left: 8px; }
-
-    /* ── RADAR ── */
-    .radar-wrap { position: relative; width: 100%; height: 300px; }
-
-    /* ── LINK CARD ── */
-    .arch-link-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 8px; margin-top: 1rem;
-    }
-    .arch-link-card {
-      display: block; padding: .75rem 1rem; border-radius: 8px;
-      border: 1px solid var(--border); background: var(--card); text-decoration: none;
-      color: var(--text); font-size: 13px; font-weight: 500;
-      transition: border-color .15s, background .15s; text-align: center;
-    }
-    .arch-link-card:hover { border-color: var(--purple); background: var(--purple-light); }
-    .arch-link-card .emoji { display: block; font-size: 20px; margin-bottom: 4px; }
-
-    @media (max-width: 480px) {
-      .metric-grid { grid-template-columns: repeat(2, 1fr); }
-      .likert-dot { width: 36px; height: 36px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chestionar Arhetipuri · Archetype Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0c0e;--bg2:#111114;--text:#f0ede8;--text2:#8a8680;--text3:#3a3835;
+  --border:#1e1e22;--gold:#c9a96e;--gold2:#e8c98a;
+  --purple:#534AB7;--teal:#1D9E75;--pink:#D4537E;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;cursor:none;overflow-x:hidden}
+.cursor{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(201,169,110,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:width .2s,height .2s}
+nav{position:sticky;top:0;z-index:100;padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between;background:rgba(12,12,14,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:17px;color:var(--text);text-decoration:none;letter-spacing:.02em}
+.nav-logo span{color:var(--gold)}
+.nav-back{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;cursor:none}
+.nav-back:hover{color:var(--gold)}
+.page{max-width:700px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+.page-header{text-align:center;margin-bottom:2.5rem}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,44px);font-weight:900;letter-spacing:-.02em;margin-bottom:.5rem;color:var(--text)}
+.page-header h1 em{font-style:italic;color:var(--gold)}
+.page-header p{font-size:14px;color:var(--text2);line-height:1.7;max-width:480px;margin:0 auto;font-weight:300}
+.tabs{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem;background:var(--bg2)}
+.tab-btn{flex:1;padding:12px 8px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:none;background:transparent;color:var(--text2);cursor:none;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:7px}
+.tab-btn:not(:last-child){border-right:1px solid var(--border)}
+.tab-btn.active{background:var(--gold);color:#0c0c0e;font-weight:600}
+.tab-btn svg{width:14px;height:14px;flex-shrink:0}
+.section{display:none}
+.section.visible{display:block}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:1.5rem;margin-bottom:1rem}
+.card-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.875rem}
+textarea{width:100%;min-height:150px;resize:vertical;border:1px solid var(--border);border-radius:4px;padding:14px;font-size:14px;line-height:1.7;font-family:'Outfit',sans-serif;color:var(--text);background:var(--bg);transition:border-color .15s}
+textarea:focus{outline:none;border-color:var(--gold)}
+textarea::placeholder{color:var(--text3)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:4px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:none;transition:all .15s}
+.btn:hover{border-color:var(--gold);color:var(--gold)}
+.btn-primary{background:var(--gold);border-color:var(--gold);color:#0c0c0e;font-weight:600}
+.btn-primary:hover{background:var(--gold2);border-color:var(--gold2)}
+.btn:disabled{opacity:.35;pointer-events:none}
+.progress-wrap{margin-bottom:1.25rem}
+.progress-top{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:.08em;margin-bottom:8px}
+.progress-track{height:2px;background:var(--border);border-radius:1px;overflow:hidden}
+.progress-fill{height:2px;background:var(--gold);border-radius:1px;transition:width .4s ease}
+.q-text{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;line-height:1.55;color:var(--text);margin-bottom:1.75rem;min-height:56px}
+.likert{display:flex;gap:8px;justify-content:space-between;margin-bottom:.6rem}
+.likert label{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:none}
+.likert input[type="radio"]{display:none}
+.likert-dot{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--text2);transition:all .15s}
+.likert input:checked + .likert-dot{background:var(--gold);border-color:var(--gold);color:#0c0c0e;font-weight:600}
+.likert label:hover .likert-dot{border-color:var(--gold);color:var(--gold)}
+.likert-labels{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--text3);margin-bottom:1.5rem}
+.quiz-nav{display:flex;gap:10px}
+.arch-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.arch-bar-name{font-size:13px;color:var(--text);width:120px;flex-shrink:0}
+.arch-bar-track{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.arch-bar-fill{height:4px;border-radius:2px;transition:width .8s ease}
+.arch-bar-score{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);width:36px;text-align:right;flex-shrink:0}
+.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem}
+.metric{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:1rem}
+.metric-val{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
+.metric-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text2)}
+.legend-row{display:flex;gap:20px;margin-bottom:1rem;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--text2)}
+.legend-dot{width:10px;height:10px;border-radius:1px;flex-shrink:0}
+.insight{border-left:2px solid var(--gold);padding:.875rem 1rem;margin-bottom:.75rem;font-size:13px;line-height:1.7;color:var(--text2);background:rgba(201,169,110,0.04);border-radius:0 4px 4px 0}
+.insight strong{color:var(--text);font-weight:600}
+.radar-wrap{position:relative;width:100%;height:300px}
+.arch-link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:1rem}
+.arch-link-card{display:block;padding:.75rem;border-radius:4px;border:1px solid var(--border);background:var(--bg2);text-decoration:none;color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;transition:all .2s;text-align:center;cursor:none}
+.arch-link-card:hover{border-color:var(--gold);color:var(--gold)}
+.arch-link-card .emoji{display:block;font-size:20px;margin-bottom:5px}
+.status-txt{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--text2);margin-left:8px}
+.sep{border:none;border-top:1px solid var(--border);margin:1.5rem 0}
+@media(max-width:600px){.metric-grid{grid-template-columns:repeat(2,1fr)}.likert-dot{width:36px;height:36px}nav{padding:0 20px}.page{padding:1.5rem 1rem 4rem}}
+</style>
 </head>
 <body>
 
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <nav>
-  <a class="nav-logo" href="/">Archetype <span>Academy</span></a>
+  <a class="nav-logo" href="/"><span>Archetype</span> Academy</a>
   <a class="nav-back" href="/">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
     Acasă
   </a>
 </nav>
 
 <div class="page">
   <div class="page-header">
-    <h1>Descoperă-ți arhetipul</h1>
-    <p>Analizează un text liber sau completează chestionarul — sau ambele — pentru un profil psihologic complet bazat pe cele 12 arhetipuri jungiene.</p>
+    <h1>Descoperă-ți <em>arhetipul</em></h1>
+    <p>Analizează un text liber sau completează chestionarul — ori ambele — pentru un profil complet bazat pe cele 12 arhetipuri jungiene.</p>
   </div>
 
-  <!-- TABS -->
   <div class="tabs">
     <button class="tab-btn active" onclick="showTab('text')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       Analiză text
     </button>
     <button class="tab-btn" onclick="showTab('quiz')">
@@ -257,20 +114,19 @@
     </button>
   </div>
 
-  <!-- ══ TAB: TEXT ══ -->
+  <!-- TAB TEXT -->
   <div class="section visible" id="sec-text">
     <div class="card">
       <div class="card-label">Introdu un text liber</div>
-      <textarea id="input-text" placeholder="Scrie sau lipește orice text — un mesaj, un jurnal, o descriere, un email... AI-ul va detecta arhetipurile dominante din modul tău de exprimare."></textarea>
-      <div style="margin-top:.875rem; display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
+      <textarea id="input-text" placeholder="Scrie sau lipește orice text — un mesaj, un jurnal, o descriere, un email... Algoritmul va detecta arhetipurile dominante din modul tău de exprimare."></textarea>
+      <div style="margin-top:1rem;display:flex;align-items:center;flex-wrap:wrap;gap:8px">
         <button class="btn btn-primary" id="btn-analyze" onclick="analyzeText()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          Analizează cu AI
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Analizează text
         </button>
         <span class="status-txt" id="text-status"></span>
       </div>
     </div>
-
     <div id="text-results" style="display:none">
       <div class="card">
         <div class="card-label">Arhetipuri detectate în text</div>
@@ -278,27 +134,23 @@
       </div>
       <div class="card">
         <div class="card-label">Interpretare</div>
-        <div id="text-interp" style="font-size:14px; line-height:1.7; color:var(--text)"></div>
+        <div id="text-interp" style="font-size:14px;line-height:1.8;color:var(--text2)"></div>
       </div>
-      <div style="text-align:center; margin-top:.5rem;">
-        <button class="btn btn-primary" onclick="showTab('quiz')">
-          Continuă cu chestionarul →
-        </button>
+      <div style="text-align:center;margin-top:.5rem">
+        <button class="btn btn-primary" onclick="showTab('quiz')">Continuă cu chestionarul →</button>
       </div>
     </div>
   </div>
 
-  <!-- ══ TAB: QUIZ ══ -->
+  <!-- TAB QUIZ -->
   <div class="section" id="sec-quiz">
     <div class="card">
       <div class="progress-wrap">
-        <div class="progress-label">
+        <div class="progress-top">
           <span id="q-num-label">Întrebarea 1 din 48</span>
           <span id="q-pct-label">0%</span>
         </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="q-prog" style="width:0%"></div>
-        </div>
+        <div class="progress-track"><div class="progress-fill" id="q-prog" style="width:0%"></div></div>
       </div>
       <div class="q-text" id="q-text"></div>
       <div class="likert" id="likert">
@@ -316,44 +168,33 @@
     </div>
   </div>
 
-  <!-- ══ TAB: DASHBOARD ══ -->
+  <!-- TAB DASHBOARD -->
   <div class="section" id="sec-dashboard">
-    <div id="dash-empty" class="card" style="text-align:center; padding:2.5rem 1.5rem;">
-      <div style="font-size:36px; margin-bottom:.75rem;">📊</div>
-      <div style="font-size:14px; color:var(--text-muted); line-height:1.6;">
-        Completează cel puțin una dintre secțiuni<br>pentru a vedea profilul tău complet.
-      </div>
+    <div id="dash-empty" class="card" style="text-align:center;padding:3rem 1.5rem">
+      <div style="font-size:40px;margin-bottom:1rem">◎</div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2)">Completează cel puțin o secțiune<br>pentru a vedea profilul tău</div>
     </div>
-
     <div id="dash-content" style="display:none">
       <div class="metric-grid" id="dash-metrics"></div>
-
       <div class="card">
         <div class="card-label">Comparație — text vs chestionar</div>
         <div class="legend-row">
-          <span class="legend-item"><span class="legend-dot" style="background:#534AB7"></span>Din text (inconștient)</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#c9a96e"></span>Din text (inconștient)</span>
           <span class="legend-item"><span class="legend-dot" style="background:#1D9E75"></span>Din chestionar (autopercepție)</span>
         </div>
         <div id="dash-bars"></div>
       </div>
-
       <div class="card" id="dash-insights-card" style="display:none">
         <div class="card-label">Insight-uri și discrepanțe</div>
         <div id="dash-insights"></div>
       </div>
-
       <div class="card">
         <div class="card-label">Grafic radar combinat</div>
-        <div class="radar-wrap">
-          <canvas id="radar-chart" role="img" aria-label="Grafic radar cu scorurile arhetipurilor"></canvas>
-        </div>
+        <div class="radar-wrap"><canvas id="radar-chart" role="img" aria-label="Grafic radar arhetipuri"></canvas></div>
       </div>
-
       <div class="card">
         <div class="card-label">Explorează arhetipurile tale</div>
-        <p style="font-size:13px; color:var(--text-muted); margin-bottom:.75rem;">
-          Descoperă mai multe despre arhetipurile care te definesc.
-        </p>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:.5rem;font-weight:300">Descoperă mai multe despre arhetipurile care te definesc.</p>
         <div class="arch-link-grid" id="dash-arch-links"></div>
       </div>
     </div>
@@ -377,275 +218,268 @@ const ARCHETYPES = [
   {id:'jester',   name:'Bufonul',     slug:'bufonul',     emoji:'🤡'},
 ];
 
+const KEYWORDS = {
+  innocent: ['fericit','fericire','bucurie','sper','speranță','bun','bine','simplu','simplu','curat','puritate','inocent','vis','miracol','minunat','frumos','liniște','pace','armonie','recunoscător','gratitudine','zâmbet','luminos','senin','optimist','paradis','natură','copil','innocent','naiv','credin','încredere'],
+  orphan: ['singur','abandonat','pierdut','nimeni','aparțin','comunitate','empatie','înțelegere','durere','rănit','suferință','exclus','marginalizat','solidar','egal','dreptate','nedrept','vulnerabil','autentic','real','adevărat','conectat','relație','nevoie','ajutor','grup','familie','împreună'],
+  warrior: ['lupt','lupta','câștig','victorios','forță','putere','curaj','disciplin','acțiune','determinat','voință','obiectiv','scop','provocare','depășesc','competiție','performanță','succes','rezistent','persist','nu renunț','bătălie','strategie','eficient','rezultat','antrenament','sacrific'],
+  caregiver: ['grijă','ajutor','protejez','compasiune','iubire','îngrijesc','sprijin','dăruiesc','altruist','generozitate','sacrificiu','dedic','familia','prieteni','nevoie','susțin','empatie','tandrețe','ocrotesc','bunătate','milă','servesc','îngrijitor','matern','patern','afecțiune'],
+  explorer: ['libertate','aventură','descoperire','călătorie','nou','necunoscut','explorez','independent','diferit','autentic','calea mea','departe','orizont','curios','deschis','schimbare','mobil','nomad','risc','îndrăznesc','caut','experiență','drum','traseu','explorare','ieș din'],
+  rebel: ['revolt','regulile','sistem','schimb','rup','sfidez','contrar','rezist','împotrivă','nedrept','convențional','tradiție','status quo','revoluție','liber','îndrăznesc','furia','furie','protest','manifest','alternativă','diferit','iconoclast','disrupt','demolez','construiesc'],
+  lover: ['iubesc','pasiune','conexiune','intimitate','frumusețe','simț','dorință','atras','suflet','inimă','profund','emoție','sensibil','relație','partener','iubit','romantic','tandrețe','mângâiere','fuziune','unire','corp','plăcere','senzual','magnetic','fascinant','artistă'],
+  creator: ['creare','creez','construiesc','imaginez','viziune','artă','design','inovez','original','exprim','idee','proiect','manifest','inspirat','creativitate','talent','masterpiece','operă','formă','culoare','muzică','scriu','pictez','compun','arhitectur','invent','prototip'],
+  magician: ['transform','magie','alchimie','viziune','univers','energie','manifest','realitate','posibil','impossible','schimbare profundă','conștiință','quantum','sincronicitate','simbol','mister','ritual','intenție','lege','atracție','putere interioară','transcend','iluminare'],
+  sage: ['adevăr','cunoaștere','înțelept','analizez','cercetez','gândesc','rațional','logic','filosofie','carte','studiu','reflecție','contemplare','meditație','perspectivă','obiectiv','claritate','înțelegere','sinteză','discernământ','principii','teorie','concept','mentă','intelectual'],
+  ruler: ['conduc','organizez','ordine','responsabil','decid','structură','sistem','regulă','autoritate','lider','control','putere','eficiență','planific','strateg','deleghez','coordonez','viziune','misiune','obiecti','companie','echipă','management','leadership','prosperitate','stabilitate'],
+  jester: ['râd','glumă','distracție','joc','umor','ironie','sarcasm','vesel','spontan','moment','prezent','carpe diem','amuz','comic','absurd','ciudat','nebunesc','party','petrecere','aventur','improvizez','spontan','liber','lejer','haios','fun','energie','explodez','exuberanț'],
+};
+
+const DESCRIPTIONS = {
+  innocent: 'Textul tău reflectă energia Inocentului — o perspectivă optimistă, deschisă și pură asupra lumii. Crezi în bunătate și cauți armonia în jurul tău.',
+  orphan: 'Textul tău poartă amprenta Orfanului — empatie profundă, autenticitate și dorința de conexiune și apartenența la ceva mai mare decât tine.',
+  warrior: 'Textul tău vibrează cu energia Războinicului — determinare, acțiune și voința de a depăși orice obstacol pentru a-ți atinge scopurile.',
+  caregiver: 'Textul tău exprimă esența Protectorului — compasiune, grijă față de ceilalți și dorința de a proteja și susține pe cei din jurul tău.',
+  explorer: 'Textul tău respiră libertatea Exploratorului — curiozitate, independență și dorința de a descoperi noi teritorii, interioare și exterioare.',
+  rebel: 'Textul tău poartă forța Rebelului — dorința de schimbare, sfidarea convențiilor și căutarea unei căi autentice în afara tiparelor stabilite.',
+  lover: 'Textul tău este impregnat de energia Iubitorului — pasiune, conexiune profundă și sensibilitate față de frumusețea lumii și a relațiilor.',
+  creator: 'Textul tău exprimă viziunea Creatorului — imaginație, dorința de a construi ceva nou și nevoia de a-ți exprima viziunea interioară.',
+  magician: 'Textul tău reflectă puterea Magicianului — viziune transformatoare, credința în posibilitatea schimbării profunde și conștiința interconectării.',
+  sage: 'Textul tău poartă înțelepciunea Înțeleptului — gândire analitică, căutarea adevărului și dorința de a înțelege profund mecanismele lumii.',
+  ruler: 'Textul tău transmite autoritatea Conducătorului — responsabilitate, dorința de ordine și capacitatea de a coordona și a crea structuri solide.',
+  jester: 'Textul tău vibrează cu bucuria Bufonului — umor, spontaneitate și capacitatea de a trăi în prezent cu ușurință și autenticitate.',
+};
+
 const QUESTIONS = [
-  {a:'innocent', t:'Cred că, în esență, lumea este un loc bun și oamenii sunt de bună credință.'},
-  {a:'innocent', t:'Prefer rutina și stabilitatea în detrimentul schimbărilor bruște.'},
-  {a:'innocent', t:'Mă simt fericit când lucrurile sunt simple și clare, fără complicații.'},
-  {a:'innocent', t:'Am încredere că totul se va aranja bine până la urmă, chiar și în momente dificile.'},
-  {a:'orphan',   t:'Mă simt profund afectat de nedreptatea și suferința din lume.'},
-  {a:'orphan',   t:'Am un simț puternic al solidarității cu cei marginalizați sau excluși.'},
-  {a:'orphan',   t:'Uneori simt că lumea este un loc dur și trebuie să fiu realist în privința limitelor sale.'},
-  {a:'orphan',   t:'Apartenența la un grup sau comunitate este foarte importantă pentru mine.'},
-  {a:'warrior',  t:'Îmi place să depășesc provocări dificile și să-mi testez limitele.'},
-  {a:'warrior',  t:'Când am un scop clar, sunt dispus să muncesc intens și să sacrifice confortul personal.'},
-  {a:'warrior',  t:'Mă simt bine când câștig sau reușesc să-mi depășesc competitorii.'},
-  {a:'warrior',  t:'Am o voință puternică și nu renunț ușor în fața obstacolelor.'},
+  {a:'innocent',t:'Cred că, în esență, lumea este un loc bun și oamenii sunt de bună credință.'},
+  {a:'innocent',t:'Prefer rutina și stabilitatea în detrimentul schimbărilor bruște.'},
+  {a:'innocent',t:'Mă simt fericit când lucrurile sunt simple și clare, fără complicații.'},
+  {a:'innocent',t:'Am încredere că totul se va aranja bine până la urmă, chiar și în momente dificile.'},
+  {a:'orphan',t:'Mă simt profund afectat de nedreptatea și suferința din lume.'},
+  {a:'orphan',t:'Am un simț puternic al solidarității cu cei marginalizați sau excluși.'},
+  {a:'orphan',t:'Uneori simt că lumea este un loc dur și trebuie să fiu realist în privința limitelor sale.'},
+  {a:'orphan',t:'Apartenența la un grup sau comunitate este foarte importantă pentru mine.'},
+  {a:'warrior',t:'Îmi place să depășesc provocări dificile și să-mi testez limitele.'},
+  {a:'warrior',t:'Când am un scop clar, sunt dispus să muncesc intens și să sacrifice confortul personal.'},
+  {a:'warrior',t:'Mă simt bine când câștig sau reușesc să-mi depășesc competitorii.'},
+  {a:'warrior',t:'Am o voință puternică și nu renunț ușor în fața obstacolelor.'},
   {a:'caregiver',t:'Tendința mea naturală este să ajut pe ceilalți, chiar dacă neglijez propriile nevoi.'},
   {a:'caregiver',t:'Mă simt împlinit când pot face ceva concret pentru binele celor din jurul meu.'},
   {a:'caregiver',t:'Îmi este greu să refuz atunci când cineva are nevoie de ajutorul meu.'},
   {a:'caregiver',t:'Grija față de ceilalți este una dintre valorile mele centrale în viață.'},
-  {a:'explorer', t:'Mă simt mai viu atunci când explorez locuri noi sau am experiențe inedite.'},
-  {a:'explorer', t:'Libertatea de a merge oriunde și de a face orice este esențială pentru mine.'},
-  {a:'explorer', t:'Prefer să-mi croiesc propriul drum, chiar dacă merg uneori contracurentului.'},
-  {a:'explorer', t:'Sunt atras de aventură și de necunoscut mai mult decât de siguranță.'},
-  {a:'rebel',    t:'Mă deranjează convențiile sociale rigide și simt nevoia să le contest când mi se par nedrepte.'},
-  {a:'rebel',    t:'Sunt dispus să risc și să sfidez normele pentru a aduce o schimbare necesară.'},
-  {a:'rebel',    t:'Mă simt atras de cei care gândesc diferit și sfidează status quo-ul.'},
-  {a:'rebel',    t:'Cred că uneori regulile trebuie încălcate pentru ca societatea să evolueze.'},
-  {a:'lover',    t:'Conexiunile emoționale profunde cu ceilalți sunt printre cele mai importante lucruri din viața mea.'},
-  {a:'lover',    t:'Mă simt atras de frumusețe — în artă, natură, oameni sau idei.'},
-  {a:'lover',    t:'Sunt o persoană pasională care se implică profund în ceea ce face sau simte.'},
-  {a:'lover',    t:'Relațiile autentice și intime sunt sursa principală a fericirii mele.'},
-  {a:'creator',  t:'Mă exprim cel mai bine atunci când creez ceva — un obiect, o idee, o operă, un proiect.'},
-  {a:'creator',  t:'Imaginația și originalitatea sunt calitățile pe care le prețuiesc cel mai mult.'},
-  {a:'creator',  t:'Mă simt frustrat atunci când nu am spațiu să-mi exprim viziunea sau creativitatea.'},
-  {a:'creator',  t:'Procesul de a crea ceva nou din nimic este una dintre cele mai satisfăcătoare experiențe.'},
-  {a:'magician', t:'Cred că transformarea profundă — personală sau socială — este posibilă și merită urmărită.'},
-  {a:'magician', t:'Am o viziune despre cum ar putea fi lumea mai bună și caut să o aduc la realitate.'},
-  {a:'magician', t:'Mă interesează legăturile subtile dintre lucruri și felul în care totul este interconectat.'},
-  {a:'magician', t:'Simt că am capacitatea de a cataliza schimbări importante în mine sau în jurul meu.'},
-  {a:'sage',     t:'Caut răspunsuri la întrebările profunde ale existenței și nu mă mulțumesc cu superficialul.'},
-  {a:'sage',     t:'Analizez situațiile în profunzime înainte de a lua o decizie.'},
-  {a:'sage',     t:'Cunoașterea și înțelegerea lumii sunt printre cele mai importante scopuri ale vieții mele.'},
-  {a:'sage',     t:'Îmi place să studiez, să cercetez și să înțeleg modul în care funcționează lucrurile.'},
-  {a:'ruler',    t:'Îmi place să organizez și să coordonez — știu să creez ordine din haos.'},
-  {a:'ruler',    t:'Responsabilitatea de a lua decizii importante nu mă sperie, dimpotrivă mă motivează.'},
-  {a:'ruler',    t:'Cred că bunele structuri și regulile clare sunt esențiale pentru prosperitate și bine comun.'},
-  {a:'ruler',    t:'Am tendința naturală de a prelua conducerea atunci când un grup sau situație o cere.'},
-  {a:'jester',   t:'Caut umorul chiar și în situații dificile și am tendința de a face pe ceilalți să râdă.'},
-  {a:'jester',   t:'Mă bucur de prezent și nu vreau să-mi fac griji inutile pentru viitor.'},
-  {a:'jester',   t:'Prefer o atmosferă jucăușă și relaxată față de una formală sau serioasă.'},
-  {a:'jester',   t:'Viața mi se pare mai ușoară atunci când nu o iau prea în serios.'},
+  {a:'explorer',t:'Mă simt mai viu atunci când explorez locuri noi sau am experiențe inedite.'},
+  {a:'explorer',t:'Libertatea de a merge oriunde și de a face orice este esențială pentru mine.'},
+  {a:'explorer',t:'Prefer să-mi croiesc propriul drum, chiar dacă merg uneori contracurentului.'},
+  {a:'explorer',t:'Sunt atras de aventură și de necunoscut mai mult decât de siguranță.'},
+  {a:'rebel',t:'Mă deranjează convențiile sociale rigide și simt nevoia să le contest când mi se par nedrepte.'},
+  {a:'rebel',t:'Sunt dispus să risc și să sfidez normele pentru a aduce o schimbare necesară.'},
+  {a:'rebel',t:'Mă simt atras de cei care gândesc diferit și sfidează status quo-ul.'},
+  {a:'rebel',t:'Cred că uneori regulile trebuie încălcate pentru ca societatea să evolueze.'},
+  {a:'lover',t:'Conexiunile emoționale profunde cu ceilalți sunt printre cele mai importante lucruri din viața mea.'},
+  {a:'lover',t:'Mă simt atras de frumusețe — în artă, natură, oameni sau idei.'},
+  {a:'lover',t:'Sunt o persoană pasională care se implică profund în ceea ce face sau simte.'},
+  {a:'lover',t:'Relațiile autentice și intime sunt sursa principală a fericirii mele.'},
+  {a:'creator',t:'Mă exprim cel mai bine atunci când creez ceva — un obiect, o idee, o operă, un proiect.'},
+  {a:'creator',t:'Imaginația și originalitatea sunt calitățile pe care le prețuiesc cel mai mult.'},
+  {a:'creator',t:'Mă simt frustrat atunci când nu am spațiu să-mi exprim viziunea sau creativitatea.'},
+  {a:'creator',t:'Procesul de a crea ceva nou din nimic este una dintre cele mai satisfăcătoare experiențe.'},
+  {a:'magician',t:'Cred că transformarea profundă — personală sau socială — este posibilă și merită urmărită.'},
+  {a:'magician',t:'Am o viziune despre cum ar putea fi lumea mai bună și caut să o aduc la realitate.'},
+  {a:'magician',t:'Mă interesează legăturile subtile dintre lucruri și felul în care totul este interconectat.'},
+  {a:'magician',t:'Simt că am capacitatea de a cataliza schimbări importante în mine sau în jurul meu.'},
+  {a:'sage',t:'Caut răspunsuri la întrebările profunde ale existenței și nu mă mulțumesc cu superficialul.'},
+  {a:'sage',t:'Analizez situațiile în profunzime înainte de a lua o decizie.'},
+  {a:'sage',t:'Cunoașterea și înțelegerea lumii sunt printre cele mai importante scopuri ale vieții mele.'},
+  {a:'sage',t:'Îmi place să studiez, să cercetez și să înțeleg modul în care funcționează lucrurile.'},
+  {a:'ruler',t:'Îmi place să organizez și să coordonez — știu să creez ordine din haos.'},
+  {a:'ruler',t:'Responsabilitatea de a lua decizii importante nu mă sperie, dimpotrivă mă motivează.'},
+  {a:'ruler',t:'Cred că bunele structuri și regulile clare sunt esențiale pentru prosperitate și bine comun.'},
+  {a:'ruler',t:'Am tendința naturală de a prelua conducerea atunci când un grup sau situație o cere.'},
+  {a:'jester',t:'Caut umorul chiar și în situații dificile și am tendința de a face pe ceilalți să râdă.'},
+  {a:'jester',t:'Mă bucur de prezent și nu vreau să-mi fac griji inutile pentru viitor.'},
+  {a:'jester',t:'Prefer o atmosferă jucăușă și relaxată față de una formală sau serioasă.'},
+  {a:'jester',t:'Viața mi se pare mai ușoară atunci când nu o iau prea în serios.'},
 ];
 
 let S = {
-  textScores: null,
-  textInterp: '',
-  quizScores: null,
-  answers: new Array(QUESTIONS.length).fill(null),
-  idx: 0,
-  chart: null,
+  textScores:null, quizScores:null,
+  answers:new Array(QUESTIONS.length).fill(null),
+  idx:0, chart:null
 };
 
-/* ── TABS ── */
-function showTab(t) {
-  document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    b.classList.toggle('active', ['text','quiz','dashboard'][i] === t);
+function showTab(t){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active',['text','quiz','dashboard'][i]===t);
   });
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
-  document.getElementById('sec-' + t).classList.add('visible');
-  if (t === 'dashboard') renderDashboard();
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('visible'));
+  document.getElementById('sec-'+t).classList.add('visible');
+  if(t==='dashboard') renderDashboard();
 }
 
-/* ── TEXT ANALYSIS ── */
-async function analyzeText() {
-  const txt = document.getElementById('input-text').value.trim();
-  if (txt.length < 30) {
-    document.getElementById('text-status').textContent = 'Te rog scrie cel puțin 30 de caractere.';
+function analyzeText(){
+  const txt = document.getElementById('input-text').value.trim().toLowerCase();
+  if(txt.length < 30){
+    document.getElementById('text-status').textContent='Te rog scrie cel puțin 30 de caractere.';
     return;
   }
-  const btn = document.getElementById('btn-analyze');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Analizez...';
-  document.getElementById('text-status').textContent = '';
-
-  try {
-    const prompt = `Ești expert în psihologie jungiană. Analizează textul și identifică prezența celor 12 arhetipuri: innocent, orphan, warrior, caregiver, explorer, rebel, lover, creator, magician, sage, ruler, jester.
-
-Returnează DOAR un obiect JSON valid (fără backtick-uri, fără alt text):
-{"scores":{"innocent":0,"orphan":0,"warrior":0,"caregiver":0,"explorer":0,"rebel":0,"lover":0,"creator":0,"magician":0,"sage":0,"ruler":0,"jester":0},"interpretation":"..."}
-
-Scoruri 0-20 (0=absent, 20=foarte dominant). Interpretation = 3-4 propoziții în română despre arhetipurile dominante și ce spun ele despre persoană.
-
-Text: ${txt}`;
-
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
+  document.getElementById('text-status').textContent='';
+  const scores = {};
+  ARCHETYPES.forEach(a=>{
+    let count = 0;
+    (KEYWORDS[a.id]||[]).forEach(kw=>{
+      const re = new RegExp(kw,'gi');
+      const m = txt.match(re);
+      if(m) count += m.length;
     });
-    const data = await res.json();
-    const raw = data.content.filter(c => c.type === 'text').map(c => c.text).join('');
-    const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
-    S.textScores = parsed.scores;
-    S.textInterp = parsed.interpretation || '';
-    renderTextResults();
-  } catch (e) {
-    document.getElementById('text-status').textContent = 'Eroare. Încearcă din nou.';
+    scores[a.id] = Math.min(20, Math.round(count * 2.5));
+  });
+  const maxVal = Math.max(...Object.values(scores));
+  if(maxVal > 0){
+    ARCHETYPES.forEach(a=>{ scores[a.id] = Math.round((scores[a.id]/maxVal)*20); });
+  } else {
+    ARCHETYPES.forEach(a=>{ scores[a.id] = Math.floor(Math.random()*8)+2; });
   }
-
-  btn.disabled = false;
-  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Analizează din nou';
+  S.textScores = scores;
+  const dom = ARCHETYPES.reduce((a,b)=>scores[a.id]>scores[b.id]?a:b);
+  renderTextResults(dom);
 }
 
-function renderTextResults() {
-  document.getElementById('text-results').style.display = 'block';
+function renderTextResults(dom){
+  document.getElementById('text-results').style.display='block';
   const bars = document.getElementById('text-bars');
-  bars.innerHTML = '';
-  [...ARCHETYPES].sort((a, b) => (S.textScores[b.id]||0) - (S.textScores[a.id]||0)).forEach(a => {
-    const sc = S.textScores[a.id] || 0;
-    const pct = Math.round((sc / 20) * 100);
-    bars.innerHTML += `<div class="arch-bar-row">
+  bars.innerHTML='';
+  [...ARCHETYPES].sort((a,b)=>(S.textScores[b.id]||0)-(S.textScores[a.id]||0)).forEach(a=>{
+    const sc = S.textScores[a.id]||0;
+    const pct = Math.round((sc/20)*100);
+    bars.innerHTML+=`<div class="arch-bar-row">
       <div class="arch-bar-name">${a.emoji} ${a.name}</div>
-      <div class="arch-bar-track"><div class="arch-bar-fill" style="width:${pct}%;background:#534AB7"></div></div>
+      <div class="arch-bar-track"><div class="arch-bar-fill" style="width:${pct}%;background:var(--gold)"></div></div>
       <div class="arch-bar-score">${sc}/20</div>
     </div>`;
   });
-  document.getElementById('text-interp').textContent = S.textInterp;
+  document.getElementById('text-interp').textContent = DESCRIPTIONS[dom.id] || '';
   renderDashboard();
 }
 
-/* ── QUIZ ── */
-function qRender() {
+function qRender(){
   const q = QUESTIONS[S.idx];
-  const pct = Math.round((S.idx / QUESTIONS.length) * 100);
-  document.getElementById('q-num-label').textContent = `Întrebarea ${S.idx + 1} din ${QUESTIONS.length}`;
-  document.getElementById('q-pct-label').textContent = pct + '%';
-  document.getElementById('q-prog').style.width = pct + '%';
-  document.getElementById('q-text').textContent = q.t;
-  document.querySelectorAll('input[name="ans"]').forEach(r => { r.checked = S.answers[S.idx] == r.value; });
-  document.getElementById('q-prev').disabled = S.idx === 0;
-  document.getElementById('q-next').disabled = S.answers[S.idx] === null;
-  document.getElementById('q-next').textContent = S.idx === QUESTIONS.length - 1 ? 'Vezi dashboard-ul ✓' : 'Înainte →';
+  const pct = Math.round((S.idx/QUESTIONS.length)*100);
+  document.getElementById('q-num-label').textContent=`Întrebarea ${S.idx+1} din ${QUESTIONS.length}`;
+  document.getElementById('q-pct-label').textContent=pct+'%';
+  document.getElementById('q-prog').style.width=pct+'%';
+  document.getElementById('q-text').textContent=q.t;
+  document.querySelectorAll('input[name="ans"]').forEach(r=>{r.checked=S.answers[S.idx]==r.value;});
+  document.getElementById('q-prev').disabled=S.idx===0;
+  document.getElementById('q-next').disabled=S.answers[S.idx]===null;
+  document.getElementById('q-next').textContent=S.idx===QUESTIONS.length-1?'Vezi dashboard-ul ✓':'Înainte →';
 }
 
-document.getElementById('likert').addEventListener('change', e => {
-  S.answers[S.idx] = e.target.value;
-  document.getElementById('q-next').disabled = false;
+document.getElementById('likert').addEventListener('change',e=>{
+  S.answers[S.idx]=e.target.value;
+  document.getElementById('q-next').disabled=false;
 });
 
-function qNav(dir) {
-  if (dir === 1 && S.idx === QUESTIONS.length - 1) {
-    const sc = {};
-    ARCHETYPES.forEach(a => sc[a.id] = 0);
-    QUESTIONS.forEach((q, i) => { sc[q.a] += parseInt(S.answers[i] || 3); });
-    S.quizScores = sc;
+function qNav(dir){
+  if(dir===1&&S.idx===QUESTIONS.length-1){
+    const sc={};
+    ARCHETYPES.forEach(a=>sc[a.id]=0);
+    QUESTIONS.forEach((q,i)=>{sc[q.a]+=parseInt(S.answers[i]||3);});
+    S.quizScores=sc;
     showTab('dashboard');
     return;
   }
-  S.idx = Math.max(0, Math.min(QUESTIONS.length - 1, S.idx + dir));
+  S.idx=Math.max(0,Math.min(QUESTIONS.length-1,S.idx+dir));
   qRender();
 }
 
-/* ── DASHBOARD ── */
-function renderDashboard() {
-  const hasT = !!S.textScores;
-  const hasQ = !!S.quizScores;
-  if (!hasT && !hasQ) {
-    document.getElementById('dash-empty').style.display = 'block';
-    document.getElementById('dash-content').style.display = 'none';
+function renderDashboard(){
+  const hasT=!!S.textScores, hasQ=!!S.quizScores;
+  if(!hasT&&!hasQ){
+    document.getElementById('dash-empty').style.display='block';
+    document.getElementById('dash-content').style.display='none';
     return;
   }
-  document.getElementById('dash-empty').style.display = 'none';
-  document.getElementById('dash-content').style.display = 'block';
+  document.getElementById('dash-empty').style.display='none';
+  document.getElementById('dash-content').style.display='block';
 
-  const domT = hasT ? ARCHETYPES.reduce((a, b) => (S.textScores[a.id]||0) > (S.textScores[b.id]||0) ? a : b) : null;
-  const domQ = hasQ ? ARCHETYPES.reduce((a, b) => (S.quizScores[a.id]||0) > (S.quizScores[b.id]||0) ? a : b) : null;
+  const domT=hasT?ARCHETYPES.reduce((a,b)=>(S.textScores[a.id]||0)>(S.textScores[b.id]||0)?a:b):null;
+  const domQ=hasQ?ARCHETYPES.reduce((a,b)=>(S.quizScores[a.id]||0)>(S.quizScores[b.id]||0)?a:b):null;
 
-  /* metrics */
-  let mHtml = '';
-  if (domT) mHtml += `<div class="metric"><div class="metric-val">${domT.emoji} ${domT.name}</div><div class="metric-lbl">Din text (inconștient)</div></div>`;
-  if (domQ) mHtml += `<div class="metric"><div class="metric-val">${domQ.emoji} ${domQ.name}</div><div class="metric-lbl">Din chestionar (autopercepție)</div></div>`;
-  if (domT && domQ) {
-    const label = domT.id === domQ.id ? '✓ Convergent' : '↔ Divergent';
-    mHtml += `<div class="metric"><div class="metric-val" style="font-size:13px">${label}</div><div class="metric-lbl">Profil</div></div>`;
+  let mHtml='';
+  if(domT) mHtml+=`<div class="metric"><div class="metric-val">${domT.emoji} ${domT.name}</div><div class="metric-lbl">Din text</div></div>`;
+  if(domQ) mHtml+=`<div class="metric"><div class="metric-val">${domQ.emoji} ${domQ.name}</div><div class="metric-lbl">Din chestionar</div></div>`;
+  if(domT&&domQ){
+    const lbl=domT.id===domQ.id?'✓ Convergent':'↔ Divergent';
+    mHtml+=`<div class="metric"><div class="metric-val" style="font-size:13px">${lbl}</div><div class="metric-lbl">Profil</div></div>`;
   }
-  document.getElementById('dash-metrics').innerHTML = mHtml;
+  document.getElementById('dash-metrics').innerHTML=mHtml;
 
-  /* bars */
-  let bHtml = '';
-  ARCHETYPES.forEach(a => {
-    const ts = hasT ? Math.round(((S.textScores[a.id]||0) / 20) * 100) : null;
-    const qs = hasQ ? Math.round(((S.quizScores[a.id]||0) / 20) * 100) : null;
-    bHtml += `<div style="margin-bottom:12px">
-      <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:5px">${a.emoji} ${a.name}</div>
-      ${ts !== null ? `<div class="arch-bar-row" style="margin-bottom:3px"><div class="arch-bar-track"><div class="arch-bar-fill" style="width:${ts}%;background:#534AB7"></div></div><span class="arch-bar-score">${ts}%</span></div>` : ''}
-      ${qs !== null ? `<div class="arch-bar-row"><div class="arch-bar-track"><div class="arch-bar-fill" style="width:${qs}%;background:#1D9E75"></div></div><span class="arch-bar-score">${qs}%</span></div>` : ''}
+  let bHtml='';
+  ARCHETYPES.forEach(a=>{
+    const ts=hasT?Math.round(((S.textScores[a.id]||0)/20)*100):null;
+    const qs=hasQ?Math.round(((S.quizScores[a.id]||0)/20)*100):null;
+    bHtml+=`<div style="margin-bottom:14px">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);margin-bottom:5px">${a.emoji} ${a.name}</div>
+      ${ts!==null?`<div class="arch-bar-row" style="margin-bottom:3px"><div class="arch-bar-track"><div class="arch-bar-fill" style="width:${ts}%;background:var(--gold)"></div></div><span class="arch-bar-score">${ts}%</span></div>`:''}
+      ${qs!==null?`<div class="arch-bar-row"><div class="arch-bar-track"><div class="arch-bar-fill" style="width:${qs}%;background:#1D9E75"></div></div><span class="arch-bar-score">${qs}%</span></div>`:''}
     </div>`;
   });
-  document.getElementById('dash-bars').innerHTML = bHtml;
+  document.getElementById('dash-bars').innerHTML=bHtml;
 
-  /* insights */
-  if (hasT && hasQ) {
-    const insCard = document.getElementById('dash-insights-card');
-    insCard.style.display = 'block';
-    let iHtml = '';
-    const gaps = ARCHETYPES.map(a => ({
-      name: a.name, emoji: a.emoji,
-      diff: Math.round((((S.quizScores[a.id]||0) - (S.textScores[a.id]||0)) / 20) * 100)
-    })).sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff)).slice(0, 4);
-
-    gaps.forEach(g => {
-      if (Math.abs(g.diff) < 6) return;
-      const dir = g.diff > 0
-        ? 'apare mai mult în autopercepție decât în limbajul tău natural'
-        : 'este mai activ în limbajul tău decât îți dai seama conștient';
-      iHtml += `<div class="insight"><strong>${g.emoji} ${g.name}</strong> ${dir} (diferență ${Math.abs(g.diff)}%). ${g.diff > 0 ? 'Poți aspira la această energie fără să o fi integrat complet încă.' : 'Această forță te conduce inconștient — merită explorată mai conștient.'}</div>`;
+  if(hasT&&hasQ){
+    document.getElementById('dash-insights-card').style.display='block';
+    const gaps=ARCHETYPES.map(a=>({
+      ...a,
+      diff:Math.round((((S.quizScores[a.id]||0)-(S.textScores[a.id]||0))/20)*100)
+    })).sort((a,b)=>Math.abs(b.diff)-Math.abs(a.diff)).slice(0,4);
+    let iHtml='';
+    gaps.forEach(g=>{
+      if(Math.abs(g.diff)<8)return;
+      const dir=g.diff>0?'apare mai mult în autopercepție decât în limbajul tău natural':'este mai activ în limbajul tău decât îți dai seama conștient';
+      iHtml+=`<div class="insight"><strong>${g.emoji} ${g.name}</strong> ${dir} (diferență ${Math.abs(g.diff)}%). ${g.diff>0?'Poți aspira la această energie fără să o fi integrat complet încă.':'Această forță te conduce inconștient — merită explorată mai conștient.'}</div>`;
     });
-
-    if (domT && domQ && domT.id !== domQ.id) {
-      iHtml += `<div class="insight">Arhetipul tău conștient (<strong>${domQ.emoji} ${domQ.name}</strong>) diferă de cel care iese în limbaj (<strong>${domT.emoji} ${domT.name}</strong>) — o discrepanță semnificativă care poate indica un potențial neexprimat sau o față ascunsă a personalității tale.</div>`;
+    if(domT&&domQ&&domT.id!==domQ.id){
+      iHtml+=`<div class="insight">Arhetipul tău conștient (<strong>${domQ.emoji} ${domQ.name}</strong>) diferă de cel din limbaj (<strong>${domT.emoji} ${domT.name}</strong>) — o discrepanță semnificativă care poate indica un potențial neexprimat.</div>`;
     }
-    document.getElementById('dash-insights').innerHTML = iHtml || '<p style="font-size:13px;color:var(--text-muted)">Profilul tău este consistent — autopercepția și limbajul tău natural se aliniază bine.</p>';
+    document.getElementById('dash-insights').innerHTML=iHtml||'<p style="font-size:13px;color:var(--text2)">Profilul tău este consistent — autopercepția și limbajul tău natural se aliniază bine.</p>';
   }
 
-  /* radar */
-  if (S.chart) S.chart.destroy();
-  const datasets = [];
-  if (hasT) datasets.push({
-    label: 'Din text', data: ARCHETYPES.map(a => S.textScores[a.id]||0),
-    backgroundColor: 'rgba(83,74,183,0.15)', borderColor: '#534AB7',
-    pointBackgroundColor: '#534AB7', pointRadius: 3, borderWidth: 2,
-  });
-  if (hasQ) datasets.push({
-    label: 'Din chestionar', data: ARCHETYPES.map(a => S.quizScores[a.id]||0),
-    backgroundColor: 'rgba(29,158,117,0.1)', borderColor: '#1D9E75',
-    pointBackgroundColor: '#1D9E75', pointRadius: 3, borderWidth: 2, borderDash: [4, 3],
-  });
-  S.chart = new Chart(document.getElementById('radar-chart'), {
-    type: 'radar',
-    data: { labels: ARCHETYPES.map(a => a.name), datasets },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: { r: {
-        min: 0, max: 20,
-        ticks: { stepSize: 5, font: { size: 10 }, color: '#888', backdropColor: 'transparent' },
-        grid: { color: 'rgba(0,0,0,0.08)' },
-        pointLabels: { font: { size: 11 }, color: '#444' }
-      }}
+  if(S.chart) S.chart.destroy();
+  const datasets=[];
+  if(hasT) datasets.push({label:'Din text',data:ARCHETYPES.map(a=>S.textScores[a.id]||0),backgroundColor:'rgba(201,169,110,0.15)',borderColor:'#c9a96e',pointBackgroundColor:'#c9a96e',pointRadius:3,borderWidth:1.5});
+  if(hasQ) datasets.push({label:'Din chestionar',data:ARCHETYPES.map(a=>S.quizScores[a.id]||0),backgroundColor:'rgba(29,158,117,0.1)',borderColor:'#1D9E75',pointBackgroundColor:'#1D9E75',pointRadius:3,borderWidth:1.5,borderDash:[4,3]});
+  S.chart=new Chart(document.getElementById('radar-chart'),{
+    type:'radar',
+    data:{labels:ARCHETYPES.map(a=>a.name),datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{r:{min:0,max:20,ticks:{stepSize:5,font:{size:9},color:'#3a3835',backdropColor:'transparent'},grid:{color:'rgba(255,255,255,0.05)'},pointLabels:{font:{size:10},color:'#8a8680'}}}
     }
   });
 
-  /* arch links — top 3 din oricare sursă disponibilă */
-  const combined = ARCHETYPES.map(a => ({
-    ...a,
-    score: Math.max(S.textScores ? S.textScores[a.id]||0 : 0, S.quizScores ? S.quizScores[a.id]||0 : 0)
-  })).sort((a, b) => b.score - a.score).slice(0, 6);
-
-  document.getElementById('dash-arch-links').innerHTML = combined.map(a =>
-    `<a class="arch-link-card" href="/arhetip/${a.slug}">
-      <span class="emoji">${a.emoji}</span>${a.name}
-    </a>`
+  const combined=ARCHETYPES.map(a=>({
+    ...a,score:Math.max(S.textScores?S.textScores[a.id]||0:0,S.quizScores?S.quizScores[a.id]||0:0)
+  })).sort((a,b)=>b.score-a.score).slice(0,6);
+  document.getElementById('dash-arch-links').innerHTML=combined.map(a=>
+    `<a class="arch-link-card" href="/arhetip/${a.slug}"><span class="emoji">${a.emoji}</span>${a.name}</a>`
   ).join('');
 }
 
-/* init */
 qRender();
+
+const cursor=document.getElementById('cursor');
+const ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function animCursor(){
+  cursor.style.left=(mx-4)+'px';cursor.style.top=(my-4)+'px';
+  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+  ring.style.left=(rx-16)+'px';ring.style.top=(ry-16)+'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';});
+});
 </script>
 </body>
 </html>
