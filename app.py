@@ -354,6 +354,10 @@ def serve_audio(filename):
 def serve_static(filename):
     static_dir = os.path.join(app.root_path, 'static')
     return send_from_directory(static_dir, filename, mimetype='audio/mpeg')
+ 
+@app.route('/chestionar')
+def chestionar():
+    return render_template('chestionar.html')
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5001))
     app.run(host='0.0.0.0', port=port, debug=False)
