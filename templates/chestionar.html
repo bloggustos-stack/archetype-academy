@@ -1,1 +1,651 @@
 
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chestionar Arhetipuri · Archetype Academy</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #534AB7;
+      --purple-dark: #3C3489;
+      --purple-light: #EEEDFE;
+      --teal: #1D9E75;
+      --teal-light: #E1F5EE;
+      --pink: #D4537E;
+      --pink-light: #FBEAF0;
+      --text: #1a1a1a;
+      --text-muted: #6b6b6b;
+      --border: rgba(0,0,0,0.12);
+      --bg: #f8f7f4;
+      --card: #ffffff;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(248,247,244,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 15px; font-weight: 600; color: var(--text);
+      text-decoration: none; letter-spacing: -0.3px;
+    }
+    .nav-logo span { color: var(--purple); }
+    .nav-back {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+      display: flex; align-items: center; gap: 5px;
+      transition: color .15s;
+    }
+    .nav-back:hover { color: var(--purple); }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+    .page-header { text-align: center; margin-bottom: 2.5rem; }
+    .page-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: .5rem; }
+    .page-header p { font-size: 15px; color: var(--text-muted); line-height: 1.6; max-width: 480px; margin: 0 auto; }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex; border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; margin-bottom: 1.75rem; background: var(--card);
+    }
+    .tab-btn {
+      flex: 1; padding: 11px 8px; font-size: 13px; font-weight: 500;
+      border: none; background: transparent; color: var(--text-muted);
+      cursor: pointer; transition: all .15s; display: flex; align-items: center;
+      justify-content: center; gap: 6px;
+    }
+    .tab-btn:not(:last-child) { border-right: 1px solid var(--border); }
+    .tab-btn.active { background: var(--purple); color: #fff; }
+    .tab-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    /* ── SECTION ── */
+    .section { display: none; }
+    .section.visible { display: block; }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1rem;
+    }
+    .card-label {
+      font-size: 11px; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: .75rem;
+    }
+
+    /* ── TEXTAREA ── */
+    textarea {
+      width: 100%; min-height: 140px; resize: vertical;
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px 14px; font-size: 14px; line-height: 1.65;
+      font-family: inherit; color: var(--text); background: var(--bg);
+      transition: border-color .15s;
+    }
+    textarea:focus { outline: none; border-color: var(--purple); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500;
+      border: 1px solid var(--border); background: var(--card); color: var(--text);
+      cursor: pointer; transition: all .15s; text-decoration: none;
+    }
+    .btn:hover { background: var(--bg); }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--purple); border-color: var(--purple); color: #fff; }
+    .btn-primary:hover { background: var(--purple-dark); border-color: var(--purple-dark); }
+    .btn:disabled { opacity: .4; cursor: default; pointer-events: none; }
+    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* ── PROGRESS ── */
+    .progress-wrap { margin-bottom: 1.25rem; }
+    .progress-track {
+      height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 4px; background: var(--purple); border-radius: 2px;
+      transition: width .4s ease;
+    }
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 12px; color: var(--text-muted); margin-bottom: 6px;
+    }
+
+    /* ── QUESTION ── */
+    .q-text {
+      font-size: 16px; font-weight: 500; line-height: 1.55;
+      color: var(--text); margin-bottom: 1.5rem; min-height: 52px;
+    }
+
+    /* ── LIKERT ── */
+    .likert { display: flex; gap: 8px; justify-content: space-between; margin-bottom: .6rem; }
+    .likert label { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
+    .likert input[type="radio"] { display: none; }
+    .likert-dot {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--card);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600; color: var(--text-muted);
+      transition: all .15s;
+    }
+    .likert input:checked + .likert-dot { background: var(--purple); border-color: var(--purple); color: #fff; }
+    .likert label:hover .likert-dot { border-color: var(--purple); color: var(--purple); }
+    .likert-labels {
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: var(--text-muted); margin-bottom: 1.25rem;
+    }
+
+    /* ── NAV QUIZ ── */
+    .quiz-nav { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* ── BARS ── */
+    .arch-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .arch-bar-name { font-size: 13px; font-weight: 500; width: 120px; flex-shrink: 0; color: var(--text); }
+    .arch-bar-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .arch-bar-fill { height: 8px; border-radius: 4px; transition: width .7s ease; }
+    .arch-bar-score { font-size: 12px; color: var(--text-muted); width: 36px; text-align: right; flex-shrink: 0; }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px; margin-bottom: 6px;
+    }
+    .badge-purple { background: var(--purple-light); color: var(--purple-dark); }
+    .badge-pink { background: var(--pink-light); color: #993556; }
+    .badge-teal { background: var(--teal-light); color: #085041; }
+
+    /* ── METRIC GRID ── */
+    .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1rem; }
+    .metric {
+      background: var(--bg); border-radius: 8px; padding: .875rem 1rem;
+      border: 1px solid var(--border);
+    }
+    .metric-val { font-size: 15px; font-weight: 700; color: var(--text); }
+    .metric-lbl { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+    /* ── LEGEND ── */
+    .legend-row { display: flex; gap: 16px; margin-bottom: 1rem; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+    /* ── INSIGHT ── */
+    .insight {
+      background: var(--bg); border-radius: 8px; padding: .875rem 1rem;
+      margin-bottom: .75rem; font-size: 13px; line-height: 1.65; color: var(--text);
+      border-left: 3px solid var(--purple);
+    }
+    .insight strong { font-weight: 600; }
+
+    /* ── SPINNER ── */
+    .spinner {
+      display: inline-block; width: 15px; height: 15px;
+      border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
+      border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .status-txt { font-size: 13px; color: var(--text-muted); margin-left: 8px; }
+
+    /* ── RADAR ── */
+    .radar-wrap { position: relative; width: 100%; height: 300px; }
+
+    /* ── LINK CARD ── */
+    .arch-link-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px; margin-top: 1rem;
+    }
+    .arch-link-card {
+      display: block; padding: .75rem 1rem; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--card); text-decoration: none;
+      color: var(--text); font-size: 13px; font-weight: 500;
+      transition: border-color .15s, background .15s; text-align: center;
+    }
+    .arch-link-card:hover { border-color: var(--purple); background: var(--purple-light); }
+    .arch-link-card .emoji { display: block; font-size: 20px; margin-bottom: 4px; }
+
+    @media (max-width: 480px) {
+      .metric-grid { grid-template-columns: repeat(2, 1fr); }
+      .likert-dot { width: 36px; height: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">Archetype <span>Academy</span></a>
+  <a class="nav-back" href="/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Acasă
+  </a>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Descoperă-ți arhetipul</h1>
+    <p>Analizează un text liber sau completează chestionarul — sau ambele — pentru un profil psihologic complet bazat pe cele 12 arhetipuri jungiene.</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('text')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Analiză text
+    </button>
+    <button class="tab-btn" onclick="showTab('quiz')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Chestionar
+    </button>
+    <button class="tab-btn" onclick="showTab('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </button>
+  </div>
+
+  <!-- ══ TAB: TEXT ══ -->
+  <div class="section visible" id="sec-text">
+    <div class="card">
+      <div class="card-label">Introdu un text liber</div>
+      <textarea id="input-text" placeholder="Scrie sau lipește orice text — un mesaj, un jurnal, o descriere, un email... AI-ul va detecta arhetipurile dominante din modul tău de exprimare."></textarea>
+      <div style="margin-top:.875rem; display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
+        <button class="btn btn-primary" id="btn-analyze" onclick="analyzeText()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Analizează cu AI
+        </button>
+        <span class="status-txt" id="text-status"></span>
+      </div>
+    </div>
+
+    <div id="text-results" style="display:none">
+      <div class="card">
+        <div class="card-label">Arhetipuri detectate în text</div>
+        <div id="text-bars"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Interpretare</div>
+        <div id="text-interp" style="font-size:14px; line-height:1.7; color:var(--text)"></div>
+      </div>
+      <div style="text-align:center; margin-top:.5rem;">
+        <button class="btn btn-primary" onclick="showTab('quiz')">
+          Continuă cu chestionarul →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TAB: QUIZ ══ -->
+  <div class="section" id="sec-quiz">
+    <div class="card">
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span id="q-num-label">Întrebarea 1 din 48</span>
+          <span id="q-pct-label">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="q-prog" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="q-text" id="q-text"></div>
+      <div class="likert" id="likert">
+        <label><input type="radio" name="ans" value="1"><div class="likert-dot">1</div></label>
+        <label><input type="radio" name="ans" value="2"><div class="likert-dot">2</div></label>
+        <label><input type="radio" name="ans" value="3"><div class="likert-dot">3</div></label>
+        <label><input type="radio" name="ans" value="4"><div class="likert-dot">4</div></label>
+        <label><input type="radio" name="ans" value="5"><div class="likert-dot">5</div></label>
+      </div>
+      <div class="likert-labels"><span>Dezacord total</span><span>Neutru</span><span>Acord total</span></div>
+      <div class="quiz-nav">
+        <button class="btn" id="q-prev" disabled onclick="qNav(-1)">← Înapoi</button>
+        <button class="btn btn-primary" id="q-next" disabled onclick="qNav(1)">Înainte →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TAB: DASHBOARD ══ -->
+  <div class="section" id="sec-dashboard">
+    <div id="dash-empty" class="card" style="text-align:center; padding:2.5rem 1.5rem;">
+      <div style="font-size:36px; margin-bottom:.75rem;">📊</div>
+      <div style="font-size:14px; color:var(--text-muted); line-height:1.6;">
+        Completează cel puțin una dintre secțiuni<br>pentru a vedea profilul tău complet.
+      </div>
+    </div>
+
+    <div id="dash-content" style="display:none">
+      <div class="metric-grid" id="dash-metrics"></div>
+
+      <div class="card">
+        <div class="card-label">Comparație — text vs chestionar</div>
+        <div class="legend-row">
+          <span class="legend-item"><span class="legend-dot" style="background:#534AB7"></span>Din text (inconștient)</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#1D9E75"></span>Din chestionar (autopercepție)</span>
+        </div>
+        <div id="dash-bars"></div>
+      </div>
+
+      <div class="card" id="dash-insights-card" style="display:none">
+        <div class="card-label">Insight-uri și discrepanțe</div>
+        <div id="dash-insights"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Grafic radar combinat</div>
+        <div class="radar-wrap">
+          <canvas id="radar-chart" role="img" aria-label="Grafic radar cu scorurile arhetipurilor"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Explorează arhetipurile tale</div>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:.75rem;">
+          Descoperă mai multe despre arhetipurile care te definesc.
+        </p>
+        <div class="arch-link-grid" id="dash-arch-links"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const ARCHETYPES = [
+  {id:'innocent', name:'Inocentul',   slug:'inocentul',   emoji:'🌱'},
+  {id:'orphan',   name:'Orfanul',     slug:'orfanul',     emoji:'🌿'},
+  {id:'warrior',  name:'Războinicul', slug:'razboinicul', emoji:'🦁'},
+  {id:'caregiver',name:'Protectorul', slug:'protectorul', emoji:'🛡️'},
+  {id:'explorer', name:'Exploratorul',slug:'exploratorul',emoji:'🚀'},
+  {id:'rebel',    name:'Rebelul',     slug:'rebelul',     emoji:'⚡'},
+  {id:'lover',    name:'Iubitorului', slug:'iubitorului', emoji:'💫'},
+  {id:'creator',  name:'Creatorul',   slug:'creatorul',   emoji:'🎨'},
+  {id:'magician', name:'Magicianul',  slug:'magicianul',  emoji:'✨'},
+  {id:'sage',     name:'Înțeleptul',  slug:'inteleptul',  emoji:'🔮'},
+  {id:'ruler',    name:'Conducătorul',slug:'conducatorul',emoji:'👑'},
+  {id:'jester',   name:'Bufonul',     slug:'bufonul',     emoji:'🤡'},
+];
+
+const QUESTIONS = [
+  {a:'innocent', t:'Cred că, în esență, lumea este un loc bun și oamenii sunt de bună credință.'},
+  {a:'innocent', t:'Prefer rutina și stabilitatea în detrimentul schimbărilor bruște.'},
+  {a:'innocent', t:'Mă simt fericit când lucrurile sunt simple și clare, fără complicații.'},
+  {a:'innocent', t:'Am încredere că totul se va aranja bine până la urmă, chiar și în momente dificile.'},
+  {a:'orphan',   t:'Mă simt profund afectat de nedreptatea și suferința din lume.'},
+  {a:'orphan',   t:'Am un simț puternic al solidarității cu cei marginalizați sau excluși.'},
+  {a:'orphan',   t:'Uneori simt că lumea este un loc dur și trebuie să fiu realist în privința limitelor sale.'},
+  {a:'orphan',   t:'Apartenența la un grup sau comunitate este foarte importantă pentru mine.'},
+  {a:'warrior',  t:'Îmi place să depășesc provocări dificile și să-mi testez limitele.'},
+  {a:'warrior',  t:'Când am un scop clar, sunt dispus să muncesc intens și să sacrifice confortul personal.'},
+  {a:'warrior',  t:'Mă simt bine când câștig sau reușesc să-mi depășesc competitorii.'},
+  {a:'warrior',  t:'Am o voință puternică și nu renunț ușor în fața obstacolelor.'},
+  {a:'caregiver',t:'Tendința mea naturală este să ajut pe ceilalți, chiar dacă neglijez propriile nevoi.'},
+  {a:'caregiver',t:'Mă simt împlinit când pot face ceva concret pentru binele celor din jurul meu.'},
+  {a:'caregiver',t:'Îmi este greu să refuz atunci când cineva are nevoie de ajutorul meu.'},
+  {a:'caregiver',t:'Grija față de ceilalți este una dintre valorile mele centrale în viață.'},
+  {a:'explorer', t:'Mă simt mai viu atunci când explorez locuri noi sau am experiențe inedite.'},
+  {a:'explorer', t:'Libertatea de a merge oriunde și de a face orice este esențială pentru mine.'},
+  {a:'explorer', t:'Prefer să-mi croiesc propriul drum, chiar dacă merg uneori contracurentului.'},
+  {a:'explorer', t:'Sunt atras de aventură și de necunoscut mai mult decât de siguranță.'},
+  {a:'rebel',    t:'Mă deranjează convențiile sociale rigide și simt nevoia să le contest când mi se par nedrepte.'},
+  {a:'rebel',    t:'Sunt dispus să risc și să sfidez normele pentru a aduce o schimbare necesară.'},
+  {a:'rebel',    t:'Mă simt atras de cei care gândesc diferit și sfidează status quo-ul.'},
+  {a:'rebel',    t:'Cred că uneori regulile trebuie încălcate pentru ca societatea să evolueze.'},
+  {a:'lover',    t:'Conexiunile emoționale profunde cu ceilalți sunt printre cele mai importante lucruri din viața mea.'},
+  {a:'lover',    t:'Mă simt atras de frumusețe — în artă, natură, oameni sau idei.'},
+  {a:'lover',    t:'Sunt o persoană pasională care se implică profund în ceea ce face sau simte.'},
+  {a:'lover',    t:'Relațiile autentice și intime sunt sursa principală a fericirii mele.'},
+  {a:'creator',  t:'Mă exprim cel mai bine atunci când creez ceva — un obiect, o idee, o operă, un proiect.'},
+  {a:'creator',  t:'Imaginația și originalitatea sunt calitățile pe care le prețuiesc cel mai mult.'},
+  {a:'creator',  t:'Mă simt frustrat atunci când nu am spațiu să-mi exprim viziunea sau creativitatea.'},
+  {a:'creator',  t:'Procesul de a crea ceva nou din nimic este una dintre cele mai satisfăcătoare experiențe.'},
+  {a:'magician', t:'Cred că transformarea profundă — personală sau socială — este posibilă și merită urmărită.'},
+  {a:'magician', t:'Am o viziune despre cum ar putea fi lumea mai bună și caut să o aduc la realitate.'},
+  {a:'magician', t:'Mă interesează legăturile subtile dintre lucruri și felul în care totul este interconectat.'},
+  {a:'magician', t:'Simt că am capacitatea de a cataliza schimbări importante în mine sau în jurul meu.'},
+  {a:'sage',     t:'Caut răspunsuri la întrebările profunde ale existenței și nu mă mulțumesc cu superficialul.'},
+  {a:'sage',     t:'Analizez situațiile în profunzime înainte de a lua o decizie.'},
+  {a:'sage',     t:'Cunoașterea și înțelegerea lumii sunt printre cele mai importante scopuri ale vieții mele.'},
+  {a:'sage',     t:'Îmi place să studiez, să cercetez și să înțeleg modul în care funcționează lucrurile.'},
+  {a:'ruler',    t:'Îmi place să organizez și să coordonez — știu să creez ordine din haos.'},
+  {a:'ruler',    t:'Responsabilitatea de a lua decizii importante nu mă sperie, dimpotrivă mă motivează.'},
+  {a:'ruler',    t:'Cred că bunele structuri și regulile clare sunt esențiale pentru prosperitate și bine comun.'},
+  {a:'ruler',    t:'Am tendința naturală de a prelua conducerea atunci când un grup sau situație o cere.'},
+  {a:'jester',   t:'Caut umorul chiar și în situații dificile și am tendința de a face pe ceilalți să râdă.'},
+  {a:'jester',   t:'Mă bucur de prezent și nu vreau să-mi fac griji inutile pentru viitor.'},
+  {a:'jester',   t:'Prefer o atmosferă jucăușă și relaxată față de una formală sau serioasă.'},
+  {a:'jester',   t:'Viața mi se pare mai ușoară atunci când nu o iau prea în serios.'},
+];
+
+let S = {
+  textScores: null,
+  textInterp: '',
+  quizScores: null,
+  answers: new Array(QUESTIONS.length).fill(null),
+  idx: 0,
+  chart: null,
+};
+
+/* ── TABS ── */
+function showTab(t) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['text','quiz','dashboard'][i] === t);
+  });
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+  document.getElementById('sec-' + t).classList.add('visible');
+  if (t === 'dashboard') renderDashboard();
+}
+
+/* ── TEXT ANALYSIS ── */
+async function analyzeText() {
+  const txt = document.getElementById('input-text').value.trim();
+  if (txt.length < 30) {
+    document.getElementById('text-status').textContent = 'Te rog scrie cel puțin 30 de caractere.';
+    return;
+  }
+  const btn = document.getElementById('btn-analyze');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Analizez...';
+  document.getElementById('text-status').textContent = '';
+
+  try {
+    const prompt = `Ești expert în psihologie jungiană. Analizează textul și identifică prezența celor 12 arhetipuri: innocent, orphan, warrior, caregiver, explorer, rebel, lover, creator, magician, sage, ruler, jester.
+
+Returnează DOAR un obiect JSON valid (fără backtick-uri, fără alt text):
+{"scores":{"innocent":0,"orphan":0,"warrior":0,"caregiver":0,"explorer":0,"rebel":0,"lover":0,"creator":0,"magician":0,"sage":0,"ruler":0,"jester":0},"interpretation":"..."}
+
+Scoruri 0-20 (0=absent, 20=foarte dominant). Interpretation = 3-4 propoziții în română despre arhetipurile dominante și ce spun ele despre persoană.
+
+Text: ${txt}`;
+
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content.filter(c => c.type === 'text').map(c => c.text).join('');
+    const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
+    S.textScores = parsed.scores;
+    S.textInterp = parsed.interpretation || '';
+    renderTextResults();
+  } catch (e) {
+    document.getElementById('text-status').textContent = 'Eroare. Încearcă din nou.';
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Analizează din nou';
+}
+
+function renderTextResults() {
+  document.getElementById('text-results').style.display = 'block';
+  const bars = document.getElementById('text-bars');
+  bars.innerHTML = '';
+  [...ARCHETYPES].sort((a, b) => (S.textScores[b.id]||0) - (S.textScores[a.id]||0)).forEach(a => {
+    const sc = S.textScores[a.id] || 0;
+    const pct = Math.round((sc / 20) * 100);
+    bars.innerHTML += `<div class="arch-bar-row">
+      <div class="arch-bar-name">${a.emoji} ${a.name}</div>
+      <div class="arch-bar-track"><div class="arch-bar-fill" style="width:${pct}%;background:#534AB7"></div></div>
+      <div class="arch-bar-score">${sc}/20</div>
+    </div>`;
+  });
+  document.getElementById('text-interp').textContent = S.textInterp;
+  renderDashboard();
+}
+
+/* ── QUIZ ── */
+function qRender() {
+  const q = QUESTIONS[S.idx];
+  const pct = Math.round((S.idx / QUESTIONS.length) * 100);
+  document.getElementById('q-num-label').textContent = `Întrebarea ${S.idx + 1} din ${QUESTIONS.length}`;
+  document.getElementById('q-pct-label').textContent = pct + '%';
+  document.getElementById('q-prog').style.width = pct + '%';
+  document.getElementById('q-text').textContent = q.t;
+  document.querySelectorAll('input[name="ans"]').forEach(r => { r.checked = S.answers[S.idx] == r.value; });
+  document.getElementById('q-prev').disabled = S.idx === 0;
+  document.getElementById('q-next').disabled = S.answers[S.idx] === null;
+  document.getElementById('q-next').textContent = S.idx === QUESTIONS.length - 1 ? 'Vezi dashboard-ul ✓' : 'Înainte →';
+}
+
+document.getElementById('likert').addEventListener('change', e => {
+  S.answers[S.idx] = e.target.value;
+  document.getElementById('q-next').disabled = false;
+});
+
+function qNav(dir) {
+  if (dir === 1 && S.idx === QUESTIONS.length - 1) {
+    const sc = {};
+    ARCHETYPES.forEach(a => sc[a.id] = 0);
+    QUESTIONS.forEach((q, i) => { sc[q.a] += parseInt(S.answers[i] || 3); });
+    S.quizScores = sc;
+    showTab('dashboard');
+    return;
+  }
+  S.idx = Math.max(0, Math.min(QUESTIONS.length - 1, S.idx + dir));
+  qRender();
+}
+
+/* ── DASHBOARD ── */
+function renderDashboard() {
+  const hasT = !!S.textScores;
+  const hasQ = !!S.quizScores;
+  if (!hasT && !hasQ) {
+    document.getElementById('dash-empty').style.display = 'block';
+    document.getElementById('dash-content').style.display = 'none';
+    return;
+  }
+  document.getElementById('dash-empty').style.display = 'none';
+  document.getElementById('dash-content').style.display = 'block';
+
+  const domT = hasT ? ARCHETYPES.reduce((a, b) => (S.textScores[a.id]||0) > (S.textScores[b.id]||0) ? a : b) : null;
+  const domQ = hasQ ? ARCHETYPES.reduce((a, b) => (S.quizScores[a.id]||0) > (S.quizScores[b.id]||0) ? a : b) : null;
+
+  /* metrics */
+  let mHtml = '';
+  if (domT) mHtml += `<div class="metric"><div class="metric-val">${domT.emoji} ${domT.name}</div><div class="metric-lbl">Din text (inconștient)</div></div>`;
+  if (domQ) mHtml += `<div class="metric"><div class="metric-val">${domQ.emoji} ${domQ.name}</div><div class="metric-lbl">Din chestionar (autopercepție)</div></div>`;
+  if (domT && domQ) {
+    const label = domT.id === domQ.id ? '✓ Convergent' : '↔ Divergent';
+    mHtml += `<div class="metric"><div class="metric-val" style="font-size:13px">${label}</div><div class="metric-lbl">Profil</div></div>`;
+  }
+  document.getElementById('dash-metrics').innerHTML = mHtml;
+
+  /* bars */
+  let bHtml = '';
+  ARCHETYPES.forEach(a => {
+    const ts = hasT ? Math.round(((S.textScores[a.id]||0) / 20) * 100) : null;
+    const qs = hasQ ? Math.round(((S.quizScores[a.id]||0) / 20) * 100) : null;
+    bHtml += `<div style="margin-bottom:12px">
+      <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:5px">${a.emoji} ${a.name}</div>
+      ${ts !== null ? `<div class="arch-bar-row" style="margin-bottom:3px"><div class="arch-bar-track"><div class="arch-bar-fill" style="width:${ts}%;background:#534AB7"></div></div><span class="arch-bar-score">${ts}%</span></div>` : ''}
+      ${qs !== null ? `<div class="arch-bar-row"><div class="arch-bar-track"><div class="arch-bar-fill" style="width:${qs}%;background:#1D9E75"></div></div><span class="arch-bar-score">${qs}%</span></div>` : ''}
+    </div>`;
+  });
+  document.getElementById('dash-bars').innerHTML = bHtml;
+
+  /* insights */
+  if (hasT && hasQ) {
+    const insCard = document.getElementById('dash-insights-card');
+    insCard.style.display = 'block';
+    let iHtml = '';
+    const gaps = ARCHETYPES.map(a => ({
+      name: a.name, emoji: a.emoji,
+      diff: Math.round((((S.quizScores[a.id]||0) - (S.textScores[a.id]||0)) / 20) * 100)
+    })).sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff)).slice(0, 4);
+
+    gaps.forEach(g => {
+      if (Math.abs(g.diff) < 6) return;
+      const dir = g.diff > 0
+        ? 'apare mai mult în autopercepție decât în limbajul tău natural'
+        : 'este mai activ în limbajul tău decât îți dai seama conștient';
+      iHtml += `<div class="insight"><strong>${g.emoji} ${g.name}</strong> ${dir} (diferență ${Math.abs(g.diff)}%). ${g.diff > 0 ? 'Poți aspira la această energie fără să o fi integrat complet încă.' : 'Această forță te conduce inconștient — merită explorată mai conștient.'}</div>`;
+    });
+
+    if (domT && domQ && domT.id !== domQ.id) {
+      iHtml += `<div class="insight">Arhetipul tău conștient (<strong>${domQ.emoji} ${domQ.name}</strong>) diferă de cel care iese în limbaj (<strong>${domT.emoji} ${domT.name}</strong>) — o discrepanță semnificativă care poate indica un potențial neexprimat sau o față ascunsă a personalității tale.</div>`;
+    }
+    document.getElementById('dash-insights').innerHTML = iHtml || '<p style="font-size:13px;color:var(--text-muted)">Profilul tău este consistent — autopercepția și limbajul tău natural se aliniază bine.</p>';
+  }
+
+  /* radar */
+  if (S.chart) S.chart.destroy();
+  const datasets = [];
+  if (hasT) datasets.push({
+    label: 'Din text', data: ARCHETYPES.map(a => S.textScores[a.id]||0),
+    backgroundColor: 'rgba(83,74,183,0.15)', borderColor: '#534AB7',
+    pointBackgroundColor: '#534AB7', pointRadius: 3, borderWidth: 2,
+  });
+  if (hasQ) datasets.push({
+    label: 'Din chestionar', data: ARCHETYPES.map(a => S.quizScores[a.id]||0),
+    backgroundColor: 'rgba(29,158,117,0.1)', borderColor: '#1D9E75',
+    pointBackgroundColor: '#1D9E75', pointRadius: 3, borderWidth: 2, borderDash: [4, 3],
+  });
+  S.chart = new Chart(document.getElementById('radar-chart'), {
+    type: 'radar',
+    data: { labels: ARCHETYPES.map(a => a.name), datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { r: {
+        min: 0, max: 20,
+        ticks: { stepSize: 5, font: { size: 10 }, color: '#888', backdropColor: 'transparent' },
+        grid: { color: 'rgba(0,0,0,0.08)' },
+        pointLabels: { font: { size: 11 }, color: '#444' }
+      }}
+    }
+  });
+
+  /* arch links — top 3 din oricare sursă disponibilă */
+  const combined = ARCHETYPES.map(a => ({
+    ...a,
+    score: Math.max(S.textScores ? S.textScores[a.id]||0 : 0, S.quizScores ? S.quizScores[a.id]||0 : 0)
+  })).sort((a, b) => b.score - a.score).slice(0, 6);
+
+  document.getElementById('dash-arch-links').innerHTML = combined.map(a =>
+    `<a class="arch-link-card" href="/arhetip/${a.slug}">
+      <span class="emoji">${a.emoji}</span>${a.name}
+    </a>`
+  ).join('');
+}
+
+/* init */
+qRender();
+</script>
+</body>
+</html>
