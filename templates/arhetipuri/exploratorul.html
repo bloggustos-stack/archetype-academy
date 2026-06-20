@@ -85,8 +85,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .arch-cta p{font-size:14px;color:var(--text2);font-weight:300;max-width:480px;margin:0 auto 32px;line-height:1.8}
 .cta-btn{display:inline-block;background:var(--acc2);color:#05050f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:14px 36px;text-decoration:none;cursor:none;transition:all 0.3s;font-weight:500}
 .cta-btn:hover{transform:translateY(-2px)}
+.culture-section{padding:80px 8%;border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
+.culture-intro{font-size:14px;color:var(--text2);font-weight:300;line-height:1.8;max-width:560px;margin-bottom:48px}
+.culture-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.culture-tab{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:9px 18px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:none;transition:all 0.25s}
+.culture-tab:hover{border-color:var(--acc2);color:var(--acc2)}
+.culture-tab.active{background:var(--acc2);border-color:var(--acc2);color:#05050f;font-weight:500}
+.culture-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px}
+.culture-panel{display:none}
+.culture-panel.active{display:grid}
+.culture-card{background:var(--bg2);border:1px solid var(--border);padding:26px 22px;position:relative;overflow:hidden;cursor:none;transition:all 0.35s;display:flex;flex-direction:column;min-height:180px}
+.culture-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc2),transparent);opacity:0;transition:opacity 0.3s}
+.culture-card:hover{border-color:rgba(218,165,32,0.35);transform:translateY(-2px)}
+.culture-card:hover::before{opacity:1}
+.culture-card-cat{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--acc2);margin-bottom:10px;opacity:0.85}
+.culture-card-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);line-height:1.25;margin-bottom:4px}
+.culture-card-author{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:14px}
+.culture-card-desc{font-size:12.5px;color:var(--text2);line-height:1.65;font-weight:300;flex:1}
+.culture-card-expand{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-top:14px;display:flex;align-items:center;gap:6px;transition:color 0.2s}
+.culture-card:hover .culture-card-expand{color:var(--acc2)}
+.culture-detail{display:none;padding:18px 0 0;margin-top:14px;border-top:1px solid var(--border2);font-size:12.5px;color:var(--text2);line-height:1.7;font-weight:300}
+.culture-card.expanded .culture-detail{display:block}
+.culture-card.expanded .culture-card-expand span{transform:rotate(180deg);display:inline-block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:768px){nav{padding:14px 20px}.hero{padding:100px 20px 60px}.hero-content{padding:0}.content-grid-2,.checklist-grid{grid-template-columns:1fr}.audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta{padding-left:20px;padding-right:20px}.arch-nav{flex-direction:column}}
+@media(max-width:768px){nav{padding:14px 20px}.hero{padding:100px 20px 60px}.hero-content{padding:0}.content-grid-2,.checklist-grid{grid-template-columns:1fr}.audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta,.culture-section{padding-left:20px;padding-right:20px}.arch-nav{flex-direction:column}.culture-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.culture-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -225,6 +248,136 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
     <div class="key-quote-text" style="font-size:clamp(28px,4vw,52px)">Nu mergi spre o destinație — urmărești ce este deja în tine.</div>
   </div>
 </section>
+
+<section class="culture-section">
+  <span class="section-label">Arhetipul în cultură</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.15">Exploratorul prin ochii<br>artei și poveștilor</h2>
+  <p class="culture-intro">De la Sfântul Graal la jocurile video moderne, Exploratorul rămâne arhetipul prin care omenirea își exprimă nevoia de libertate, descoperire și autenticitate. Explorează câteva dintre cele mai puternice exemple.</p>
+
+  <div class="culture-tabs">
+    <button class="culture-tab active" onclick="showCulture('arta', this)">Artă & Sculptură</button>
+    <button class="culture-tab" onclick="showCulture('literatura', this)">Literatură & Mit</button>
+    <button class="culture-tab" onclick="showCulture('film', this)">Film</button>
+    <button class="culture-tab" onclick="showCulture('muzica', this)">Muzică</button>
+  </div>
+
+  <div class="culture-grid culture-panel active" id="panel-arta">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Pictură · Romantism german</div>
+      <div class="culture-card-title">Călătorul deasupra mării de nori</div>
+      <div class="culture-card-author">Caspar David Friedrich, 1818</div>
+      <p class="culture-card-desc">Imaginea-arhetip a căutătorului contemplând vastitatea necunoscutului.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Silueta singuratică privind peste un ocean de nori captează exact starea Exploratorului — nu frica, ci uimirea liniștită în fața a ceea ce nu a fost încă descoperit, fie în lume, fie în sine.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Cartografie · Renaștere</div>
+      <div class="culture-card-title">Hărțile vechi de explorare</div>
+      <div class="culture-card-author">Cartografia Renașterii</div>
+      <p class="culture-card-desc">Instrumentul vizual al setei de descoperire — teritorii marcate „terra incognita".</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Spațiile albe de pe hărțile vechi reprezintă exact motorul Exploratorului — nu frica de necunoscut, ci magnetismul lui. Fiecare hartă incompletă este o invitație, nu un avertisment.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Sculptură · Mitologie</div>
+      <div class="culture-card-title">Hermes (Mercur)</div>
+      <div class="culture-card-author">Sculptură clasică greco-romană</div>
+      <p class="culture-card-desc">Zeul mesager, mereu în mișcare între lumi, pragurile și frontierele.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Hermes nu apartine unui singur loc — circulă liber între Olimp, lumea oamenilor și tărâmul morților. Reprezintă exact adaptabilitatea și libertatea de mișcare specifice Exploratorului.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-literatura">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Legendă medievală</div>
+      <div class="culture-card-title">Parsifal</div>
+      <div class="culture-card-author">Legendele Sfântului Graal</div>
+      <p class="culture-card-desc">Căutătorul suprem — căutarea unui obiect sacru ca metaforă a căutării de sine.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Graalul nu e niciodată doar o cupă — e simbolul a tot ce caută Exploratorul: sens, autenticitate, o stare de grație care nu poate fi atinsă fără călătoria propriu-zisă.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Roman contemporan</div>
+      <div class="culture-card-title">Alchimistul — Santiago</div>
+      <div class="culture-card-author">Paulo Coelho</div>
+      <p class="culture-card-desc">Călătoria spre propria „legendă personală" prin urmarea semnelor universului.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Santiago descoperă la final că tezaurul căutat era acasă, dar valoarea reală a fost transformarea prin drum — exact filozofia centrală a Exploratorului: călătoria contează mai mult decât destinația.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Roman Beat Generation</div>
+      <div class="culture-card-title">Pe drum — Sal Paradise</div>
+      <div class="culture-card-author">Jack Kerouac</div>
+      <p class="culture-card-desc">Drumul ca stil de viață, refuzul convențiilor și al stabilității sufocante.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Sal Paradise întruchipează exact independența feroce a Exploratorului — refuzul de a se conforma unei vieți prescrise, în favoarea experienței directe, necontrolate, autentice.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Franciză fantasy</div>
+      <div class="culture-card-title">Harry Potter (Seeker / Căutătorul)</div>
+      <div class="culture-card-author">J.K. Rowling</div>
+      <p class="culture-card-desc">Analizat în studii arhetipale ca explorarea curajoasă a unei lumi necunoscute.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Rolul de Seeker din Quidditch e o metaforă perfectă — căutarea constantă, mișcarea rapidă, urmărirea unui obiectiv care necesită curaj, instinct și independență de gândire.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-film">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Film · Aventură</div>
+      <div class="culture-card-title">Indiana Jones</div>
+      <div class="culture-card-author">regia Steven Spielberg</div>
+      <p class="culture-card-desc">Exploratorul academic care urmează curiozitatea până la capătul lumii.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Indiana sfidează convențiile academice, pericolele și regulile arbitrare pentru a descoperi adevărul istoric — curiozitatea nesățioasă pusă în acțiune directă, nu doar în teorie.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Film · SF</div>
+      <div class="culture-card-title">Neo — The Matrix</div>
+      <div class="culture-card-author">regia Wachowski</div>
+      <p class="culture-card-desc">Explorarea neobosită a necunoscutului — căutarea adevărului dincolo de aparențe.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Neo alege pilula roșie — alegerea fundamentală a Exploratorului între confortul iluziei și libertatea adevărului, oricât de incomod ar fi acesta.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Memorii · Film</div>
+      <div class="culture-card-title">Wild — Cheryl Strayed</div>
+      <div class="culture-card-author">bazat pe memoriile lui Cheryl Strayed</div>
+      <p class="culture-card-desc">Exploratoarea care a găsit autenticitatea prin drum, nu ca să fugă, ci ca să se găsească.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Cheryl nu pornește la drum pentru aventură turistică, ci pentru a se reconstrui după pierdere — exact funcția psihologică profundă a călătoriei Exploratorului: transformarea interioară prin mișcare exterioară.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-muzica">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Muzică · Country</div>
+      <div class="culture-card-title">On the Road Again</div>
+      <div class="culture-card-author">Willie Nelson</div>
+      <p class="culture-card-desc">Imnul american al căutătorului perpetuu — drumul ca stare de spirit, nu doar deplasare.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Melodia exprimă exact nerăbdarea funcțională a Exploratorului — nevoia constantă de mișcare, nu din neliniște distructivă, ci din bucurie autentică de a fi pe drum.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Branding contemporan</div>
+      <div class="culture-card-title">Patagonia · Airbnb</div>
+      <div class="culture-card-author">Branduri Explorator</div>
+      <p class="culture-card-desc">Vând nu produse, ci experiența autentică a explorării și apartenența la o lume mai largă.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Marketing-ul arhetipal al Exploratorului promite libertate, autenticitate și conexiune cu lumea — exact promisiunea psihologică pe care arhetipul o caută în viața reală.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Gaming</div>
+      <div class="culture-card-title">Roluri de explorare în jocuri video</div>
+      <div class="culture-card-author">Genul open-world</div>
+      <p class="culture-card-desc">Spațiu modern unde jucătorii explorează lumi vaste, libere de constrângerile vieții reale.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Jocurile open-world permit oamenilor să trăiască simbolic libertatea totală a Exploratorului — fără rute fixe, fără reguli arbitrare, doar curiozitate și descoperire continuă.</div>
+    </div>
+  </div>
+</section>
+
 <section class="checklist-section">
   <span class="section-label">Oglinda &middot; Autoreflec&#x163;ie</span>
   <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.1">C&acirc;t de puternic este Exploratorul &icirc;n tine?</h2>
@@ -283,8 +436,10 @@ let tx=0;track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{pass
 track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){dx<0?nextHSlide():prevHSlide();}});
 const verdicts=["Exploratorul doarme. Drumul te așteaptă.","O sclipire de curiozitate. Exploratorul se trezește.","Energie nomadă în creștere. Urmezi chemarea.","Exploratorul este activ — cauți și descoperi constant.","Libertatea e dominantă. Trăiești autentic.","Explorator la putere maximă. Ești în elementul tău!","Explorer pur. Transformi fiecare drum într-o revelație."];
 function toggleCheck(el){el.classList.toggle('checked');const checked=document.querySelectorAll('.checklist-item.checked').length;document.getElementById('checkScore').textContent=checked;document.getElementById('checkVerdict').textContent=verdicts[checked]||verdicts[verdicts.length-1];document.getElementById('checklistResult').style.borderColor=checked>3?'rgba(150,150,150,0.5)':'var(--border)';}
+function showCulture(panel, btn){document.querySelectorAll('.culture-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.culture-panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+panel).classList.add('active');}
+function toggleCultureCard(card){card.classList.toggle('expanded');}
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
-document.querySelectorAll('.content-card,.checklist-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
+document.querySelectorAll('.content-card,.checklist-item,.culture-card').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
 </script>
 </body>
 </html>
