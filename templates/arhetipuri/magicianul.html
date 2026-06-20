@@ -36,7 +36,6 @@ body {
 .cursor { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference; }
 .cursor-ring { width:32px;height:32px;border:1px solid rgba(201,169,110,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:width 0.2s,height 0.2s; }
 
-/* NAV */
 nav {
   position: fixed; top:0; left:0; right:0; z-index:100;
   padding: 16px 48px;
@@ -51,7 +50,6 @@ nav {
 .nav-back:hover { color:var(--gold); }
 .nav-num { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); letter-spacing:0.1em; }
 
-/* HERO */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -85,7 +83,6 @@ nav {
 .pill.fear { border-color:rgba(239,68,68,0.3); color:#f87171; }
 .pill.group { border-color:rgba(124,58,237,0.4); color:var(--magic2); }
 
-/* AUDIO */
 .audio-section { padding: 80px 8%; max-width: 1000px; margin: 0 auto; }
 .section-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:block; }
 .audio-player-card { background:var(--bg2); border:1px solid var(--border); padding:32px; display:flex; align-items:center; gap:28px; position:relative; overflow:hidden; }
@@ -100,16 +97,12 @@ nav {
 .audio-controls { display:flex; align-items:center; gap:16px; margin-top:12px; }
 .audio-time { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); }
 
-/* ═══════════════════════════════════════════
-   SLIDES SECTION — HTML-rendered slides
-═══════════════════════════════════════════ */
 .slides-section {
   padding: 0 8% 80px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Slider wrapper */
 .slides-slider {
   position: relative;
   width: 100%;
@@ -124,7 +117,6 @@ nav {
   transition: transform 0.5s cubic-bezier(0.77,0,0.18,1);
 }
 
-/* Individual slide */
 .hslide {
   min-width: 100%;
   height: 100%;
@@ -137,13 +129,11 @@ nav {
   font-family: 'Outfit', sans-serif;
 }
 
-/* Shared decorative bg for slides */
 .hslide-bg-geo {
   position: absolute; inset:0; pointer-events:none;
   opacity: 0.07;
 }
 
-/* Slide controls */
 .slider-controls {
   display: flex;
   align-items: center;
@@ -180,7 +170,6 @@ nav {
   letter-spacing:0.1em;
 }
 
-/* ── SLIDE 1: Title ── */
 .s1 { flex-direction:column; gap:0; }
 .s1 .s-gem {
   width: 28%; max-width:200px;
@@ -193,7 +182,6 @@ nav {
 .s1 .s-sub { font-family:'Outfit',sans-serif; font-size:clamp(11px,1.8vw,22px); color:rgba(255,255,255,0.7); text-align:center; font-weight:300; max-width:70%; }
 .s1 .s-badge { position:absolute; bottom:3%; right:3%; font-family:'DM Mono',monospace; font-size:clamp(7px,1vw,11px); color:rgba(255,255,255,0.25); letter-spacing:0.1em; }
 
-/* ── SLIDE 2: Smartphone metaphor ── */
 .s2 { flex-direction:column; padding:4% 5%; }
 .s2 .s-title { font-family:'Playfair Display',serif; font-size:clamp(16px,2.8vw,36px); font-weight:700; color:#fff; text-align:center; margin-bottom:5%; line-height:1.2; }
 .s2 .s2-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2%; width:100%; }
@@ -217,14 +205,12 @@ nav {
 .s2 .s2-bottom { grid-column:1/-1; background:rgba(201,169,110,0.06); border:1px solid rgba(201,169,110,0.2); padding:3% 4%; text-align:center; border-radius:4px; }
 .s2 .s2-bottom p { font-size:clamp(9px,1.3vw,15px); color:rgba(255,255,255,0.75); font-weight:300; }
 
-/* ── SLIDE 3: Big quote ── */
 .s3 { flex-direction:column; padding:5% 8%; align-items:flex-start; }
 .s3 .s-label { font-family:'Playfair Display',serif; font-size:clamp(12px,1.8vw,22px); color:var(--gold); margin-bottom:5%; font-weight:400; }
 .s3 .s-quote-mark { font-size:clamp(40px,7vw,90px); color:rgba(201,169,110,0.3); line-height:0.7; margin-bottom:3%; font-family:Georgia,serif; }
 .s3 .s-quote-text { font-family:'Playfair Display',serif; font-size:clamp(12px,2.2vw,28px); color:#fff; line-height:1.5; font-weight:400; max-width:85%; }
 .s3 .s-close-mark { align-self:flex-end; font-size:clamp(30px,5vw,70px); color:rgba(201,169,110,0.3); line-height:0.7; font-family:Georgia,serif; margin-top:2%; }
 
-/* ── SLIDE 4: Three traits ── */
 .s4 { flex-direction:column; padding:4% 5%; }
 .s4 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.5vw,32px); font-weight:700; color:var(--gold); text-align:center; margin-bottom:6%; }
 .s4 .s4-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3%; width:100%; }
@@ -233,13 +219,11 @@ nav {
 .s4 .s4-card-title { font-family:'Outfit',sans-serif; font-size:clamp(10px,1.4vw,18px); font-weight:700; color:#fff; }
 .s4 .s4-card-text { font-size:clamp(8px,1.1vw,13px); color:rgba(255,255,255,0.6); line-height:1.6; font-weight:300; }
 
-/* ── SLIDE 5: Motivation ── */
 .s5 { flex-direction:column; padding:4% 6%; align-items:center; }
 .s5 .s-icon-big { font-size:clamp(40px,8vw,100px); filter:drop-shadow(0 0 30px rgba(201,169,110,0.5)); margin-bottom:4%; }
 .s5 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.3vw,30px); font-weight:700; color:var(--gold); text-align:center; margin-bottom:4%; }
 .s5 .s-text { font-size:clamp(9px,1.4vw,17px); color:rgba(255,255,255,0.8); text-align:center; line-height:1.7; max-width:75%; font-weight:300; }
 
-/* ── SLIDE 6: Fear (text + image) ── */
 .s6 { flex-direction:row; align-items:stretch; }
 .s6 .s6-left { flex:1; padding:6% 5%; display:flex; flex-direction:column; justify-content:center; gap:5%; }
 .s6 .s6-right { width:42%; background:linear-gradient(135deg,#0d1525,#1a2a45); display:flex; align-items:center; justify-content:center; }
@@ -251,7 +235,6 @@ nav {
 .s6 .s-title { font-family:'Playfair Display',serif; font-size:clamp(16px,2.8vw,36px); font-weight:700; color:#fff; line-height:1.2; }
 .s6 .s-text { font-size:clamp(9px,1.3vw,15px); color:rgba(255,255,255,0.7); line-height:1.7; font-weight:300; }
 
-/* ── SLIDE 7: Three contexts ── */
 .s7 { flex-direction:column; padding:4% 5%; }
 .s7 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.4vw,30px); font-weight:700; color:var(--gold); text-align:center; margin-bottom:5%; }
 .s7 .s7-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3%; width:100%; }
@@ -260,7 +243,6 @@ nav {
 .s7 .s7-card-title { font-family:'Outfit',sans-serif; font-size:clamp(10px,1.4vw,17px); font-weight:600; color:var(--gold); }
 .s7 .s7-card-text { font-size:clamp(8px,1.1vw,13px); color:rgba(255,255,255,0.6); line-height:1.6; font-weight:300; }
 
-/* ── SLIDE 8: Light side ── */
 .s8 { flex-direction:column; padding:4% 5%; }
 .s8 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.4vw,30px); font-weight:700; color:#fff; text-align:center; margin-bottom:4%; }
 .s8 .s8-content { display:grid; grid-template-columns:1fr 1.4fr; gap:3%; width:100%; align-items:center; }
@@ -272,7 +254,6 @@ nav {
 .s8 .s8-row-title { font-family:'Outfit',sans-serif; font-size:clamp(9px,1.3vw,16px); font-weight:600; color:var(--gold); margin-bottom:2%; }
 .s8 .s8-row-text { font-size:clamp(8px,1.1vw,13px); color:rgba(255,255,255,0.6); line-height:1.5; font-weight:300; }
 
-/* ── SLIDE 9: Shadow ── */
 .s9 { flex-direction:column; padding:4% 5%; }
 .s9 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.4vw,30px); font-weight:700; color:#fff; text-align:center; margin-bottom:2%; }
 .s9 .s9-sub { font-size:clamp(8px,1.2vw,14px); color:rgba(255,255,255,0.5); text-align:center; margin-bottom:4%; font-weight:300; }
@@ -283,7 +264,6 @@ nav {
 .s9 .s9-moon { display:flex; align-items:center; justify-content:center; }
 .s9 .s9-moon-svg { width:70%; }
 
-/* ── SLIDE 10: Famous faces ── */
 .s10 { flex-direction:column; padding:4% 5%; }
 .s10 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.4vw,30px); font-weight:700; color:#fff; text-align:center; margin-bottom:4%; }
 .s10 .s10-grid { display:flex; flex-direction:column; gap:3%; width:100%; }
@@ -293,12 +273,10 @@ nav {
 .s10 .s10-icons { display:flex; gap:8px; align-items:center; }
 .s10 .s10-icon-circle { width:clamp(24px,4vw,52px); height:clamp(24px,4vw,52px); border-radius:50%; background:rgba(201,169,110,0.1); border:1px solid rgba(201,169,110,0.3); display:flex; align-items:center; justify-content:center; font-size:clamp(12px,2vw,26px); }
 
-/* ── SLIDE 11: Key sentence ── */
 .s11 { flex-direction:column; align-items:center; justify-content:center; padding:5%; background:linear-gradient(180deg,#0a0a1e,#05050f); }
 .s11 .s11-label { font-family:'DM Mono',monospace; font-size:clamp(7px,1vw,12px); letter-spacing:0.25em; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:6%; }
 .s11 .s11-text { font-family:'Playfair Display',serif; font-size:clamp(18px,4.5vw,60px); font-weight:900; color:#c9a96e; text-align:center; line-height:1.15; text-shadow:0 0 60px rgba(201,169,110,0.4), 0 0 120px rgba(201,169,110,0.15); }
 
-/* ── SLIDE 12: Checklist ── */
 .s12 { flex-direction:column; padding:4% 5%; }
 .s12 .s-title { font-family:'Playfair Display',serif; font-size:clamp(14px,2.4vw,30px); font-weight:700; color:#fff; text-align:center; margin-bottom:4%; }
 .s12 .s12-grid { display:grid; grid-template-columns:1fr 1fr; gap:2.5%; width:100%; margin-bottom:3%; }
@@ -309,7 +287,6 @@ nav {
 .s12 .s12-conclusion p { font-size:clamp(8px,1.2vw,14px); color:rgba(255,255,255,0.7); line-height:1.6; font-weight:300; }
 .s12 .s12-conclusion strong { color:var(--gold); font-weight:600; }
 
-/* CONTENT SECTIONS */
 .content-section { padding: 80px 8%; max-width: 1000px; margin: 0 auto; }
 .content-section + .content-section { border-top: 1px solid var(--border); }
 .content-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
@@ -327,7 +304,6 @@ nav {
 .key-quote-text { font-family:'Playfair Display',serif; font-size:clamp(24px,3.5vw,40px); font-style:italic; color:var(--gold); line-height:1.3; margin-bottom:12px; }
 .key-quote-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--text3); text-transform:uppercase; }
 
-/* CHECKLIST */
 .checklist-section { padding:80px 8%; border-top:1px solid var(--border); max-width:1000px; margin:0 auto; }
 .checklist-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:32px 0; }
 .checklist-item { display:flex; align-items:flex-start; gap:14px; padding:20px; background:var(--bg2); border:1px solid var(--border); cursor:none; transition:all 0.3s; position:relative; }
@@ -341,7 +317,6 @@ nav {
 .checklist-score-label { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); letter-spacing:0.15em; margin-bottom:16px; }
 .checklist-verdict { font-family:'Playfair Display',serif; font-size:16px; font-style:italic; color:var(--text2); line-height:1.6; }
 
-/* ARCH NAV & CTA */
 .arch-nav { padding:60px 8%; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:20px; }
 .arch-nav-link { text-decoration:none; display:flex; flex-direction:column; gap:4px; cursor:none; transition:opacity 0.2s; max-width:240px; }
 .arch-nav-link:hover { opacity:0.7; }
@@ -354,6 +329,29 @@ nav {
 .cta-btn { display:inline-block; background:var(--gold); color:#05050f; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; padding:14px 36px; text-decoration:none; cursor:none; transition:all 0.3s; font-weight:500; }
 .cta-btn:hover { background:var(--gold2); transform:translateY(-2px); }
 
+.culture-section{padding:80px 8%;border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
+.culture-intro{font-size:14px;color:var(--text2);font-weight:300;line-height:1.8;max-width:560px;margin-bottom:48px}
+.culture-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.culture-tab{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:9px 18px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:none;transition:all 0.25s}
+.culture-tab:hover{border-color:var(--gold);color:var(--gold)}
+.culture-tab.active{background:var(--gold);border-color:var(--gold);color:#05050f;font-weight:500}
+.culture-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px}
+.culture-panel{display:none}
+.culture-panel.active{display:grid}
+.culture-card{background:var(--bg2);border:1px solid var(--border);padding:26px 22px;position:relative;overflow:hidden;cursor:none;transition:all 0.35s;display:flex;flex-direction:column;min-height:180px}
+.culture-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity 0.3s}
+.culture-card:hover{border-color:rgba(201,169,110,0.35);transform:translateY(-2px)}
+.culture-card:hover::before{opacity:1}
+.culture-card-cat{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;opacity:0.85}
+.culture-card-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);line-height:1.25;margin-bottom:4px}
+.culture-card-author{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:14px}
+.culture-card-desc{font-size:12.5px;color:var(--text2);line-height:1.65;font-weight:300;flex:1}
+.culture-card-expand{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-top:14px;display:flex;align-items:center;gap:6px;transition:color 0.2s}
+.culture-card:hover .culture-card-expand{color:var(--gold)}
+.culture-detail{display:none;padding:18px 0 0;margin-top:14px;border-top:1px solid var(--border2);font-size:12.5px;color:var(--text2);line-height:1.7;font-weight:300}
+.culture-card.expanded .culture-detail{display:block}
+.culture-card.expanded .culture-card-expand span{transform:rotate(180deg);display:inline-block}
+
 @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
 @media(max-width:768px) {
@@ -361,7 +359,7 @@ nav {
   .hero { padding:100px 20px 60px; }
   .hero-content { padding:0; }
   .content-grid-2, .content-grid-3, .checklist-grid { grid-template-columns:1fr; }
-  .audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta { padding-left:20px; padding-right:20px; }
+  .audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta,.culture-section { padding-left:20px; padding-right:20px; }
   .arch-nav { flex-direction:column; }
   .s2 .s2-grid { grid-template-columns:1fr; }
   .s4 .s4-grid, .s7 .s7-grid, .s9 .s9-grid { grid-template-columns:1fr; gap:2%; }
@@ -370,7 +368,9 @@ nav {
   .s12 .s12-grid { grid-template-columns:1fr; }
   .s6 { flex-direction:column; }
   .s6 .s6-right { width:100%; height:35%; }
+  .culture-grid{grid-template-columns:1fr 1fr}
 }
+@media(max-width:480px){.culture-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -378,14 +378,12 @@ nav {
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
 <nav>
   <a href="/" class="nav-logo"><span>Archetype</span> Academy</a>
   <span class="nav-num">09 / 12</span>
   <a href="/" class="nav-back">← Toate arhetipurile</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-geo">
@@ -414,7 +412,6 @@ nav {
   </div>
 </section>
 
-<!-- AUDIO -->
 <section class="audio-section">
   <span class="section-label">Podcast · 25 minute</span>
   <div class="audio-player-card">
@@ -435,23 +432,18 @@ nav {
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     SLIDES SECTION — HTML-rendered slides
-═══════════════════════════════════════════ -->
 <section class="slides-section">
   <span class="section-label" style="padding:0 0 16px">Prezentarea vizuală · 12 slide-uri</span>
 
   <div class="slides-slider">
     <div class="slides-track" id="slidesTrack">
 
-      <!-- SLIDE 1: Cover -->
       <div class="hslide s1">
         <svg class="hslide-bg-geo" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.5">
           <circle cx="700" cy="50" r="120"/><circle cx="100" cy="400" r="80"/>
           <line x1="0" y1="225" x2="800" y2="225" stroke-dasharray="4 8"/>
           <polygon points="400,20 780,440 20,440" opacity="0.5"/>
         </svg>
-        <!-- Golden gem SVG -->
         <svg class="s-gem" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <radialGradient id="gemGrad" cx="50%" cy="40%">
@@ -479,7 +471,6 @@ nav {
         <div class="s1 s-badge" style="position:absolute;bottom:3%;right:3%;font-family:'DM Mono',monospace;font-size:clamp(7px,1vw,11px);color:rgba(255,255,255,0.2);letter-spacing:0.1em">NotebookLM</div>
       </div>
 
-      <!-- SLIDE 2: Smartphone metaphor -->
       <div class="hslide s2">
         <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
           <circle cx="650" cy="80" r="100"/><circle cx="150" cy="380" r="60"/>
@@ -506,7 +497,6 @@ nav {
         </div>
       </div>
 
-      <!-- SLIDE 3: Big quote -->
       <div class="hslide s3">
         <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
           <circle cx="700" cy="400" r="150"/><polygon points="400,10 790,440 10,440"/>
@@ -517,7 +507,6 @@ nav {
         <div style="align-self:flex-end;font-size:clamp(30px,5vw,70px);color:rgba(201,169,110,0.3);line-height:0.7;font-family:Georgia,serif;margin-top:2%">"</div>
       </div>
 
-      <!-- SLIDE 4: Three traits -->
       <div class="hslide s4">
         <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
           <polygon points="400,20 780,440 20,440"/><circle cx="400" cy="225" r="180"/>
@@ -542,7 +531,6 @@ nav {
         </div>
       </div>
 
-      <!-- SLIDE 5: Motivation -->
       <div class="hslide s5">
         <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
           <circle cx="400" cy="225" r="200"/><circle cx="400" cy="225" r="130"/><circle cx="400" cy="225" r="60"/>
@@ -552,7 +540,6 @@ nav {
         <div style="font-size:clamp(9px,1.4vw,17px);color:rgba(255,255,255,0.8);text-align:center;line-height:1.7;max-width:75%;font-weight:300">Să descifreze legile fundamentale ale vieții și ale universului pentru a face visele să devină realitate. Magicianul nu vrea putere brută; el dorește cunoaștere și claritate pentru a cataliza schimbări pozitive, transformând ideile bune în rezultate uimitoare.</div>
       </div>
 
-      <!-- SLIDE 6: Fear -->
       <div class="hslide s6" style="flex-direction:row;align-items:stretch">
         <div class="s6-left" style="flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:5%">
           <div style="font-family:'Playfair Display',serif;font-size:clamp(12px,1.8vw,22px);color:var(--gold);font-weight:400">De ce se teme Magicianul?</div>
@@ -568,7 +555,6 @@ nav {
         </div>
       </div>
 
-      <!-- SLIDE 7: Three contexts -->
       <div class="hslide s7">
         <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
           <circle cx="400" cy="225" r="200"/><polygon points="400,30 770,430 30,430"/>
@@ -593,11 +579,9 @@ nav {
         </div>
       </div>
 
-      <!-- SLIDE 8: Light side -->
       <div class="hslide s8">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:700;color:#fff;text-align:center;margin-bottom:4%;width:100%">Partea luminoasă: Magicianul la potențial maxim</div>
         <div style="display:grid;grid-template-columns:0.8fr 1.4fr;gap:4%;width:100%;align-items:center">
-          <!-- Ray burst -->
           <div style="display:flex;align-items:center;justify-content:center;aspect-ratio:1;position:relative">
             <div style="width:35%;aspect-ratio:1;background:radial-gradient(circle,#e8c98a,rgba(201,169,110,0.2) 50%,transparent 70%);border-radius:50%;filter:blur(3px);z-index:1"></div>
             <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 200 200" fill="none">
@@ -627,7 +611,6 @@ nav {
         </div>
       </div>
 
-      <!-- SLIDE 9: Shadow -->
       <div class="hslide s9">
         <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
           <circle cx="400" cy="225" r="200"/><circle cx="400" cy="225" r="100"/>
@@ -639,7 +622,6 @@ nav {
             <div style="font-family:'Outfit',sans-serif;font-size:clamp(9px,1.3vw,16px);font-weight:600;color:var(--gold);margin-bottom:3%">Manipulatorul</div>
             <div style="font-size:clamp(8px,1.1vw,13px);color:rgba(255,255,255,0.55);line-height:1.6;font-weight:300">Folosește informația doar pentru a-i controla pe alții. Ține secrete pentru a se simți superior, folosind cunoașterea strict în propriul interes, lipsit de empatie.</div>
           </div>
-          <!-- Moon eclipse SVG -->
           <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="60" cy="60" r="45" fill="#0a0a2e" stroke="rgba(201,169,110,0.3)" stroke-width="0.5"/>
             <circle cx="60" cy="60" r="30" fill="#05050f" stroke="rgba(201,169,110,0.5)" stroke-width="1"/>
@@ -656,7 +638,6 @@ nav {
         </div>
       </div>
 
-      <!-- SLIDE 10: Famous faces -->
       <div class="hslide s10">
         <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
           <polygon points="400,20 780,440 20,440"/>
@@ -686,7 +667,6 @@ nav {
         </div>
       </div>
 
-      <!-- SLIDE 11: Key sentence -->
       <div class="hslide s11" style="background:linear-gradient(180deg,#0a0a1e,#05050f)">
         <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.3">
           <circle cx="400" cy="225" r="200"/><circle cx="400" cy="225" r="150"/><circle cx="400" cy="225" r="100"/>
@@ -696,7 +676,6 @@ nav {
         <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,5vw,64px);font-weight:900;color:#c9a96e;text-align:center;line-height:1.15;text-shadow:0 0 60px rgba(201,169,110,0.4),0 0 120px rgba(201,169,110,0.15);max-width:85%">Eu transform viziunea în realitate prin înțelegere și claritate.</div>
       </div>
 
-      <!-- SLIDE 12: Checklist/Mirror -->
       <div class="hslide s12">
         <svg class="hslide-bg-geo" viewBox="0 0 800 450" fill="none" stroke="rgba(201,169,110,1)" stroke-width="0.4">
           <polygon points="400,20 780,440 20,440"/><circle cx="400" cy="225" r="180"/>
@@ -725,10 +704,9 @@ nav {
         </div>
       </div>
 
-    </div><!-- /slides-track -->
-  </div><!-- /slides-slider -->
+    </div>
+  </div>
 
-  <!-- Controls -->
   <div class="slider-controls">
     <button class="slider-btn" onclick="prevHSlide()">← Anterior</button>
     <div class="slider-dots" id="sliderDots"></div>
@@ -739,7 +717,6 @@ nav {
   </div>
 </section>
 
-<!-- TRĂSĂTURI -->
 <section class="content-section">
   <span class="section-label">Profilul Magicianului</span>
   <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Cum gândește,<br>cum simte, cum acționează</h2>
@@ -755,7 +732,6 @@ nav {
   </div>
 </section>
 
-<!-- MOTIVATIA -->
 <section class="content-section">
   <span class="section-label">Motivația Profundă</span>
   <div class="key-quote">
@@ -765,7 +741,6 @@ nav {
   <p style="font-size:14px;color:var(--text2);line-height:1.8;font-weight:300;max-width:600px">Magicianul nu vrea putere brută; el dorește cunoaștere și claritate pentru a cataliza schimbări pozitive, transformând ideile bune în rezultate uimitoare. Teama sa cea mai profundă: să producă consecințe negative neintenționate prin acțiunile, sfaturile sau cunoașterea sa.</p>
 </section>
 
-<!-- LUMINA SI UMBRA -->
 <section class="content-section">
   <span class="section-label">Lumină și Umbră</span>
   <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Dualitatea Magicianului</h2>
@@ -788,7 +763,119 @@ nav {
   </div>
 </section>
 
-<!-- FETE CUNOSCUTE -->
+<section class="culture-section">
+  <span class="section-label">Arhetipul în cultură</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.15">Magicianul prin ochii<br>artei și poveștilor</h2>
+  <p class="culture-intro">De la cele mai vechi picturi rupestre la Doctor Strange, Magicianul rămâne arhetipul prin care omenirea își exprimă fascinația pentru cunoașterea ascunsă și puterea transformării — și pericolul atunci când cunoașterea devine instrument de control. Explorează câteva dintre cele mai puternice exemple.</p>
+
+  <div class="culture-tabs">
+    <button class="culture-tab active" onclick="showCulture('arta', this)">Artă & Simbol</button>
+    <button class="culture-tab" onclick="showCulture('literatura', this)">Literatură & Mit</button>
+    <button class="culture-tab" onclick="showCulture('film', this)">Film</button>
+    <button class="culture-tab" onclick="showCulture('muzica', this)">Muzică</button>
+  </div>
+
+  <div class="culture-grid culture-panel active" id="panel-arta">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Pictură rupestră</div>
+      <div class="culture-card-title">Vrăjitorul (Le Sorcier)</div>
+      <div class="culture-card-author">Peștera Trois-Frères, Franța, ~13.000 î.Hr.</div>
+      <p class="culture-card-desc">Cea mai veche reprezentare cunoscută a unei figuri shamanice.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Figura hibridă om-animal pictată pe pereții peșterii arată că arhetipul Magicianului — mediatorul între lumi, cel care înțelege legile invizibile — este unul dintre cele mai vechi tipare psihologice ale omenirii.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Simbol universal</div>
+      <div class="culture-card-title">Magicianul (The Magician)</div>
+      <div class="culture-card-author">Cardul Tarot</div>
+      <p class="culture-card-desc">Figura care unește cele patru elemente prin voință și conștiință.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Cardul îl arată pe Magician cu o mână spre cer, una spre pământ — exact rolul arhetipal de punte între cunoaștere abstractă și manifestare concretă, între idee și realitate.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Figură alchimică</div>
+      <div class="culture-card-title">Hermes Trismegistus</div>
+      <div class="culture-card-author">Tradiție alchimică antică</div>
+      <p class="culture-card-desc">"De trei ori măreț" — simbol al cunoașterii ascunse transmise prin inițiere.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Figura legendară reprezintă exact transmiterea cunoașterii secrete de la maestru la ucenic — modelul originar pentru toți Magicienii-mentori din literatură și film.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-literatura">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Legendă arthuriană</div>
+      <div class="culture-card-title">Merlin</div>
+      <div class="culture-card-author">Legendele regelui Arthur</div>
+      <p class="culture-card-desc">Magicianul integru care nu conduce, ci folosește cunoașterea cosmică pentru a ghida.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Merlin nu vrea tronul — rolul lui e să vadă mai departe decât regele și să-l îndrume. Exact distincția centrală a arhetipului: Magicianul ghidează prin înțelegere, nu conduce prin putere directă.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Roman fantasy</div>
+      <div class="culture-card-title">Gandalf</div>
+      <div class="culture-card-author">J.R.R. Tolkien, Stăpânul Inelelor</div>
+      <p class="culture-card-desc">Folosește cunoașterea cosmică pentru a ghida eroii, nu pentru a domina.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Gandalf observă tăcut, intervine cu măsură, refuză Inelul când i se oferă puterea — exact echilibrul matur al Magicianului, care înțelege riscul propriei influențe asupra lumii.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Teatru · Tragicomedie</div>
+      <div class="culture-card-title">Prospero</div>
+      <div class="culture-card-author">William Shakespeare, Furtuna</div>
+      <p class="culture-card-desc">Lupta cu puterea absolută și renunțarea la magia manipulatoare.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Prospero își frânge bagheta la final — gestul suprem al Magicianului matur, care înțelege că puterea adevărată stă în a ști când să renunți la control, nu în a-l păstra etern.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Tragedie · Umbra arhetipului</div>
+      <div class="culture-card-title">Doctor Faustus</div>
+      <div class="culture-card-author">Christopher Marlowe / Goethe</div>
+      <p class="culture-card-desc">Cunoașterea și puterea obținute cu prețul sufletului.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Faust ilustrează exact riscul Manipulatorului din umbra Magicianului — dorința de cunoaștere și putere absolută devine o capcană atunci când nu mai e ghidată de etică sau limite.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-film">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Film · Fantasy spațial</div>
+      <div class="culture-card-title">Yoda</div>
+      <div class="culture-card-author">Star Wars</div>
+      <p class="culture-card-desc">Ghidează tânărul Căutător (Luke) să își modeleze realitatea prin Forță.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Yoda nu luptă în locul lui Luke — îl învață să vadă legile invizibile ale Forței, exact rolul Magicianului de a transmite înțelegere, nu de a rezolva problema în locul Căutătorului.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Film · SF</div>
+      <div class="culture-card-title">Morpheus</div>
+      <div class="culture-card-author">The Matrix</div>
+      <p class="culture-card-desc">Ghidează Căutătorul (Neo) să înțeleagă regulile invizibile ale Matricei.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Morpheus oferă alegerea, nu impune adevărul — pilula roșie sau albastră — exact stilul Magicianului matur, care respectă libertatea celuilalt de a accepta sau refuza cunoașterea.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Film · Marvel</div>
+      <div class="culture-card-title">Doctor Strange</div>
+      <div class="culture-card-author">Marvel Studios</div>
+      <p class="culture-card-desc">Magicianul contemporan — stăpânirea realităților alternative și a timpului.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Strange trece de la om de știință arogant la gardian al echilibrului cosmic — arcul perfect al transformării Magicianului, de la cunoaștere folosită pentru ego la cunoaștere folosită pentru protecție.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-muzica">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Muzică · Poem simfonic</div>
+      <div class="culture-card-title">The Sorcerer's Apprentice</div>
+      <div class="culture-card-author">Paul Dukas, 1897</div>
+      <p class="culture-card-desc">Ucenicul care manevrează forțe pe care nu le poate controla complet.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Compoziția lui Dukas (popularizată de Disney în Fantasia) ilustrează exact frica fundamentală a Magicianului: puterea folosită fără înțelepciune deplină produce haos neintenționat.</div>
+    </div>
+  </div>
+</section>
+
 <section class="content-section">
   <span class="section-label">Fețe Cunoscute</span>
   <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:40px;line-height:1.1">Unde ai mai văzut Magicianul?</h2>
@@ -798,7 +885,6 @@ nav {
   </div>
 </section>
 
-<!-- PROPOZITIA CHEIE -->
 <section class="content-section" style="padding-top:0">
   <div class="key-quote" style="border-left-color:var(--magic)">
     <div class="key-quote-label" style="margin-bottom:16px">Propoziția-cheie a Magicianului</div>
@@ -806,7 +892,6 @@ nav {
   </div>
 </section>
 
-<!-- CHECKLIST -->
 <section class="checklist-section">
   <span class="section-label">Oglinda · Autoreflecție</span>
   <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.1">Cum îl recunoști în tine?</h2>
@@ -826,7 +911,6 @@ nav {
   </div>
 </section>
 
-<!-- NAV BETWEEN ARCHETYPES -->
 <div class="arch-nav">
   <a href="/arhetip/creatorul" class="arch-nav-link">
     <span class="arch-nav-dir">← Arhetipul anterior</span>
@@ -838,7 +922,6 @@ nav {
   </a>
 </div>
 
-<!-- CTA -->
 <div class="arch-cta">
   <h3>Vrei să analizezi Magicianul în discursul tău?</h3>
   <p>TEDx SpeakerLab identifică arhetipul dominant din textul tău, scorul de autenticitate arhetipală și dinamica umbrei.</p>
@@ -846,7 +929,6 @@ nav {
 </div>
 
 <script>
-// CURSOR
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
@@ -859,7 +941,6 @@ function animCursor(){
 }
 animCursor();
 
-// AUDIO
 const audio = document.getElementById('audioPlayer');
 const btn = document.getElementById('audioBtn');
 const fill = document.getElementById('progressFill');
@@ -872,14 +953,12 @@ audio.addEventListener('loadedmetadata',()=>{total.textContent=formatTime(audio.
 audio.addEventListener('ended',()=>{btn.textContent='▶';});
 function seekAudio(e){const bar=document.getElementById('progressBar');const rect=bar.getBoundingClientRect();const pct=(e.clientX-rect.left)/rect.width;if(audio.duration)audio.currentTime=pct*audio.duration;}
 
-// HTML SLIDER
 const TOTAL_SLIDES = 12;
 let currentHSlide = 0;
 const track = document.getElementById('slidesTrack');
 const dotsContainer = document.getElementById('sliderDots');
 const counter = document.getElementById('sliderCounter');
 
-// Build dots
 for(let i=0;i<TOTAL_SLIDES;i++){
   const d=document.createElement('div');
   d.className='slider-dot'+(i===0?' active':'');
@@ -898,13 +977,11 @@ function goToHSlide(idx){
 function nextHSlide(){goToHSlide((currentHSlide+1)%TOTAL_SLIDES);}
 function prevHSlide(){goToHSlide((currentHSlide-1+TOTAL_SLIDES)%TOTAL_SLIDES);}
 
-// Keyboard nav for slider
 document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight') nextHSlide();
   if(e.key==='ArrowLeft') prevHSlide();
 });
 
-// Touch/swipe support
 let touchStartX=0;
 track.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
 track.addEventListener('touchend',e=>{
@@ -912,7 +989,6 @@ track.addEventListener('touchend',e=>{
   if(Math.abs(dx)>50){dx<0?nextHSlide():prevHSlide();}
 });
 
-// CHECKLIST
 const verdicts=['Magicianul doarme. Dar e acolo — potențialul există.','O scânteie. Magicianul se trezește în tine.','Energie în creștere. Magicianul lucrează subtil.','Magicianul este activ și influent în viața ta.','Magicianul este dominant. Folosește-l cu responsabilitate.','Magicianul este deschis la maximum. Ești în elementul tău!','Magicianul pur. Transformi realitatea prin viziune și claritate.'];
 function toggleCheck(el){
   el.classList.toggle('checked');
@@ -922,9 +998,16 @@ function toggleCheck(el){
   document.getElementById('checklistResult').style.borderColor=checked>3?'rgba(201,169,110,0.4)':checked>1?'rgba(124,58,237,0.3)':'var(--border)';
 }
 
-// SCROLL ANIMATIONS
+function showCulture(panel, btn){
+  document.querySelectorAll('.culture-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.culture-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+panel).classList.add('active');
+}
+function toggleCultureCard(card){card.classList.toggle('expanded');}
+
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
-document.querySelectorAll('.content-card,.checklist-item').forEach((el,i)=>{
+document.querySelectorAll('.content-card,.checklist-item,.culture-card').forEach((el,i)=>{
   el.style.opacity='0';el.style.transform='translateY(24px)';
   el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;
   obs.observe(el);
