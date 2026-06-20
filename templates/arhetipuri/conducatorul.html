@@ -91,8 +91,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .arch-cta p{font-size:14px;color:var(--text2);font-weight:300;max-width:480px;margin:0 auto 32px;line-height:1.8}
 .cta-btn{display:inline-block;background:var(--acc2);color:#05050f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:14px 36px;text-decoration:none;cursor:none;transition:all 0.3s;font-weight:500}
 .cta-btn:hover{transform:translateY(-2px)}
+.culture-section{padding:80px 8%;border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
+.culture-intro{font-size:14px;color:var(--text2);font-weight:300;line-height:1.8;max-width:560px;margin-bottom:48px}
+.culture-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.culture-tab{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:9px 18px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:none;transition:all 0.25s}
+.culture-tab:hover{border-color:var(--acc2);color:var(--acc2)}
+.culture-tab.active{background:var(--acc2);border-color:var(--acc2);color:#05050f;font-weight:500}
+.culture-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px}
+.culture-panel{display:none}
+.culture-panel.active{display:grid}
+.culture-card{background:var(--bg2);border:1px solid var(--border);padding:26px 22px;position:relative;overflow:hidden;cursor:none;transition:all 0.35s;display:flex;flex-direction:column;min-height:180px}
+.culture-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc2),transparent);opacity:0;transition:opacity 0.3s}
+.culture-card:hover{border-color:rgba(201,169,110,0.35);transform:translateY(-2px)}
+.culture-card:hover::before{opacity:1}
+.culture-card-cat{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--acc2);margin-bottom:10px;opacity:0.85}
+.culture-card-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);line-height:1.25;margin-bottom:4px}
+.culture-card-author{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:14px}
+.culture-card-desc{font-size:12.5px;color:var(--text2);line-height:1.65;font-weight:300;flex:1}
+.culture-card-expand{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-top:14px;display:flex;align-items:center;gap:6px;transition:color 0.2s}
+.culture-card:hover .culture-card-expand{color:var(--acc2)}
+.culture-detail{display:none;padding:18px 0 0;margin-top:14px;border-top:1px solid var(--border2);font-size:12.5px;color:var(--text2);line-height:1.7;font-weight:300}
+.culture-card.expanded .culture-detail{display:block}
+.culture-card.expanded .culture-card-expand span{transform:rotate(180deg);display:inline-block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:768px){nav{padding:14px 20px}.hero{padding:100px 20px 60px}.hero-content{padding:0}.content-grid-2,.checklist-grid{grid-template-columns:1fr}.audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta{padding-left:20px;padding-right:20px}.arch-nav{flex-direction:column}}
+@media(max-width:768px){nav{padding:14px 20px}.hero{padding:100px 20px 60px}.hero-content{padding:0}.content-grid-2,.checklist-grid{grid-template-columns:1fr}.audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta,.culture-section{padding-left:20px;padding-right:20px}.arch-nav{flex-direction:column}.culture-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.culture-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -139,7 +162,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
   <div class="slides-slider">
     <div class="slides-track" id="slidesTrack">
 
-      <!-- S1 Cover -->
       <div class="hslide" style="background:linear-gradient(135deg,#f5f0e8 0%,#ede8d8 100%);flex-direction:row;align-items:center;padding:5%">
         <div style="flex:1;padding-right:5%">
           <div style="font-family:'DM Mono',monospace;font-size:clamp(8px,1.2vw,14px);letter-spacing:0.2em;color:#8B6914;margin-bottom:3%">Descoperă „Sistemul tău de Operare"</div>
@@ -156,7 +178,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S2 Ce e arhetip -->
       <div class="hslide" style="background:#0d1520;flex-direction:column;padding:4% 6%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:5%;width:100%">Ce este, de fapt, un arhetip?</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
@@ -171,7 +192,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S3 Cine e Liderul -->
       <div class="hslide" style="background:#0d1520;flex-direction:row;align-items:stretch">
         <div style="width:45%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0f1a,#1a0505)">
           <div style="font-size:clamp(60px,12vw,160px);filter:drop-shadow(0 0 30px rgba(139,0,0,0.5))">♛</div>
@@ -182,14 +202,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S4 Citat iconic -->
       <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#1a0505);flex-direction:column;align-items:center;justify-content:center;padding:5%">
         <div style="font-size:clamp(30px,5vw,70px);color:rgba(201,169,110,0.3);font-family:Georgia,serif;line-height:0.8;margin-bottom:4%">"</div>
         <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,3.5vw,50px);font-weight:900;color:white;text-align:center;line-height:1.2;max-width:85%">Puterea nu este totul, este unicul lucru. Haosul dispare abia atunci când preiau eu controlul.</div>
         <div style="margin-top:4%;font-size:clamp(10px,1.4vw,16px);color:rgba(201,169,110,0.6);font-weight:300">Când Liderul preia frâiele, dezordinea se transformă în planuri clare, iar nesiguranța devine istorie.</div>
       </div>
 
-      <!-- S5 Trăsături -->
       <div class="hslide" style="background:#0d1520;flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:4%;width:100%">Trăsăturile Principale ale Liderului</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%;width:100%">
@@ -212,7 +230,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S6 Motivație/Frică -->
       <div class="hslide" style="background:linear-gradient(135deg,#f5f0e8,#ede8d8);flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a0a0a;text-align:center;margin-bottom:4%;width:100%">Motorul Interior al Liderului</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
@@ -227,7 +244,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S7 Zi cu zi -->
       <div class="hslide" style="background:linear-gradient(135deg,#f5f0e8,#ede8d8);flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#1a0a0a;margin-bottom:4%;width:100%">Liderul în viața de zi cu zi (Exemple concrete)</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
@@ -242,7 +258,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S8 Lumina -->
       <div class="hslide" style="background:#0d1520;flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;margin-bottom:4%;width:100%">Partea Luminoasă: Superputerile Liderului</div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
@@ -264,7 +279,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S9 Umbra -->
       <div class="hslide" style="background:linear-gradient(135deg,#1a0505,#0d0a00);flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;margin-bottom:2%;width:100%">Partea de Umbră: Când puterea devine toxică</div>
         <div style="font-size:clamp(8px,1.2vw,14px);color:rgba(255,255,255,0.5);margin-bottom:4%;font-weight:300">Când nevoia de control scapă de sub control:</div>
@@ -275,7 +289,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S10 Pop culture -->
       <div class="hslide" style="background:#0d1520;flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:4%;width:100%">Liderul în Cultura Pop și Branding</div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;width:100%">
@@ -297,7 +310,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S11 Checklist -->
       <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#1a0505);flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,30px);font-weight:800;color:#C9A96E;margin-bottom:2%;width:100%">Cum îl recunoști? (Semne practice)</div>
         <div style="font-size:clamp(8px,1.2vw,14px);color:rgba(201,169,110,0.6);margin-bottom:4%;font-weight:300">Arhetipul Liderului este puternic activat în tine dacă...</div>
@@ -311,7 +323,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         <div style="margin-top:4%;font-family:'Playfair Display',serif;font-size:clamp(10px,1.5vw,18px);font-weight:700;color:#C9A96E;text-align:center">Dacă ai bifat cel puțin 3, Arhetipul Liderului este puternic activat în Sistemul tău de Operare!</div>
       </div>
 
-      <!-- S12 Final -->
       <div class="hslide" style="background:linear-gradient(135deg,#0d1b2e,#1a0a0a);flex-direction:column;align-items:center;justify-content:center;padding:5%">
         <div style="font-size:clamp(40px,7vw,90px);margin-bottom:5%;filter:drop-shadow(0 0 30px rgba(139,0,0,0.6))">♛</div>
         <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,3vw,40px);font-weight:800;color:#C9A96E;text-align:center;margin-bottom:4%">Liderul autentic</div>
@@ -365,6 +376,119 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Workaholismul</div><p class="card-text">Confundă valoarea personală cu productivitatea, neglijând relațiile și sănătatea.</p></div>
         <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Frica de vulnerabilitate</div><p class="card-text">Nu știe să ceară ajutor sau să recunoască că nu știe ceva — ar părea slab.</p></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="culture-section">
+  <span class="section-label">Arhetipul în cultură</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.15">Conducătorul prin ochii<br>artei și poveștilor</h2>
+  <p class="culture-intro">De la Augustus la Vito Corleone, Conducătorul rămâne arhetipul prin care omenirea își exprimă nevoia de ordine și protecție — și pericolul atunci când controlul devine scop în sine, nu mijloc pentru binele comun. Explorează câteva dintre cele mai puternice exemple.</p>
+
+  <div class="culture-tabs">
+    <button class="culture-tab active" onclick="showCulture('arta', this)">Pictură & Sculptură</button>
+    <button class="culture-tab" onclick="showCulture('literatura', this)">Literatură & Mit</button>
+    <button class="culture-tab" onclick="showCulture('film', this)">Film</button>
+    <button class="culture-tab" onclick="showCulture('muzica', this)">Muzică</button>
+  </div>
+
+  <div class="culture-grid culture-panel active" id="panel-arta">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Pictură · Neoclasic</div>
+      <div class="culture-card-title">Napoleon pe tronul imperial</div>
+      <div class="culture-card-author">Jean-Auguste-Dominique Ingres, 1806</div>
+      <p class="culture-card-desc">Imaginea-arhetip a puterii absolute, monarhul ca simbol al ordinii statului.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Compoziția frontală, simetrică, aproape divină arată exact cum vrea Conducătorul să fie perceput — nu doar uman, ci instituție vie, garant al stabilității și ordinii statale.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Sculptură · Roma antică</div>
+      <div class="culture-card-title">Augustus din Prima Porta</div>
+      <div class="culture-card-author">Sculptură romană, sec. I d.Hr.</div>
+      <p class="culture-card-desc">Împăratul ca protector și unificator al imperiului.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Postura de comandant, dar și simbolurile de pace de pe armură arată dubla funcție a Conducătorului matur: forța necesară pentru a proteja, combinată cu responsabilitatea de a aduce stabilitate.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-literatura">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Legendă arthuriană</div>
+      <div class="culture-card-title">Regele Arthur</div>
+      <div class="culture-card-author">Legendele cavalerilor Mesei Rotunde</div>
+      <p class="culture-card-desc">Conducătorul ideal — creează ordinea și adună cavalerii pentru binele regatului.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Masa Rotundă simbolizează exact maturitatea arhetipului: Arthur nu domnește de sus, ci creează un sistem în care fiecare cavaler are voce egală — autoritate care eliberează, nu sufocă.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Tragedie antică</div>
+      <div class="culture-card-title">Creon</div>
+      <div class="culture-card-author">Sofocle, Antigona</div>
+      <p class="culture-card-desc">Conducătorul rigid care, din disperarea de a menține legea, își distruge propria familie.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Creon ilustrează exact tirania controlului din umbra Conducătorului — atașamentul absolut de „lege și ordine" devine mai important decât compasiunea, ducând la o tragedie personală totală.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Teatru · Tragedie</div>
+      <div class="culture-card-title">Macbeth</div>
+      <div class="culture-card-author">William Shakespeare</div>
+      <p class="culture-card-desc">Varianta de umbră dusă la extrem — ambiția care corupe complet capacitatea de a conduce.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Macbeth arată ce se întâmplă când dorința legitimă de putere se transformă în obsesie paranoică — exact frica fundamentală a Conducătorului (pierderea controlului) dusă la auto-distrugere.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Teatru · Istoric</div>
+      <div class="culture-card-title">Henric V</div>
+      <div class="culture-card-author">William Shakespeare</div>
+      <p class="culture-card-desc">Modelul liderului care își inspiră oamenii prin exemplu și retorică, nu doar prin autoritate.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Discursul de la Agincourt arată exact autoritatea naturală a Conducătorului matur — nu impune prin forță, ci inspiră prin viziune comună și prezență carismatică, autentică.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-film">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Animație · Disney</div>
+      <div class="culture-card-title">Mufasa</div>
+      <div class="culture-card-author">The Lion King</div>
+      <p class="culture-card-desc">Înțelege „Cercul Vieții" și responsabilitatea echilibrului.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Mufasa nu conduce pentru putere, ci pentru a menține echilibrul ecosistemului întreg — exact viziunea strategică matură a Conducătorului, care vede dincolo de propriul interes imediat.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Film · Crimă</div>
+      <div class="culture-card-title">Vito Corleone</div>
+      <div class="culture-card-author">The Godfather</div>
+      <p class="culture-card-desc">Conducător din umbră — construiește un „regat" prin putere și loialitate absolută.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Vito construiește un sistem de ordine paralel statului, bazat pe respect și frică deopotrivă — ilustrarea perfectă a felului în care Conducătorul poate construi structuri solide chiar și în afara legii formale.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Film · Marvel</div>
+      <div class="culture-card-title">T'Challa (Black Panther)</div>
+      <div class="culture-card-author">Marvel Studios</div>
+      <p class="culture-card-desc">Conducătorul modern care echilibrează tradiția cu responsabilitatea globală.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">T'Challa trece de la izolaționism la responsabilitate globală — arcul perfect al Conducătorului matur, care își dă seama că adevărata putere e folosită pentru a proteja mai mult decât propriul trib imediat.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-muzica">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Muzică · Film simfonic</div>
+      <div class="culture-card-title">Imperial March</div>
+      <div class="culture-card-author">John Williams, Star Wars</div>
+      <p class="culture-card-desc">Tema muzicală a puterii absolute și a fricii pe care o inspiră conducerea tiranică.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Marșul lui Darth Vader sonorizează exact umbra Conducătorului — autoritate care nu mai inspiră respect, ci frică pură, semn că tirania controlului a înlocuit complet protecția autentică.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Branding contemporan</div>
+      <div class="culture-card-title">Rolex / Mercedes</div>
+      <div class="culture-card-author">Branduri Conducător</div>
+      <p class="culture-card-desc">Vând statut, excelență și autoritate — valorile centrale ale arhetipului.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Marketing-ul arhetipal al Conducătorului promite control asupra propriului destin și statut social — simboluri ale succesului care confirmă ordinea și stabilitatea pe care arhetipul le caută.</div>
     </div>
   </div>
 </section>
@@ -429,8 +553,10 @@ let tx=0;track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{pass
 track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){dx<0?nextHSlide():prevHSlide();}});
 const verdicts=['Conducătorul doarme. Dar ordinea e acolo, latentă.','O urmă de autoritate. Conducătorul se trezește.','Structura prinde contur. Conducătorul lucrează în interior.','Conducătorul este activ — aduci ordine și claritate.','Conducătorul este dominant. Ești ancora grupului tău.','Conducătorul te definește. Construiești sisteme durabile.','Lider pur. Transformi haosul în prosperitate pentru toți.'];
 function toggleCheck(el){el.classList.toggle('checked');const checked=document.querySelectorAll('.checklist-item.checked').length;document.getElementById('checkScore').textContent=checked;document.getElementById('checkVerdict').textContent=verdicts[checked];document.getElementById('checklistResult').style.borderColor=checked>3?'rgba(201,169,110,0.5)':checked>1?'rgba(139,0,0,0.4)':'var(--border)';}
+function showCulture(panel, btn){document.querySelectorAll('.culture-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.culture-panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+panel).classList.add('active');}
+function toggleCultureCard(card){card.classList.toggle('expanded');}
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
-document.querySelectorAll('.content-card,.checklist-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
+document.querySelectorAll('.content-card,.checklist-item,.culture-card').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
 </script>
 </body>
 </html>
