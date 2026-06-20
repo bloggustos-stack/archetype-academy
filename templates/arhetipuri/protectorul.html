@@ -88,8 +88,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .arch-cta p{font-size:14px;color:var(--text2);font-weight:300;max-width:480px;margin:0 auto 32px;line-height:1.8}
 .cta-btn{display:inline-block;background:var(--acc2);color:#05050f;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:14px 36px;text-decoration:none;cursor:none;transition:all 0.3s;font-weight:500}
 .cta-btn:hover{transform:translateY(-2px)}
+.culture-section{padding:80px 8%;border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
+.culture-intro{font-size:14px;color:var(--text2);font-weight:300;line-height:1.8;max-width:560px;margin-bottom:48px}
+.culture-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.culture-tab{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:9px 18px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:none;transition:all 0.25s}
+.culture-tab:hover{border-color:var(--acc2);color:var(--acc2)}
+.culture-tab.active{background:var(--acc2);border-color:var(--acc2);color:#05050f;font-weight:500}
+.culture-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px}
+.culture-panel{display:none}
+.culture-panel.active{display:grid}
+.culture-card{background:var(--bg2);border:1px solid var(--border);padding:26px 22px;position:relative;overflow:hidden;cursor:none;transition:all 0.35s;display:flex;flex-direction:column;min-height:180px}
+.culture-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc2),transparent);opacity:0;transition:opacity 0.3s}
+.culture-card:hover{border-color:rgba(143,188,143,0.35);transform:translateY(-2px)}
+.culture-card:hover::before{opacity:1}
+.culture-card-cat{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--acc2);margin-bottom:10px;opacity:0.85}
+.culture-card-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);line-height:1.25;margin-bottom:4px}
+.culture-card-author{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:14px}
+.culture-card-desc{font-size:12.5px;color:var(--text2);line-height:1.65;font-weight:300;flex:1}
+.culture-card-expand{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-top:14px;display:flex;align-items:center;gap:6px;transition:color 0.2s}
+.culture-card:hover .culture-card-expand{color:var(--acc2)}
+.culture-detail{display:none;padding:18px 0 0;margin-top:14px;border-top:1px solid var(--border2);font-size:12.5px;color:var(--text2);line-height:1.7;font-weight:300}
+.culture-card.expanded .culture-detail{display:block}
+.culture-card.expanded .culture-card-expand span{transform:rotate(180deg);display:inline-block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:768px){nav{padding:14px 20px}.hero{padding:100px 20px 60px}.hero-content{padding:0}.content-grid-2,.checklist-grid{grid-template-columns:1fr}.audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta{padding-left:20px;padding-right:20px}.arch-nav{flex-direction:column}}
+@media(max-width:768px){nav{padding:14px 20px}.hero{padding:100px 20px 60px}.hero-content{padding:0}.content-grid-2,.checklist-grid{grid-template-columns:1fr}.audio-section,.slides-section,.content-section,.checklist-section,.arch-nav,.arch-cta,.culture-section{padding-left:20px;padding-right:20px}.arch-nav{flex-direction:column}.culture-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.culture-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -140,7 +163,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
   <div class="slides-slider">
     <div class="slides-track" id="slidesTrack">
 
-      <!-- S1 -->
       <div class="hslide" style="background:linear-gradient(160deg,#f5f0e8 0%,#ede8d8 100%);flex-direction:column;padding:5%;align-items:center">
         <div style="font-size:clamp(36px,7vw,90px);margin-bottom:4%">🛡️</div>
         <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,4vw,52px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:3%">Arhetipul PROTECTORULUI</div>
@@ -149,7 +171,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         <div style="position:absolute;bottom:5%;right:5%;font-size:clamp(16px,2.5vw,32px);opacity:0.15">⚓</div>
       </div>
 
-      <!-- S2 -->
       <div class="hslide" style="background:#f0ebe0;flex-direction:column;padding:4% 6%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,32px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:4%;width:100%">Ce este Arhetipul Protectorului?</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
@@ -164,14 +185,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S3 -->
       <div class="hslide" style="background:#faf5ea;flex-direction:column;padding:4% 8%;align-items:flex-start">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2vw,22px);color:#556B2F;margin-bottom:4%">Cine este PROTECTORUL?</div>
         <div style="font-size:clamp(13px,2.3vw,28px);color:#1a2744;font-family:'Playfair Display',serif;font-weight:400;line-height:1.5;max-width:85%">Protectorul este acea forță interioară dedicată în totalitate păstrării siguranței, stabilității și armoniei. Este scutul uman care se așază cu blândețe, dar ferm, între cei dragi și pericolele lumii. Într-o viață plină de schimbări neprevăzute, el este ancora care ține lucrurile la locul lor.</div>
         <div style="margin-top:6%;font-size:clamp(24px,4vw,52px)">🏔️⚓🌲</div>
       </div>
 
-      <!-- S4 -->
       <div class="hslide" style="background:#f5f0e0;flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,30px);font-weight:800;color:#556B2F;margin-bottom:5%;width:100%">Trăsăturile principale (Cum funcționează acest soft)</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%;width:100%">
@@ -182,7 +201,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S5 -->
       <div class="hslide" style="background:#faf5ea;flex-direction:row;align-items:stretch">
         <div style="flex:1;padding:5% 6%;display:flex;flex-direction:column;justify-content:center;gap:5%">
           <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,30px);font-weight:800;color:#1a2744">Ce îtși dorește cel mai mult? (Motivația profundă)</div>
@@ -199,7 +217,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S6 -->
       <div class="hslide" style="background:#f5f0e0;flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,30px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:5%;width:100%">De ce se teme cel mai mult? (Frica fundamentală)</div>
         <div style="background:white;border-radius:12px;padding:5%;width:80%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.08)">
@@ -209,7 +226,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S7 -->
       <div class="hslide" style="background:#faf5ea;flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,30px);font-weight:800;color:#1a2744;text-align:center;margin-bottom:5%;width:100%">Cum se comportă în viața de zi cu zi?</div>
         <div style="position:relative;width:90%;height:60%">
@@ -234,7 +250,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S8 -->
       <div class="hslide" style="background:#f5f0e0;flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,30px);font-weight:800;color:#556B2F;margin-bottom:5%;width:100%">Partea luminoasă (Calitățile de excepție)</div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4%;width:100%">
@@ -259,7 +274,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S9 -->
       <div class="hslide" style="background:#f5f0e0;flex-direction:row;align-items:stretch">
         <div style="flex:1;padding:6% 5%;display:flex;flex-direction:column;justify-content:center;gap:4%">
           <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,28px);font-weight:800;color:#1a2744">Partea de umbră: Capcanele Protectorului</div>
@@ -272,7 +286,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         <div style="width:35%;display:flex;align-items:center;justify-content:center;background:#e8e0d0"><div style="font-size:clamp(50px,8vw,110px)">🌪️</div></div>
       </div>
 
-      <!-- S10 -->
       <div class="hslide" style="background:#faf5ea;flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,28px);font-weight:800;color:#1a2744;margin-bottom:5%;width:100%">Protectorul în Cultura Pop și în Branding</div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4%;width:100%">
@@ -294,7 +307,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S11 -->
       <div class="hslide" style="background:#f5f0e0;flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,28px);font-weight:800;color:#1a2744;margin-bottom:3%;width:100%">Cum îl recunoști? (Semne practice)</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%;width:100%">
@@ -311,7 +323,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S12 -->
       <div class="hslide" style="background:#faf5ea;flex-direction:column;padding:4% 5%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.4vw,28px);font-weight:800;color:#1a2744;margin-bottom:3%;width:100%">Sfatul pentru Protector: Cum să integrezi Umbra</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4%;width:100%">
@@ -326,7 +337,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </div>
       </div>
 
-      <!-- S13 -->
       <div class="hslide" style="background:linear-gradient(135deg,#c8a84b 0%,#a07830 100%);flex-direction:column;align-items:center;justify-content:center;padding:6%">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,3.2vw,42px);font-weight:700;color:white;text-align:center;line-height:1.4;max-width:85%">Protectorul autentic nu este cel care te ține departe de orice durere... Este fundația solidă care îți dă curajul să înfrunți lumea, știind că ai mereu un loc sigur în care să te întorci.</div>
       </div>
@@ -375,6 +385,151 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
   <div class="key-quote" style="border-left-color:var(--acc)">
     <div class="key-quote-label" style="margin-bottom:16px">Propoziția-cheie a Protectorului</div>
     <div class="key-quote-text" style="font-size:clamp(28px,4vw,52px)">A proteja nu înseamnă a controla. Înseamnă a crea spațiul în care ceilalți pot crește.</div>
+  </div>
+</section>
+
+<section class="culture-section">
+  <span class="section-label">Arhetipul în cultură</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.15">Protectorul prin ochii<br>artei și poveștilor</h2>
+  <p class="culture-intro">De la Madona cu Pruncul la eroii care își riscă viața pentru alții, Protectorul rămâne arhetipul care exprimă cel mai bine devotamentul, sacrificiul și grija necondiționată. Explorează câteva dintre cele mai puternice exemple.</p>
+
+  <div class="culture-tabs">
+    <button class="culture-tab active" onclick="showCulture('arta', this)">Pictură & Sculptură</button>
+    <button class="culture-tab" onclick="showCulture('literatura', this)">Literatură</button>
+    <button class="culture-tab" onclick="showCulture('film', this)">Film</button>
+    <button class="culture-tab" onclick="showCulture('muzica', this)">Muzică & Simbol</button>
+  </div>
+
+  <div class="culture-grid culture-panel active" id="panel-arta">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Pictură · Renaștere</div>
+      <div class="culture-card-title">Madona cu Pruncul</div>
+      <div class="culture-card-author">Rafael / Leonardo da Vinci</div>
+      <p class="culture-card-desc">Expresia supremă a devotamentului matern, blândeții și grijii necondiționate.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Aceste icoane fixează exact esența Protectorului: prezența calmă, protectoare, care oferă siguranță necondiționată — fără nevoie de cuvinte, doar prin postură și privire.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Sculptură · Renaștere</div>
+      <div class="culture-card-title">Pietà</div>
+      <div class="culture-card-author">Michelangelo, 1498-1499</div>
+      <p class="culture-card-desc">Sacrificiul și devotamentul dureros, îngrijirea până la capăt și dincolo de viață.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Maria ținând trupul fiului ei reprezintă latura cea mai grea a Protectorului — grija care nu se termină nici în fața pierderii ireparabile, devotamentul care continuă dincolo de orice limită rațională.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Pictură · Baroc olandez</div>
+      <div class="culture-card-title">Lăptăreasa</div>
+      <div class="culture-card-author">Johannes Vermeer, 1658</div>
+      <p class="culture-card-desc">Calmul, grija pentru detalii și susținerea zilnică, neglorioasă, a vieții casnice.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Vermeer captează exact ce face Protectorul cel mai des: muncă liniștită, constantă, neobservată, dar esențială pentru bunăstarea celor din jur.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Pictură · Impresionism</div>
+      <div class="culture-card-title">Maternité</div>
+      <div class="culture-card-author">Mary Cassatt</div>
+      <p class="culture-card-desc">Scene de îngrijire maternă redate din perspectiva feminină autentică.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Cassatt pictează grija nu ca pe un ideal distant, ci ca pe o experiență intimă, fizică — exact felul în care Protectorul exprimă afecțiunea prin gesturi concrete, nu doar prin vorbe.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-literatura">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Roman american</div>
+      <div class="culture-card-title">Marmee (Margaret March)</div>
+      <div class="culture-card-author">Louisa May Alcott, Micuțele doamne</div>
+      <p class="culture-card-desc">Imaginea clasică a mamei-Protector, sacrificiu pentru un mediu cald și moral.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Marmee își sacrifică propriul confort pentru a oferi fetelor ei un cămin ancorat în compasiune — exemplul literar perfect al Protectorului care construiește siguranță prin valori, nu doar prin resurse materiale.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Franciză fantasy</div>
+      <div class="culture-card-title">Molly Weasley</div>
+      <div class="culture-card-author">J.K. Rowling, Harry Potter</div>
+      <p class="culture-card-desc">Protectorul tenace — abundență de hrană, afecțiune și cămin pentru toți cei neglijați.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Molly oferă căldura familială nu doar copiilor ei, ci și lui Harry — un orfan neglijat de soartă. Reprezintă exact superputerea Protectorului: extinderea grijii dincolo de cercul biologic imediat.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Roman american</div>
+      <div class="culture-card-title">Atticus Finch</div>
+      <div class="culture-card-author">Harper Lee, Să ucizi o pasăre cântătoare</div>
+      <p class="culture-card-desc">Protecție morală, nu doar fizică, față de copiii săi și de cei nedreptățiți.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Atticus protejează nu doar siguranța fizică a copiilor, ci și busola lor morală — învățându-i să facă diferența între dreptate și conformism. Protecția matură ca educație a caracterului.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Teatru · Umbra arhetipului</div>
+      <div class="culture-card-title">Mama Curaj</div>
+      <div class="culture-card-author">Bertolt Brecht</div>
+      <p class="culture-card-desc">Varianta de umbră — sacrificiul care devine un martirism toxic și autodistructiv.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Brecht arată exact capcana Protectorului dus la extremă: sacrificiul fără limite, care în loc să protejeze, ajunge să consume și să distrugă chiar lucrurile pe care vrea să le salveze.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-film">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Film · Drama istorică</div>
+      <div class="culture-card-title">Lista lui Schindler — Oskar Schindler</div>
+      <div class="culture-card-author">regia Steven Spielberg, 1993</div>
+      <p class="culture-card-desc">Evoluția de la stadiul egoist la protector suprem, riscându-și viața pentru a salva altora.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Schindler trece printr-o transformare arhetipală completă — de la interes personal la sacrificiu total, ilustrând cum Protectorul poate să se trezească și să crească dincolo de limitele inițiale ale propriei persoane.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Film · Tragicomedie</div>
+      <div class="culture-card-title">Viața e frumoasă — Guido Orefice</div>
+      <div class="culture-card-author">regia Roberto Benigni, 1997</div>
+      <p class="culture-card-desc">Protejarea nu doar a trupului copilului, ci a inocenței și echilibrului psihic.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Guido folosește umorul și imaginația ca instrumente de protecție psihologică în lagărul de concentrare — arătând că cea mai profundă formă de grijă poate fi protejarea minții, nu doar a corpului.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Franciză fantasy</div>
+      <div class="culture-card-title">Gandalf</div>
+      <div class="culture-card-author">Stăpânul Inelelor</div>
+      <p class="culture-card-desc">Ghidul care protejează creând condițiile pentru ca alții să se poată manifesta.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Gandalf nu face totul el — Protectorul matur știe că adevărata grijă înseamnă să creezi spațiu pentru ca ceilalți să-și descopere propria forță, nu să faci totul în locul lor.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Animație · Pixar</div>
+      <div class="culture-card-title">Baymax (Big Hero 6)</div>
+      <div class="culture-card-author">Disney, 2014</div>
+      <p class="culture-card-desc">Robot-îngrijitor literal, programat să detecteze și să aline suferința.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Baymax întruchipează Protectorul în forma sa cea mai pură — existență dedicată exclusiv detectării și alinării durerii celorlalți, fără nicio agendă personală.</div>
+    </div>
+  </div>
+
+  <div class="culture-grid culture-panel" id="panel-muzica">
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Muzică · Folk-rock</div>
+      <div class="culture-card-title">Bridge Over Troubled Water</div>
+      <div class="culture-card-author">Simon & Garfunkel, 1970</div>
+      <p class="culture-card-desc">Imn al vocii Protectorului — "sunt aici să preiau povara ta".</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Melodia promite exact ce oferă arhetipul: stabilitate necondiționată în momentele de criză, prezența care nu cere nimic în schimb, doar dorința de a alina suferința.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Muzică · Soul</div>
+      <div class="culture-card-title">Lean on Me</div>
+      <div class="culture-card-author">Bill Withers, 1972</div>
+      <p class="culture-card-desc">Promisiunea de sprijin necondiționat pentru cei vulnerabili.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Withers articulează exact motivația profundă a Protectorului: oferirea unui loc sigur de sprijin, fără judecată, fără condiții — esența relației pe care arhetipul o construiește.</div>
+    </div>
+    <div class="culture-card" onclick="toggleCultureCard(this)">
+      <div class="culture-card-cat">Simbol universal</div>
+      <div class="culture-card-title">Pomul Vieții</div>
+      <div class="culture-card-author">Simbol transcultural</div>
+      <p class="culture-card-desc">Sursă de abundență, hrănire emoțională și sănătate spirituală.</p>
+      <div class="culture-card-expand">Detalii <span>▾</span></div>
+      <div class="culture-detail">Pomul Vieții reprezintă exact rolul Protectorului în orice cultură — sursa stabilă care hrănește, susține și oferă rădăcini celor din jurul lui, fără să cară nimic în schimb.</div>
+    </div>
   </div>
 </section>
 
@@ -438,8 +593,10 @@ let tx=0;track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{pass
 track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){dx<0?nextHSlide():prevHSlide();}});
 const verdicts=["Protectorul doarme. Instinctul e acolo — potențialul există.","O sămânță de grijă. Protectorul se trezește.","Protecția crește. Energia de grijă e activă.","Protectorul este activ și cald în viața ta.","Grija e dominantă. Ești ancora grupului tău.","Protectorul la putere maximă. Ești fundația comunității!","Protector pur. Creezi siguranță oriunde mergi."];
 function toggleCheck(el){el.classList.toggle('checked');const checked=document.querySelectorAll('.checklist-item.checked').length;document.getElementById('checkScore').textContent=checked;document.getElementById('checkVerdict').textContent=verdicts[checked];document.getElementById('checklistResult').style.borderColor=checked>3?'rgba(143,188,143,0.5)':checked>1?'rgba(143,188,143,0.2)':'var(--border)';}
+function showCulture(panel, btn){document.querySelectorAll('.culture-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.culture-panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+panel).classList.add('active');}
+function toggleCultureCard(card){card.classList.toggle('expanded');}
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
-document.querySelectorAll('.content-card,.checklist-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
+document.querySelectorAll('.content-card,.checklist-item,.culture-card').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ${i*0.04}s,transform 0.5s ${i*0.04}s`;obs.observe(el);});
 </script>
 </body>
 </html>
